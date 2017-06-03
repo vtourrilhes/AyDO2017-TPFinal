@@ -8,5 +8,9 @@ class GestorCalendario
     calendarios[nombreCalendario] = Calendario.new(nombreCalendario)
     return calendarios[nombreCalendario]
   end
+  
+  def obtenerCalendario(nombreCalendario)
+    return calendarios[nombreCalendario]
+  end
 
 end
