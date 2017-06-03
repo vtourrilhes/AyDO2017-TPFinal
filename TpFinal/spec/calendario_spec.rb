@@ -5,7 +5,7 @@ describe 'Calendario' do
 
 	before do
       @calendario = Calendario.new('Laboral')
-      @respuestaLaboral = @calendario.getNombre('Laboral')
+      @respuestaLaboral = @calendario.getNombre
     end
 
   describe "OK" do
