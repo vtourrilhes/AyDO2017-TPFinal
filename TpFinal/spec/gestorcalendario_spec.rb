@@ -5,7 +5,8 @@ require_relative '../model/gestorcalendario'
 describe 'GestorCalendario' do
 
 	before do
-      @calendario = GestorCalendario.crearCalendario('Laboral')
+      @gestorCalendario = GestorCalendario.new
+      @calendario = @gestorCalendario.crearCalendario('Laboral')
       @respuestaLaboral = @calendario.getNombre
     end
 
@@ -13,6 +14,11 @@ describe 'GestorCalendario' do
     it "Si creo un calendario de nombre Laboral tengo que obtenerlo" do
         expect(@respuestaLaboral).to eq 'Laboral'
     end
+    
+    it "Si creo un calendario de nombre Laboral tengo que obtenerlo" do
+        expect(@gestorCalendario.obtenerCalendario('Laboral')).to eq 'Laboral'
+    end
+    
    end
   
 end
