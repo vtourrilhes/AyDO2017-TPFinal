@@ -16,7 +16,7 @@ describe 'GestorCalendario' do
     end
     
     it "Si creo un calendario de nombre Laboral tengo que obtenerlo" do
-        expect(@gestorCalendario.obtenerCalendario('Laboral')).to eq 'Laboral'
+        expect(@gestorCalendario.obtenerCalendario('Laboral').getNombre).to eq 'Laboral'
     end
     
    end
