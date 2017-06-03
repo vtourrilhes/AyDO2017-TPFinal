@@ -1,4 +1,5 @@
 require 'rspec' 
+require_relative '../model/Calendario'
 
 describe 'Calendario' do
 
