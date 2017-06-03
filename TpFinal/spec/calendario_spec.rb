@@ -3,8 +3,8 @@ require 'rspec'
 describe 'Calendario' do
 
 	before do
-      @calendario = Calendario.new
-      @respuestaLaboral = @calendario.obtenerCalendario('Laboral')
+      @calendario = Calendario.new("Laboral")
+      @respuestaLaboral = @calendario.getNombre('Laboral')
     end
 
   describe "OK" do
