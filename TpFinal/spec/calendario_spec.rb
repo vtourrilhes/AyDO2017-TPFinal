@@ -3,15 +3,10 @@ require_relative '../model/calendario'
 
 describe 'Calendario' do
 
-	before do
-      @calendario = Calendario.new('Laboral')
-      @respuestaLaboral = @calendario.getNombre
-    end
+	let (:calendario) {Calendario.new("Laboral")}
 
-  describe "OK" do
     it "Si creo un calendario de nombre Laboral tengo que obtenerlo" do
-        expect(@respuestaLaboral).to eq 'Laboral'
+        expect(calendario.nombre).to eq 'Laboral'
     end
-   end
   
 end

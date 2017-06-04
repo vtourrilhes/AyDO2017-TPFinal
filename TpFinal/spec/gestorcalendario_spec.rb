@@ -3,19 +3,26 @@ require_relative '../model/calendario'
 require_relative '../model/gestorcalendario'
 
 describe 'GestorCalendario' do
+    
+    let(:gestorCalendario) { GestorCalendario.new}
+    let(:calendario) { Calendario.new('Laboral')}
 
-	before do
-      @gestorCalendario = GestorCalendario.new
-      @calendario = @gestorCalendario.crearCalendario('Laboral')
+    before do
+      gestorCalendario.agregarCalendario(calendario)
     end
-
-  describe "OK" do
     
     it "Si creo un calendario de nombre Laboral tengo que obtenerlo" do
-       calendario = @gestorCalendario.obtenerCalendario('Laboral')
-        expect(calendario.getNombre).to eq 'Laboral'
+      calendarioLaboral = gestorCalendario.obtenerCalendario(calendario.nombre)
+
+      expect(calendarioLaboral.nombre).to eq calendario.nombre
     end
-    
-   end
+
+    it "crearEvento Aydoo en calendario laboral" do
+      id_evento = "Aydoo"
+      calendarioLaboral = gestorCalendario.obtenerCalendario(calendario.nombre)
+      evento = gestorCalendario.crearEvento(Time.now, Time.now, id_evento, calendario.nombre)
+
+      expect(calendarioLaboral.obtenerEvento(id_evento.downcase)).to eq evento
+    end
   
 end

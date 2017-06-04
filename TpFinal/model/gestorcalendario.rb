@@ -1,19 +1,43 @@
 require_relative '../model/calendario'
+require_relative '../model/evento'
 
 class GestorCalendario
 
+  attr_accessor :calendarios
+
   def initialize()  
-    @calendarios = {}
+    self.calendarios = {}
   end
   
+  def agregarCalendario(calendario)
+    self.calendarios[calendario.nombre] = calendario
+  end
 
   def crearCalendario(nombreCalendario)
-    @calendarios[nombreCalendario] = Calendario.new(nombreCalendario)
-    return @calendarios[nombreCalendario]
+    calendario = Calendario.new(nombreCalendario.downcase)
+    agregarCalendario(calendario)
+
+    return self.calendarios[id_Calendario]
   end
   
   def obtenerCalendario(nombreCalendario)
-    return @calendarios[nombreCalendario]
+    return self.calendarios[nombreCalendario]
+  end
+
+  def estaCalendario(id_Calendario)
+    return self.calendarios.key? id_Calendario
+  end
+
+  def crearEvento(nuevoInicio, nuevoFIn, nombreEvento, nombreCalendario)
+    id_Calendario = nombreCalendario
+
+    if estaCalendario(id_Calendario)
+      calendario = obtenerCalendario(id_Calendario)
+      id_evento = nombreEvento.downcase
+      evento = Evento.new(nuevoInicio, nuevoFIn, id_evento, calendario)
+
+      calendario.agregarEvento(evento);
+    end    
   end
 
 end
