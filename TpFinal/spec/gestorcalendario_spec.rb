@@ -24,5 +24,11 @@ describe 'GestorCalendario' do
 
       expect(calendarioLaboral.obtenerEvento(id_evento.downcase)).to eq evento
     end
+
+    it "agregar dos eventos con mismo nombre a mismo calendario deberia lanzar una excepcion" do
+      gestorCalendario.crearEvento(Time.now, Time.now, "AyDOO", calendario.nombre)      
+
+      expect{gestorCalendario.crearEvento(Time.now, Time.now, "AyDOO", calendario.nombre)}.to raise_error(NameError)
+    end
   
 end

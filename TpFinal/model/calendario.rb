@@ -8,12 +8,16 @@ class Calendario
     self.eventos = {}
   end   
 
-  def agregarEvento(nuevoEvento) 
+  def agregarEvento(nuevoEvento)   	
   	self.eventos[nuevoEvento.nombre] = nuevoEvento
   end
 
   def obtenerEvento(id_evento)
   	return self.eventos[id_evento]
+  end
+
+  def estaEvento?(id_evento)
+  	return self.eventos.key? id_evento
   end
  
 end

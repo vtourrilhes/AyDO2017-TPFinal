@@ -24,19 +24,24 @@ class GestorCalendario
     return self.calendarios[nombreCalendario]
   end
 
-  def estaCalendario(id_Calendario)
+  def estaCalendario?(id_Calendario)
     return self.calendarios.key? id_Calendario
   end
 
   def crearEvento(nuevoInicio, nuevoFIn, nombreEvento, nombreCalendario)
     id_Calendario = nombreCalendario
 
-    if estaCalendario(id_Calendario)
+    if estaCalendario?(id_Calendario)
       calendario = obtenerCalendario(id_Calendario)
-      id_evento = nombreEvento.downcase
-      evento = Evento.new(nuevoInicio, nuevoFIn, id_evento, calendario)
-
-      calendario.agregarEvento(evento);
+      id_evento = nombreEvento.downcase      
+      if !(calendario.estaEvento?(id_evento))
+        evento = Evento.new(nuevoInicio, nuevoFIn, id_evento, calendario)
+        calendario.agregarEvento(evento);
+      else        
+        raise NameError.new("Ya existe un evento con ese nombre")
+      end
+    else
+      raise NameError.new("Calendario inexistente")
     end    
   end
 
