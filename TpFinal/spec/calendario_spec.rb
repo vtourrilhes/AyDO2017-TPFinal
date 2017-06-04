@@ -12,9 +12,19 @@ describe 'Calendario' do
 
 	it "agregar 1 evento a calendario sin eventos deberia devolver cantidad de eventos = 1 " do
 		evento = Evento.new(Time.now, Time.now, "AyDoo", calendario)
+
 		calendario.agregarEvento(evento)
 
-		expect(calendario.eventos.size).to eq 1
+		expect(calendario.eventos.size).to eq 1		
+	end
+
+	it "obtener evento de nombre AyDOO de calendario deberia devolver el evento " do
+		id_evento = "AyDOO".downcase
+		evento = Evento.new(Time.now, Time.now, id_evento, calendario)
+
+		calendario.agregarEvento(evento)		
+
+		expect(calendario.obtenerEvento(id_evento)).to eq evento	
 	end
 
 end
