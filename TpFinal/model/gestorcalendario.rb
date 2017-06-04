@@ -16,6 +16,10 @@ class GestorCalendario
     return @calendarios[nombreCalendario]
   end
   
+  def obtenerCalendarios()
+    return @calendarios
+  end
+  
   def borrarCalendario(nombreCalendario)
     return @calendarios.delete(nombreCalendario)
   end

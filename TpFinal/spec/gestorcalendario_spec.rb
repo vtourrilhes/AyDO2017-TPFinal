@@ -6,8 +6,9 @@ describe 'GestorCalendario' do
 
 	before do
       @gestorCalendario = GestorCalendario.new
-      @calendario = @gestorCalendario.crearCalendario('Laboral')
-      @calendario = @gestorCalendario.crearCalendario('Estudiantil')
+     @gestorCalendario.crearCalendario('Laboral')
+     @gestorCalendario.crearCalendario('Estudiantil')
+		 @gestorCalendario.crearCalendario('Personal')
     end
 
   describe "OK" do
@@ -20,6 +21,11 @@ describe 'GestorCalendario' do
     it "Si creo un calendario de nombre Estudiantil lo borro" do
        calendario = @gestorCalendario.borrarCalendario('Estudiantil')
         expect(calendario.getNombre).to eq 'Estudiantil'
+    end
+		
+		it "Si creo un calendario de nombre Laboral y Personal tengo que tener 2 elementos" do
+       calendarios = @gestorCalendario.obtenerCalendarios
+        expect(calendarios.length).to eq 2
     end
     
    end
