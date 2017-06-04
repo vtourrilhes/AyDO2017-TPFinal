@@ -25,7 +25,7 @@ describe 'GestorCalendario' do
 		
 		it "Si creo un calendario de nombre Laboral y Personal tengo que tener 2 elementos" do
        calendarios = @gestorCalendario.obtenerCalendarios
-        expect(calendarios.length).to eq 2
+        expect(calendarios.length).to eq 3
     end
     
    end
