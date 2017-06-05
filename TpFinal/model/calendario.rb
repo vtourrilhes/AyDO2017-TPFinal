@@ -1,11 +1,23 @@
 class Calendario  
  
-  def initialize(nombre)  
-    @nombre = nombre  
-  end  
- 
-  def getNombre
-    return @nombre  
-  end 
+  attr_accessor :eventos
+  attr_accessor :nombre
+
+  def initialize (nombre)  
+    self.nombre = nombre 
+    self.eventos = {}
+  end   
+
+  def agregarEvento(nuevoEvento)   	
+  	self.eventos[nuevoEvento.nombre] = nuevoEvento
+  end
+
+  def obtenerEvento(id_evento)
+  	return self.eventos[id_evento]
+  end
+
+  def estaEvento?(id_evento)
+  	return self.eventos.key? id_evento
+  end
  
 end
