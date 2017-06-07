@@ -17,7 +17,7 @@ class GestorCalendario
     calendario = Calendario.new(nombreCalendario.downcase)
     agregarCalendario(calendario)
 
-    return self.calendarios[id_Calendario]
+    return self.calendarios[nombreCalendario]
   end
   
   def obtenerCalendario(nombreCalendario)
