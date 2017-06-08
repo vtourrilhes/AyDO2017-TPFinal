@@ -9,6 +9,7 @@ gem 'guard-rspec'
 gem 'rb-readline'
 gem 'sinatra' , "1.4.7"
 gem 'rack'
+gem 'json'
 
 group :test do 
   gem "rspec"
