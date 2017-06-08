@@ -1,3 +1,5 @@
+require_relative '../model/evento'
+
 class Calendario  
  
   attr_accessor :eventos
@@ -18,6 +20,16 @@ class Calendario
 
   def estaEvento?(id_evento)
   	return self.eventos.key? id_evento
+  end
+
+  def crearEvento(nombreEvento, nuevoInicio, nuevoFin)
+    id_evento = nombreEvento.downcase      
+    if !(estaEvento?(id_evento))
+      evento = Evento.new(id_evento, nuevoInicio, nuevoFin, self)
+      agregarEvento(evento);
+    else        
+      raise NameError.new("Ya existe un evento con ese nombre")
+    end 
   end
  
 end

@@ -5,16 +5,20 @@ class Evento
 	attr_accessor :nombre
 	attr_accessor :calendario
 
-	def initialize (ini, fin, nombre, calendario)
-		self.inicio = ini
-		self.fin = fin
+	def initialize (nombre, ini, fin, calendario)
 		self.nombre = nombre
+		self.inicio = ini
+		self.fin = fin		
 		self.calendario = calendario
 	end
 
 	def actualizarEvento (nuevoInicio, nuevoFin)
 		self.inicio = nuevoInicio
 		self.fin = nuevoFin
+	end
+
+	def obtenerJsonString
+		{id_evento: nombre, fecha_inicio: inicio, fecha_fin: fin}		
 	end
 
 end
