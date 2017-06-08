@@ -1,5 +1,4 @@
 require_relative '../model/gestorcalendario'
-require_relative '../model/configuracion'
 
 class BaseDeDatos
 
