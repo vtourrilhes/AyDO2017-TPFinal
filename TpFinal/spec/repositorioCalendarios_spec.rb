@@ -5,16 +5,21 @@ require_relative '../model/repositorioCalendarios'
 describe 'RespositorioCalendarios' do
     
     let(:repositorio) { RepositorioCalendarios.new}
-    let(:calendario) { Calendario.new('Laboral')}
-
-    before do
-      repositorio.agregarCalendario(calendario)
-    end
     
-    it "Si creo un calendario de nombre Laboral tengo que obtenerlo" do
-      calendarioLaboral = repositorio.obtenerCalendario(calendario.nombre)
+    it "Se crea un calendario de nombre Laboral al llamar a obtenerCalendario deberia devolver calendario de nombre laboral" do
+      calendarioLaboral = Calendario.new('Laboral')
 
-      expect(calendarioLaboral.nombre).to eq calendario.nombre
-    end  
+      repositorio.agregarCalendario(calendarioLaboral)
+
+      expect(repositorio.obtenerCalendario(calendarioLaboral.nombre)).to eq calendarioLaboral
+    end
+
+    it "CrearCalendario en repositorio sin calendarios deberia devolver una lista de calendario de tamanio 1" do
+      calendarioLaboral = Calendario.new('Laboral')
+
+      repositorio.agregarCalendario(calendarioLaboral)
+
+      expect(repositorio.calendarios.values.size).to eq 1	
+    end
   
 end
