@@ -53,4 +53,11 @@ describe 'Calendario' do
       expect(calendario.validarDuracionEvento(inicio, fin)).to eq true
     end
 
+    it "crear evento con duracion mayor a 72 horas deberia devolver excepcion de exceso de duracion" do
+      inicio = Time.parse("2017-06-06 22:49")
+      fin = Time.parse("2017-06-10 22:49")      
+
+      expect{calendario.validarDuracionEvento(inicio, fin)}.to raise_error(IOError)
+    end
+
 end

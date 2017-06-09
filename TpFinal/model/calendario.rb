@@ -24,7 +24,9 @@ class Calendario
 
   def crearEvento(nombreEvento, nuevoInicio, nuevoFin)
     id_evento = nombreEvento.downcase      
-    if !estaEvento?(id_evento) && validarDuracionEvento(nuevoInicio, nuevoFin)
+    
+    if !estaEvento?(id_evento)
+      validarDuracionEvento(nuevoInicio, nuevoFin)
       evento = Evento.new(id_evento, nuevoInicio, nuevoFin, self)
       agregarEvento(evento);
     else        
@@ -33,7 +35,13 @@ class Calendario
   end
 
   def validarDuracionEvento(inicio, fin)
-    return ((fin - inicio) >= 0) && ((fin - inicio)/3600 <= 72) 
+    result = ((fin - inicio) >= 0) && ((fin - inicio)/3600 <= 72) 
+    
+    if !result
+      raise IOError.new("El evento excede la duración máxima de 72 horas")
+    end
+
+    return result
   end
  
 end
