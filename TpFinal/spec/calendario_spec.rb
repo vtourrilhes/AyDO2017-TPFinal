@@ -18,7 +18,7 @@ describe 'Calendario' do
 		expect(calendario.eventos.size).to eq 1		
 	end
 
-	it "obtener evento de nombre AyDOO de calendario deberia devolver el evento " do
+	it "obtenerEvento de nombre AyDOO de calendario deberia devolver el evento " do
 		id_evento = "AyDOO".downcase
 		evento = Evento.new(id_evento, Time.now, Time.now, calendario)
 
@@ -38,6 +38,12 @@ describe 'Calendario' do
       calendario.crearEvento("AyDOO", Time.now, Time.now, )      
 
       expect{calendario.crearEvento("AyDOO", Time.now, Time.now)}.to raise_error(NameError)
+    end
+
+    it "preguntar evento de nombre Aydoo a calendario deberia devolver true" do
+      evento = calendario.crearEvento("AyDOO", Time.now, Time.now, )      
+
+      expect(calendario.estaEvento? evento.nombre).to eq true
     end
 
 end
