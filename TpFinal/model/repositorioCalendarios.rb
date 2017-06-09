@@ -8,13 +8,17 @@ class RepositorioCalendarios
     self.calendarios = {}
   end
   
-  def agregarCalendario(calendario)
+  def agregarCalendario(calendario)    
     self.calendarios[calendario.nombre] = calendario
   end
 
   def crearCalendario(nombreCalendario)
-    calendario = Calendario.new(nombreCalendario.downcase)
-    agregarCalendario(calendario)
+    if !(estaCalendario? nombreCalendario.downcase)
+      calendario = Calendario.new(nombreCalendario.downcase)
+      agregarCalendario(calendario)
+    else
+      raise NameError.new("Ya existe un calendario con ese nombre")
+    end
 
     return self.calendarios[nombreCalendario]
   end

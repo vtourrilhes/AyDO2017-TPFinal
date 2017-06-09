@@ -14,7 +14,7 @@ describe 'RespositorioCalendarios' do
       expect(repositorio.obtenerCalendario(calendarioLaboral.nombre)).to eq calendarioLaboral
     end
 
-    it "CrearCalendario en repositorio sin calendarios deberia devolver una lista de calendario de tamanio 1" do
+    it "Agregar calendario en repositorio sin calendarios deberia devolver una lista de calendario de tamanio 1" do
       calendarioLaboral = Calendario.new('Laboral')
 
       repositorio.agregarCalendario(calendarioLaboral)
@@ -28,6 +28,18 @@ describe 'RespositorioCalendarios' do
       repositorio.agregarCalendario(calendarioLaboral)
 
       expect(repositorio.estaCalendario?calendarioLaboral.nombre).to eq true
+    end
+
+    it "Crear calendario en repositorio vacio deberia devolver tamanio lista de calendarios en 1" do
+      repositorio.crearCalendario("Aydoo")
+
+      expect(repositorio.calendarios.values.size).to eq 1
+    end
+
+    it "Crear 2 calendarios con el mismo nombre deberia devolver excepcion de calendario ya existente" do
+      repositorio.crearCalendario("Aydoo")
+
+      expect{repositorio.crearCalendario("Aydoo")}.to raise_error(NameError)
     end
   
 end
