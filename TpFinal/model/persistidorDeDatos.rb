@@ -9,8 +9,8 @@ class PersistidorDeDatos
 		self.path_calendarios = "../calendarios/"
 	end
 
-	def guardarDatosRepositorioCalendarios(repositorioCalendarios)
-		repositorioCalendarios.calendarios.values.each do |calendario|
+	def guardarDatosRepositorioCalendarios(repositorioCalendarios)		
+		repositorio.calendarios.values.each do |calendario|
 			File.open("#{path_calendarios}#{calendario.nombre}.txt", 'w') do |file|
 				calendario.eventos.values.each do |evento| 
 					json_string = evento.obtenerJsonString
@@ -28,8 +28,10 @@ class PersistidorDeDatos
 			File.open("#{path_calendarios}#{nameFile}", 'r') do |file|				
 				while (line = file.gets)					
 				    json = JSON.parse(line)
+				    inicio = Time.parse(json['fecha_inicio'])
+				    fin = Time.parse(json['fecha_fin'])
 
-				    calendario.crearEvento(json['id_evento'], json['fecha_inicio'], json['fecha_fin'])				    
+				    calendario.crearEvento(json['id_evento'], inicio, fin)				    
 				end
 			end
 		end

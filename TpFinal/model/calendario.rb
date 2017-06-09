@@ -24,12 +24,16 @@ class Calendario
 
   def crearEvento(nombreEvento, nuevoInicio, nuevoFin)
     id_evento = nombreEvento.downcase      
-    if !(estaEvento?(id_evento))
+    if !estaEvento?(id_evento) && validarDuracionEvento(nuevoInicio, nuevoFin)
       evento = Evento.new(id_evento, nuevoInicio, nuevoFin, self)
       agregarEvento(evento);
     else        
       raise NameError.new("Ya existe un evento con ese nombre")
     end 
+  end
+
+  def validarDuracionEvento(inicio, fin)
+    return ((fin - inicio) >= 0) && ((fin - inicio)/3600 <= 72) 
   end
  
 end
