@@ -21,5 +21,13 @@ describe 'RespositorioCalendarios' do
 
       expect(repositorio.calendarios.values.size).to eq 1	
     end
+
+    it "Agregar calendario de nombre Aydoo al preguntar si esta el calendario deberia devolver true" do
+      calendarioLaboral = Calendario.new('Aydoo')
+
+      repositorio.agregarCalendario(calendarioLaboral)
+
+      expect(repositorio.estaCalendario?calendarioLaboral.nombre).to eq true
+    end
   
 end
