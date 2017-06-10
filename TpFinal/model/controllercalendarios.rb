@@ -20,6 +20,10 @@ class ControllerCalendarios
   def obtenerCalendario(nombreCalendario)
     return self.repositoriocalendarios.obtenerCalendario(nombreCalendario)
   end
+  
+  def obtenerCalendarios()
+    return self.repositoriocalendarios.obtenerCalendarios()
+  end
 
   def estaCalendario?(id_Calendario)
     return self.repositoriocalendarios.estaCalendario? id_Calendario

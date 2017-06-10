@@ -1,5 +1,8 @@
 require 'sinatra'
 require 'json'
+require_relative 'model/controllercalendarios'
+
+controlador = ControllerCalendarios.new
 
 post '/calendarios' do
   begin
@@ -26,7 +29,7 @@ delete '/calendarios' do
 end
 
 get '/calendarios' do
-  # Implementacion
+  controlador.obtenerCalendarios()
   status 200
 end
 
