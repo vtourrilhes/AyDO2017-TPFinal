@@ -34,7 +34,12 @@ describe 'ControllerCalendarios' do
     end
 
     it "Crear calendario en repositorio vacio deberia devolver tamanio lista de calendarios en 1" do
-      controlador.crearCalendario("Aydoo")
+      
+      parametros = {
+          nombre: "Aydoo"
+      }
+      
+      controlador.crearCalendario(parametros)
 
       calendarios = controlador.obtenerCalendarios()
       
@@ -42,7 +47,12 @@ describe 'ControllerCalendarios' do
     end
 
     it "Crear 2 calendarios con el mismo nombre deberia devolver excepcion de calendario ya existente" do
-      controlador.crearCalendario("Aydoo")
+      
+       parametros = {
+          nombre: "Aydoo"
+      }
+      
+      controlador.crearCalendario(parametros)
 
       expect{controlador.crearCalendario("Aydoo")}.to raise_error(NameError)
     end
