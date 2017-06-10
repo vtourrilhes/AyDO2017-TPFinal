@@ -13,7 +13,11 @@ class ControllerCalendarios
     self.repositoriocalendarios = RepositorioCalendarios.new
   end
   
-  def crearCalendario(parametrosCalendario)
+  def crearCalendario(datos_json)
+    
+    parametrosCalendario = {
+      nombre: datos_json["nombre"]
+    }
     
     validador = ValidadorDeJSON.new
     validador.validar_parametros_calendario(parametrosCalendario)
@@ -35,8 +39,22 @@ class ControllerCalendarios
     self.repositoriocalendarios.eliminarCalendario(nombreCalendario)
   end
   
-  def crearEvento(parametrosEvento)
+  def crearEvento(datos_json)
   
+    datos_recurrencia = JSON.parse datos_json["recurrencia"]
+    
+    parametrosEvento = {
+      calendario: datos_json["calendario"],
+      id: datos_json["id"],
+      nombre: datos_json["nombre"],
+      inicio: datos_json["inicio"],
+      fin: datos_json["fin"],
+      
+      frecuencia: datos_recurrencia["frecuencia"],
+      frecuencia_fin: datos_recurrencia["fin"]
+      
+    }
+    
      validador = ValidadorDeJSON.new
       validador.validar_parametros_evento(parametrosCalendario)
     
@@ -61,8 +79,15 @@ class ControllerCalendarios
 
   end
   
-    def actualizarEvento(parametrosEvento)
+    def actualizarEvento(datos_json)
   
+      parametrosCalendario = {
+      calendario: datos_json["calendario"],
+      nombre: datos_json["nombre"],
+      inicio: datos_json["inicio"],
+      fin: datos_json["fin"]
+    } 
+      
      validador = ValidadorDeJSON.new
       validador.validar_parametros_evento(parametrosCalendario)
     

@@ -8,10 +8,7 @@ post '/calendarios' do
   begin
     request.body.rewind
     datos_json = JSON.parse request.body.read
-    parametros = {
-      nombre: datos_json["nombre"]
-    }
-    controlador.crearCalendario(parametros)
+    controlador.crearCalendario(datos_json)
   rescue Exception
     status 400
   end
@@ -48,19 +45,7 @@ post '/eventos' do
   begin
     request.body.rewind
     datos_json = JSON.parse request.body.read
-    datos_recurrencia = JSON.parse datos_json["recurrencia"]
-    parametros = {
-      calendario: datos_json["calendario"],
-      id: datos_json["id"],
-      nombre: datos_json["nombre"],
-      inicio: datos_json["inicio"],
-      fin: datos_json["fin"],
-      
-      frecuencia: datos_recurrencia["frecuencia"],
-      frecuencia_fin: datos_recurrencia["fin"]
-      
-    }
-    controlador.crearEvento(parametros)
+    controlador.crearEvento(datos_json)
     status 201
   rescue Exception
     status 400
@@ -70,13 +55,7 @@ end
 put '/eventos' do
   request.body.rewind
   datos_json = JSON.parse request.body.read
-  parametros = {
-      calendario: datos_json["calendario"],
-      nombre: datos_json["nombre"],
-      inicio: datos_json["inicio"],
-      fin: datos_json["fin"]
-    }
-  controlador.actualizarEvento(parametros)
+  controlador.actualizarEvento(datos_json)
   status 200
 end
 
