@@ -26,7 +26,8 @@ class Calendario
     id_evento = nombreEvento.downcase      
     
     if !estaEvento?(id_evento)
-      validarDuracionEvento(nuevoInicio, nuevoFin)
+      validador = ValidadorDeEvento.new
+      validador.validarDuracionEvento(nuevoInicio, nuevoFin)
       evento = Evento.new(id_evento, nuevoInicio, nuevoFin, self)
       agregarEvento(evento);
     else        
@@ -34,14 +35,8 @@ class Calendario
     end 
   end
 
-  def validarDuracionEvento(inicio, fin)
-    result = ((fin - inicio) >= 0) && ((fin - inicio)/3600 <= 72) 
-    
-    if !result
-      raise IOError.new("El evento excede la duración máxima de 72 horas")
-    end
-
-    return result
-  end
+  	def obtenerJsonString
+		{nombre: self.nombre}		
+	end
  
 end
