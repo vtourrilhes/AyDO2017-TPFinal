@@ -20,7 +20,7 @@ class Calendario
   
   def actualizarEvento (id_evento,nuevoInicio, nuevoFin)
     evento = obtenerEvento(id_evento)
-    evento.actualizarEvento (nuevoInicio, nuevoFin)
+    evento.actualizarEvento(nuevoInicio, nuevoFin)
     agregarEvento(evento)
   end
   
