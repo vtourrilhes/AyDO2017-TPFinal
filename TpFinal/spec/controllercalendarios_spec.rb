@@ -46,7 +46,12 @@ describe 'ControllerCalendarios' do
       expect(calendarios.values.size).to eq 1	
     end
 
-    it "Crear 2 calendarios con el mismo nombre deberia devolver excepcion de calendario ya existente" do
+    it "Si intento crear un calendario pero el formato del parametro no es JSON entonces lanzo excepcion" do
+      
+      expect{controlador.crearCalendario("Aydoo")}.to raise_error(TypeError)
+    end
+  
+   it "Crear 2 calendarios con el mismo nombre deberia devolver excepcion de calendario ya existente" do
       
        parametros = {
           nombre: "Aydoo"
@@ -54,7 +59,7 @@ describe 'ControllerCalendarios' do
       
       controlador.crearCalendario(parametros)
 
-      expect{controlador.crearCalendario("Aydoo")}.to raise_error(NameError)
+      expect{controlador.crearCalendario(parametros)}.to raise_error(NameError)
     end
   
 end

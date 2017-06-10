@@ -36,5 +36,9 @@ class ControllerCalendarios
   def estaCalendario?(id_Calendario)
     return self.repositoriocalendarios.estaCalendario? id_Calendario
   end
+  
+  def eliminarCalendario(nombreCalendario)
+    self.repositoriocalendarios.eliminarCalendario(nombreCalendario)
+  end
 
 end
