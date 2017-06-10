@@ -50,13 +50,13 @@ post '/eventos' do
     datos_json = JSON.parse request.body.read
     datos_recurrencia = JSON.parse datos_json["recurrencia"]
     parametros = {
-      calendario: datos_json["calendario"]
-      id: datos_json["id"]
-      nombre: datos_json["nombre"]
-      inicio: datos_json["inicio"]
-      fin: datos_json["fin"]
+      calendario: datos_json["calendario"],
+      id: datos_json["id"],
+      nombre: datos_json["nombre"],
+      inicio: datos_json["inicio"],
+      fin: datos_json["fin"],
       
-      frecuencia: datos_recurrencia["frecuencia"]
+      frecuencia: datos_recurrencia["frecuencia"],
       frecuencia_fin: datos_recurrencia["fin"]
       
     }
@@ -71,9 +71,9 @@ put '/eventos' do
   request.body.rewind
   datos_json = JSON.parse request.body.read
   parametros = {
-      calendario: datos_json["calendario"]
-      nombre: datos_json["nombre"]
-      inicio: datos_json["inicio"]
+      calendario: datos_json["calendario"],
+      nombre: datos_json["nombre"],
+      inicio: datos_json["inicio"],
       fin: datos_json["fin"]
     }
   controlador.actualizarEvento(parametros)
