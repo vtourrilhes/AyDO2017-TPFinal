@@ -29,7 +29,9 @@ class ValidadorDeEvento
   end
   
   def validarNoExisteEvento(id_evento,calendario)
-  	result = !calendario.estaEvento? id_evento
+  	result = calendario.estaEvento? id_evento
+    
+    result = !result
     
     if !result
       raise NameError.new("El evento no existe")
