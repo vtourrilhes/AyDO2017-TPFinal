@@ -29,14 +29,14 @@ delete '/calendarios' do
 end
 
 get '/calendarios' do
-  controlador.obtenerCalendarios()
+  body controlador.obtenerCalendarios()
   status 200
 end
 
 get '/calendarios/:nombre' do
   begin
     nombre = params[:nombre]
-    controlador.obtenerCalendario(nombre)
+    body controlador.obtenerCalendario(nombre)
     status 200
   rescue Exception
     # No encontrado
@@ -60,6 +60,7 @@ post '/eventos' do
       frecuencia_fin: datos_recurrencia["fin"]
       
     }
+    controlador.crearEvento(parametros)
     status 201
   rescue Exception
     status 400
@@ -75,24 +76,26 @@ put '/eventos' do
       inicio: datos_json["inicio"]
       fin: datos_json["fin"]
     }
+  controlador.actualizarEvento(parametros)
   status 200
 end
 
 delete '/eventos/:id' do
   id_evento = params[:id]
-  # Implementacion
+  controlador.eliminarEvento(id_evento)
   status 200
+  rescue Exception
+    status 400
 end
 
 get '/eventos' do
-  nombre_calendario = params[:calendario]
-  # Implementacion
-  puts nombre_calendario
+  nombreCalendario = params[:calendario]
+  body controlador.obtenerEventos(nombreCalendario)
   status 200
 end
 
 get '/eventos/:id' do
   id_evento = params[:id]
-  # Implementacion
+  body controlador.obtenerEvento
   status 200
 end

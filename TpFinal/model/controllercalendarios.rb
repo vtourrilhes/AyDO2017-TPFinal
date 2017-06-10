@@ -60,5 +60,63 @@ class ControllerCalendarios
       self.repositoriocalendarios.agregarCalendario(calendario)
 
   end
+  
+    def actualizarEvento(parametrosEvento)
+  
+     validador = ValidadorDeJSON.new
+      validador.validar_parametros_evento(parametrosCalendario)
+    
+      nombreCalendario = parametrosEvento[:calendario]
+      
+      validador = ValidadorDeCalendario.new
+      validador.existe_calendario(self.repositoriocalendarios,nombreCalendario)
+      
+      calendario = self.repositoriocalendarios.obtenerCalendario(nombreCalendario)
+      
+      nombreEvento = parametrosEvento[:nombre].downcase
+      inicio = parametrosEvento[:inicio]
+      fin = parametrosEvento[:fin]
+    
+      validador = ValidadorDeEvento.new
+      validador.validarNoExisteEvento(nombreEvento,calendario)
+      validador.validarDuracionEvento(nuevoInicio, nuevoFin)
+    
+      calendario.actualizarEvento(nombreEvento,inicio,fin)
+    
+      self.repositoriocalendarios.agregarCalendario(calendario)
+
+  end
+  
+  def eliminarEvento(parametrosEvento)
+  
+     validador = ValidadorDeJSON.new
+      validador.validar_parametros_evento(parametrosCalendario)
+    
+      nombreCalendario = parametrosEvento[:calendario]
+      
+      validador = ValidadorDeCalendario.new
+      validador.existe_calendario(self.repositoriocalendarios,nombreCalendario)
+      
+      calendario = self.repositoriocalendarios.obtenerCalendario(nombreCalendario)
+      
+      nombreEvento = parametrosEvento[:nombre].downcase
+    
+      validador = ValidadorDeEvento.new
+      validador.validarNoExisteEvento(nombreEvento,calendario)
+    
+      calendario.eliminarEvento(nombreEvento)
+    
+      self.repositoriocalendarios.agregarCalendario(calendario)
+
+  end
+  
+  def obtenerEvento(nombreEvento)
+    #return self.repositoriocalendarios.obtenerCalendarioJSON(nombreCalendario)
+  end
+  
+  def obtenerEventos(nombreCalendario)
+    calendarios = self.repositoriocalendarios.obtenerCalendarios()
+    return calendarios.obtenerEventos().to_json
+  end
 
 end

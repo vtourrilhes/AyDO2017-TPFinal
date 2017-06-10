@@ -17,6 +17,16 @@ class Calendario
   def obtenerEvento(id_evento)
   	return self.eventos[id_evento]
   end
+  
+  def actualizarEvento (id_evento,nuevoInicio, nuevoFin)
+    evento = obtenerEvento(id_evento)
+    evento.actualizarEvento (nuevoInicio, nuevoFin)
+    agregarEvento(evento)
+  end
+  
+  def obtenerEventos()
+  	return self.eventos
+  end
 
   def estaEvento?(id_evento)
   	return self.eventos.key? id_evento
@@ -26,6 +36,10 @@ class Calendario
       id_evento = nombreEvento.downcase      
       evento = Evento.new(id_evento, nuevoInicio, nuevoFin, self)
       agregarEvento(evento); 
+  end
+  
+  def eliminarEvento(nombreEvento)
+    self.eventos.delete(nombreCalendario)
   end
 
   	def obtenerJsonString

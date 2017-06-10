@@ -12,7 +12,7 @@ class ValidadorDeEvento
     result = ((fin - inicio) >= 0) && ((fin - inicio)/3600 <= 72) 
     
     if !result
-      raise IOError.new("El evento excede la duración máxima de 72 horas")
+      raise NameError.new("El evento excede la duración máxima de 72 horas")
     end
 
     return result
@@ -22,7 +22,17 @@ class ValidadorDeEvento
   	result = calendario.estaEvento? id_evento
     
     if !result
-      raise IOError.new("El evento ya existe")
+      raise NameError.new("El evento ya existe")
+    end
+
+    return result
+  end
+  
+  def validarNoExisteEvento(id_evento,calendario)
+  	result = !calendario.estaEvento? id_evento
+    
+    if !result
+      raise NameError.new("El evento no existe")
     end
 
     return result
