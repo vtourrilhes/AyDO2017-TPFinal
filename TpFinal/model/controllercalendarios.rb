@@ -2,6 +2,7 @@ require_relative '../model/calendario'
 require_relative '../model/repositorioCalendarios'
 require_relative '../model/validadorDeJson'
 require_relative '../model/validadorDeCalendario'
+require_relative '../model/validadorDeEvento'
 require 'json'
 
 class ControllerCalendarios
@@ -46,9 +47,13 @@ class ControllerCalendarios
       
       calendario = self.repositoriocalendarios.obtenerCalendario(nombreCalendario)
       
-      nombreEvento = parametrosEvento[:nombre]
+      nombreEvento = parametrosEvento[:nombre].downcase
       inicio = parametrosEvento[:inicio]
       fin = parametrosEvento[:fin]
+    
+      validador = ValidadorDeEvento.new
+      validador.validarExisteEvento(nombreEvento,calendario)
+      validador.validarDuracionEvento(nuevoInicio, nuevoFin)
     
       calendario.crearEvento(nombreEvento,inicio,fin)
     
