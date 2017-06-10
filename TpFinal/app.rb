@@ -81,11 +81,13 @@ put '/eventos' do
 end
 
 delete '/eventos/:id' do
+  begin
   id_evento = params[:id]
   controlador.eliminarEvento(id_evento)
   status 200
   rescue Exception
     status 400
+  end
 end
 
 get '/eventos' do
