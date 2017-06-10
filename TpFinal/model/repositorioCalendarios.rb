@@ -26,6 +26,10 @@ class RepositorioCalendarios
   def obtenerCalendario(nombreCalendario)
     return self.calendarios[nombreCalendario]
   end
+  
+  def obtenerCalendarios()
+    return self.calendarios
+  end
 
   def estaCalendario?(id_Calendario)
     return self.calendarios.key? id_Calendario
