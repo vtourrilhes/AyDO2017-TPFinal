@@ -6,7 +6,7 @@ class ValidadorDeJSON
   end
 
   def validar_parametros_calendario(params)
-    raise TypeError unless params.is_a? Hash
+    #raise TypeError unless params.is_a? Hash
     raise TypeError unless params[:nombre].is_a? String
   end
 

@@ -34,5 +34,9 @@ class RepositorioCalendarios
   def estaCalendario?(id_Calendario)
     return self.calendarios.key? id_Calendario
   end
+  
+  def eliminarCalendario(nombreCalendario)
+    self.calendarios.delete(nombreCalendario)
+  end
 
 end
