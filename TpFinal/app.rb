@@ -20,7 +20,7 @@ end
 delete '/calendarios' do
   begin
     nombre = params[:nombre]
-    # Implementacion
+    controlador.obtenerCalendario(nombre)
     status 200
   rescue Exception
     # No encontrado

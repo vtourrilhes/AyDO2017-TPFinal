@@ -20,7 +20,7 @@ class ControllerCalendarios
     validador = ValidadorDeJSON.new
     validador.validar_parametros_calendario(parametrosCalendario)
     
-    nombreCalendario = params[:nombre]
+    nombreCalendario = parametrosCalendario[:nombre]
     
     return self.repositoriocalendarios.crearCalendario(nombreCalendario)
   end
