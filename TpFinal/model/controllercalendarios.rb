@@ -1,5 +1,5 @@
 require_relative '../model/calendario'
-require_relative '../model/repositoriocalendarios'
+require_relative '../model/repositorioCalendarios'
 
 class ControllerCalendarios
 
