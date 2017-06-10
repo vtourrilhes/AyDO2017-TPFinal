@@ -1,5 +1,7 @@
 require_relative '../model/calendario'
 require_relative '../model/repositorioCalendarios'
+require_relative '../model/validadorDeJson'
+require 'json'
 
 class ControllerCalendarios
 
@@ -13,7 +15,13 @@ class ControllerCalendarios
     self.repositoriocalendarios.agregarCalendario(calendario)
   end
 
-  def crearCalendario(nombreCalendario)
+  def crearCalendario(parametrosCalendario)
+    
+    validador = ValidadorDeJSON.new
+    validador.validar_parametros_calendario(parametrosCalendario)
+    
+    nombreCalendario = params[:nombre]
+    
     return self.repositoriocalendarios.crearCalendario(nombreCalendario)
   end
   

@@ -7,11 +7,11 @@ controlador = ControllerCalendarios.new
 post '/calendarios' do
   begin
     request.body.rewind
-    data = JSON.parse request.body.read
-    datos_calendario = {
-      nombre: data["nombre"]
+    datos_json = JSON.parse request.body.read
+    parametros = {
+      nombre: datos_json["nombre"]
     }
-    # Implementacion
+    controlador.crearCalendario(parametros)
   rescue Exception
     status 400
   end
@@ -36,7 +36,7 @@ end
 get '/calendarios/:nombre' do
   begin
     nombre = params[:nombre]
-    puts gestor.obtener_calendario(nombre)
+    # Implementacion
     status 200
   rescue Exception
     # No encontrado
