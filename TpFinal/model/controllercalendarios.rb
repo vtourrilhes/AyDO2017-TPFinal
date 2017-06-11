@@ -31,7 +31,7 @@ class ControllerCalendarios
     }    
     validadorDeJson.validar_parametros_calendario(parametrosCalendario)
     nombreCalendario = parametrosCalendario[:nombre].downcase
-    validadorCalendario.existe_calendario(nombreCalendario)
+    validadorCalendario.existe_calendario(self.repositoriocalendarios,nombreCalendario)
     calendario = self.repositoriocalendarios.crearCalendario(nombreCalendario)
     persistidorDeDatos.guardarDatosRepositorioCalendarios(repositoriocalendarios)
     
