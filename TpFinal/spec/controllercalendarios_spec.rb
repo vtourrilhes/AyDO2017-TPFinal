@@ -46,9 +46,9 @@ describe 'ControllerCalendarios' do
 
       controlador.crearCalendario(json)
   
-      expect(validador.no_existe_calendario(controlador.repositoriocalendarios,nombre)).to eq true
+      #expect(validador.no_existe_calendario(controlador.repositoriocalendarios,nombre)).to eq true
       #expect{validador.no_existe_calendario(controlador.repositoriocalendarios,parametrosCalendario.nombre)}.to raise_error(NameError)
-      #expect(controlador.estaCalendario?parametrosCalendario.nombre).to eq true
+      expect(controlador.estaCalendario?nombre).to eq true
     end
 
     it "Crear calendario en repositorio vacio deberia devolver tamanio lista de calendarios en 1" do
@@ -68,7 +68,7 @@ describe 'ControllerCalendarios' do
         
      nombre= json["nombre"]
   
-      expect{controlador.crearCalendario(json)}.to raise_error(TypeError)
+      expect{controlador.crearCalendario("Aydo")}.to raise_error(TypeError)
     end
   
    it "Crear 2 calendarios con el mismo nombre deberia devolver excepcion de calendario ya existente" do
