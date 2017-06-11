@@ -1,9 +1,11 @@
 require 'sinatra'
 require 'json'
 require_relative 'model/controllercalendarios'
+require_relative 'model/convertidorJson'
 
 controlador = ControllerCalendarios.new
-
+convertidorJson = ConvertidorJson.new
+=begin
 post '/calendarios' do
   begin
     request.body.rewind
@@ -24,23 +26,27 @@ delete '/calendarios' do
     status 404
   end
 end
-
+=end
 get '/calendarios' do
-  body controlador.obtenerCalendarios()
-  status 200
+  begin
+    calendarios = controlador.obtenerCalendarios()  
+    body convertidorJson.obtenerArrayJsonCalendarios(calendarios).to_json
+    status 200
+  end
 end
 
 get '/calendarios/:nombre' do
   begin
     nombre = params[:nombre]
-    body controlador.obtenerCalendario(nombre)
+    calendario = controlador.obtenerCalendario(nombre)
+    body convertidorJson.obtenerJsonCalendario(calendario).to_json
     status 200
   rescue Exception
     # No encontrado
     status 404
   end
 end
-
+=begin
 post '/eventos' do
   begin
     request.body.rewind
@@ -68,15 +74,23 @@ delete '/eventos/:id' do
     status 400
   end
 end
+=end
+get '/eventos' do
+  eventos = controlador.obtenerTodosLosEventos()
+  body convertidorJson.obtenerArrayJsonEventos(eventos).to_json
+  status 200
+end
 
 get '/eventos' do
-  nombreCalendario = params[:calendario]
-  body controlador.obtenerEventos(nombreCalendario)
+  id_calendario = params[:calendario]
+  eventos = controlador.obtenerEventos(id_calendario.downcase)
+  body convertidorJson.obtenerArrayJsonEventos(eventos).to_json
   status 200
 end
 
 get '/eventos/:id' do
   id_evento = params[:id]
-  body controlador.obtenerEvento
+  evento = controlador.obtenerEvento(id_evento.downcase)
+  body convertidorJson.obtenerJsonEvento(evento).to_json
   status 200
 end

@@ -25,7 +25,7 @@ class Calendario
   end
   
   def obtenerEventos()
-  	return self.eventos
+  	return self.eventos.values
   end
 
   def estaEvento?(id_evento)
@@ -41,9 +41,5 @@ class Calendario
   def eliminarEvento(nombreEvento)
     self.eventos.delete(nombreCalendario)
   end
-
-  	def obtenerJsonString
-		{nombre: self.nombre}		
-	end
  
 end

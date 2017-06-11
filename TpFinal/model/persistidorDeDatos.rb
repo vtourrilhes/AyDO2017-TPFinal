@@ -1,19 +1,23 @@
 require_relative '../model/repositorioCalendarios'
+require_relative '../model/convertidorJson'
 require 'json'
+require 'time'
 
 class PersistidorDeDatos
 
 	attr_accessor :path_calendarios
+	attr_accessor :convertidorJson
 
 	def initialize
-		self.path_calendarios = "../calendarios/"
+		self.path_calendarios = "./calendarios/"
+		convertidorJson = ConvertidorJson.new
 	end
 
 	def guardarDatosRepositorioCalendarios(repositorioCalendarios)		
-		repositorio.calendarios.values.each do |calendario|
+		repositorioCalendarios.calendarios.values.each do |calendario|
 			File.open("#{path_calendarios}#{calendario.nombre}.txt", 'w') do |file|
 				calendario.eventos.values.each do |evento| 
-					json_string = evento.obtenerJsonString
+					json_string = convertidorJson(evento)
 					file.puts(json_string.to_json) 
 				end
 			end
@@ -22,7 +26,7 @@ class PersistidorDeDatos
 
 	def cargarDatosCalendarios(repositorioCalendarios)
 		Dir.glob("#{path_calendarios}*").each do |fullNameFile|
-			nameFile = fullNameFile.gsub('../calendarios/', '')
+			nameFile = fullNameFile.gsub('./calendarios/', '')
 			calendario = repositorioCalendarios.crearCalendario(nameFile.gsub('.txt',''))
 
 			File.open("#{path_calendarios}#{nameFile}", 'r') do |file|				
@@ -35,7 +39,7 @@ class PersistidorDeDatos
 				end
 			end
 		end
-
+	
 		return repositorioCalendarios
 	end
 end
