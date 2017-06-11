@@ -40,10 +40,8 @@ describe 'ControllerCalendarios' do
       
      json = JSON.parse '{"nombre":"Laboral"}'
         
-     parametrosCalendario = {
-      nombre: json["nombre"]
-     }
-        
+     nombre= json["nombre"]
+
       controlador.crearCalendario(json)
   
       expect(validador.no_existe_calendario(controlador.repositoriocalendarios,parametrosCalendario.nombre)).to eq true
@@ -53,11 +51,9 @@ describe 'ControllerCalendarios' do
 
     it "Crear calendario en repositorio vacio deberia devolver tamanio lista de calendarios en 1" do
       
-      parametros = {
-          nombre: "Aydoo"
-      }
+      json = JSON.parse '{"nombre":"Laboral"}'
       
-      controlador.crearCalendario(parametros)
+      controlador.crearCalendario(json)
 
       calendarios = controlador.obtenerCalendarios()
       
