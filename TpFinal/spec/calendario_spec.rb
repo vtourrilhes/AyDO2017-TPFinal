@@ -1,10 +1,12 @@
 require 'rspec' 
 require_relative '../model/calendario'
 require_relative '../model/evento'
+require_relative '../model/validadorDeEvento'
 
 describe 'Calendario' do
 
 	let (:calendario) {Calendario.new("Laboral")}
+	let (:validador) {ValidadorDeEvento.new()}
 
 	it "Si creo un calendario de nombre Laboral tengo que obtenerlo" do
 		expect(calendario.nombre).to eq 'Laboral'
@@ -37,7 +39,7 @@ describe 'Calendario' do
     it "agregar dos eventos con mismo nombre a mismo calendario deberia lanzar una excepcion" do
       calendario.crearEvento("AyDOO", Time.now, Time.now)      
 
-      expect{calendario.crearEvento("AyDOO", Time.now, Time.now)}.to raise_error(NameError)
+      expect{validador.validarExisteEvento("AyDOO", calendario)}.to raise_error(NameError)
     end
 
     it "preguntar evento de nombre Aydoo a calendario deberia devolver true" do
@@ -50,14 +52,14 @@ describe 'Calendario' do
       inicio = Time.parse("2017-06-06 22:49")
       fin = Time.parse("2017-06-09 22:49")      
 
-      expect(calendario.validarDuracionEvento(inicio, fin)).to eq true
+      expect(validador.validarDuracionEvento(inicio, fin)).to eq true
     end
 
     it "crear evento con duracion mayor a 72 horas deberia devolver excepcion de exceso de duracion" do
       inicio = Time.parse("2017-06-06 22:49")
       fin = Time.parse("2017-06-10 22:49")      
-
-      expect{calendario.validarDuracionEvento(inicio, fin)}.to raise_error(IOError)
+			
+      expect{validador.validarDuracionEvento(inicio, fin)}.to raise_error(NameError)
     end
 
 end
