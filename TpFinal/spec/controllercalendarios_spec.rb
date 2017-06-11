@@ -62,18 +62,22 @@ describe 'ControllerCalendarios' do
 
     it "Si intento crear un calendario pero el formato del parametro no es JSON entonces lanzo excepcion" do
       
-      expect{controlador.crearCalendario("Aydoo")}.to raise_error(TypeError)
+          json = JSON.parse '{"nombre":"Aydoo"}'
+        
+     nombre= json["nombre"]
+  
+      expect{controlador.crearCalendario(json)}.to raise_error(TypeError)
     end
   
    it "Crear 2 calendarios con el mismo nombre deberia devolver excepcion de calendario ya existente" do
       
-       parametros = {
-          nombre: "Aydoo"
-      }
-      
-      controlador.crearCalendario(parametros)
+        json = JSON.parse '{"nombre":"Laboral"}'
+        
+     nombre= json["nombre"]
 
-      expect{controlador.crearCalendario(parametros)}.to raise_error(NameError)
+      controlador.crearCalendario(json)
+
+      expect{controlador.crearCalendario(json)}.to raise_error(NameError)
     end
   
 end
