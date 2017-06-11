@@ -11,5 +11,9 @@ class ValidadorDeCalendario
   def existe_calendario(repositorio,nombreCalendario)
     raise NameError.new("No existe el calendario") unless !repositorio.estaCalendario? nombreCalendario
   end
+  
+  def no_existe_calendario(repositorio,nombreCalendario)
+    raise NameError.new("Si existe el calendario") unless repositorio.estaCalendario? nombreCalendario
+  end
 
 end
