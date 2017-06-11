@@ -14,9 +14,9 @@ describe 'ControllerCalendarios' do
       
       json = JSON.parse '{"nombre":"Laboral"}'
      
-      nombre= json["nombre"]
+      nombre= json["nombre"].downcase
 
-      expect(nombre).to eq "Laboral"  
+      expect(nombre).to eq "laboral"  
         
       controlador.crearCalendario(json)
 
@@ -42,7 +42,7 @@ describe 'ControllerCalendarios' do
       
      json = JSON.parse '{"nombre":"Laboral"}'
         
-     nombre= json["nombre"]
+     nombre= json["nombre"].downcase
 
       controlador.crearCalendario(json)
   
