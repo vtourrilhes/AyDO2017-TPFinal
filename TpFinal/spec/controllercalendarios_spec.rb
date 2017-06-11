@@ -13,26 +13,22 @@ describe 'ControllerCalendarios' do
     it "Se crea un calendario de nombre Laboral al llamar a obtenerCalendario deberia devolver calendario de nombre laboral" do
       
       json = JSON.parse '{"nombre":"Laboral"}'
-        
-     parametrosCalendario = {
-      nombre: json["nombre"]
-     }
-        
+     
+      nombre= json["nombre"]
+
       controlador.crearCalendario(json)
 
-      calendario = controlador.obtenerCalendario(parametrosCalendario.nombre)  
+      calendario = controlador.obtenerCalendario(nombre)  
         
-      expect(calendario.nombre).to eq parametrosCalendario.nombre
+      expect(calendario.nombre).to eq nombre
     end
 
     it "Agregar calendario en repositorio sin calendarios deberia devolver una lista de calendario de tamanio 1" do
       
      json = JSON.parse '{"nombre":"Laboral"}'
         
-     parametrosCalendario = {
-      nombre: json["nombre"]
-     }
-        
+     nombre= json["nombre"]
+
       controlador.crearCalendario(json)
 
       calendarios = controlador.obtenerCalendarios()
