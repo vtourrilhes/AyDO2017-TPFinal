@@ -48,7 +48,7 @@ describe 'ControllerCalendarios' do
   
       #expect(validador.no_existe_calendario(controlador.repositoriocalendarios,nombre)).to eq true
       #expect{validador.no_existe_calendario(controlador.repositoriocalendarios,parametrosCalendario.nombre)}.to raise_error(NameError)
-      expect(controlador.estaCalendario?nombre).to eq true
+      expect(controlador.repositoriocalendarios.estaCalendario?nombre).to eq true
     end
 
     it "Crear calendario en repositorio vacio deberia devolver tamanio lista de calendarios en 1" do
