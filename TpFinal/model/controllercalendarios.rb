@@ -25,7 +25,7 @@ class ControllerCalendarios
     nombreCalendario = parametrosCalendario[:nombre].downcase
     
     validador = ValidadorDeCalendario.new
-    validador.existe_calendario(nombreCalendario)
+    validador.existe_calendario(self.repositoriocalendarios,nombreCalendario)
     
     return self.repositoriocalendarios.crearCalendario(nombreCalendario)
   end
