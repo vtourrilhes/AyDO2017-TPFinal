@@ -18,7 +18,7 @@ describe 'ControllerCalendarios' do
 
       controlador.crearCalendario(json)
 
-      calendario = controlador.obtenerCalendario(nombre)  
+      calendario = controlador.repositoriocalendarios.obtenerCalendario(nombre)  
         
       expect(calendario.nombre).to eq nombre
     end
@@ -31,7 +31,7 @@ describe 'ControllerCalendarios' do
 
       controlador.crearCalendario(json)
 
-      calendarios = controlador.obtenerCalendarios()
+      calendarios = controlador.repositoriocalendarios.obtenerCalendarios()
       
       expect(calendarios.values.size).to eq 1	
     end
@@ -55,7 +55,7 @@ describe 'ControllerCalendarios' do
       
       controlador.crearCalendario(json)
 
-      calendarios = controlador.obtenerCalendarios()
+      calendarios = controlador.repositoriocalendarios.obtenerCalendarios()
       
       expect(calendarios.values.size).to eq 1	
     end
