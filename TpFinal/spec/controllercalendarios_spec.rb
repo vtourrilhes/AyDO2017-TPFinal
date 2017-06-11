@@ -2,11 +2,13 @@ require 'rspec'
 require_relative '../model/calendario'
 require_relative '../model/repositorioCalendarios'
 require_relative '../model/controllercalendarios'
+require_relative '../model/validadorDeCalendario'
 require 'json'
 
 describe 'ControllerCalendarios' do
     
     let(:controlador) { ControllerCalendarios.new}
+    let(:validador) { ValidadorDeCalendario.new}
     
     it "Se crea un calendario de nombre Laboral al llamar a obtenerCalendario deberia devolver calendario de nombre laboral" do
       
@@ -24,9 +26,14 @@ describe 'ControllerCalendarios' do
     end
 
     it "Agregar calendario en repositorio sin calendarios deberia devolver una lista de calendario de tamanio 1" do
-      calendarioLaboral = Calendario.new('Laboral')
-
-      controlador.agregarCalendario(calendarioLaboral)
+      
+     json = JSON.parse '{"nombre":"Laboral"}'
+        
+     parametrosCalendario = {
+      nombre: json["nombre"]
+     }
+        
+      controlador.crearCalendario(json)
 
       calendarios = controlador.obtenerCalendarios()
       
@@ -34,11 +41,16 @@ describe 'ControllerCalendarios' do
     end
 
     it "Agregar calendario de nombre Aydoo al preguntar si esta el calendario deberia devolver true" do
-      calendarioLaboral = Calendario.new('Aydoo')
-
-      controlador.agregarCalendario(calendarioLaboral)
-
-      expect(controlador.estaCalendario?calendarioLaboral.nombre).to eq true
+      
+     json = JSON.parse '{"nombre":"Laboral"}'
+        
+     parametrosCalendario = {
+      nombre: json["nombre"]
+     }
+        
+      controlador.crearCalendario(json)
+  
+      expect(controlador.estaCalendario?parametrosCalendario.nombre).to eq true
     end
 
     it "Crear calendario en repositorio vacio deberia devolver tamanio lista de calendarios en 1" do
