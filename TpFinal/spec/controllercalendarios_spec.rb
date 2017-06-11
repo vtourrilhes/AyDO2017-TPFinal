@@ -2,17 +2,25 @@ require 'rspec'
 require_relative '../model/calendario'
 require_relative '../model/repositorioCalendarios'
 require_relative '../model/controllercalendarios'
+require 'json'
 
 describe 'ControllerCalendarios' do
     
     let(:controlador) { ControllerCalendarios.new}
     
     it "Se crea un calendario de nombre Laboral al llamar a obtenerCalendario deberia devolver calendario de nombre laboral" do
-      calendarioLaboral = Calendario.new('Laboral')
+      
+      json = JSON.parse '{"nombre":"Laboral"}'
+        
+     parametrosCalendario = {
+      nombre: json["nombre"]
+     }
+        
+      controlador.crearCalendario(json)
 
-      controlador.agregarCalendario(calendarioLaboral)
-
-      expect(controlador.obtenerCalendario(calendarioLaboral.nombre)).to eq calendarioLaboral
+      calendario = controlador.obtenerCalendario(parametrosCalendario.nombre)  
+        
+      expect(calendario.nombre).to eq parametrosCalendario.nombre
     end
 
     it "Agregar calendario en repositorio sin calendarios deberia devolver una lista de calendario de tamanio 1" do
