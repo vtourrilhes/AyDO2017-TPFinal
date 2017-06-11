@@ -18,11 +18,11 @@ describe 'ControllerCalendarios' do
 
       expect(nombre).to eq "Laboral"  
         
-      #controlador.crearCalendario(json)
+      controlador.crearCalendario(json)
 
-      #calendario = controlador.repositoriocalendarios.obtenerCalendario(nombre)  
+      calendario = controlador.repositoriocalendarios.obtenerCalendario(nombre)  
         
-      #expect(calendario.nombre).to eq nombre
+      expect(calendario.nombre).to eq nombre
     end
 
     it "Agregar calendario en repositorio sin calendarios deberia devolver una lista de calendario de tamanio 1" do
