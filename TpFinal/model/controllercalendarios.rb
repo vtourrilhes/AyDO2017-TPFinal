@@ -16,13 +16,13 @@ class ControllerCalendarios
   def crearCalendario(datos_json)
     
     parametrosCalendario = {
-      nombre: datos_json["nombre"].downcase
+      nombre: datos_json["nombre"]
     }
     
     validador = ValidadorDeJSON.new
     validador.validar_parametros_calendario(parametrosCalendario)
     
-    nombreCalendario = parametrosCalendario[:nombre]
+    nombreCalendario = parametrosCalendario[:nombre].downcase
     
     validador = ValidadorDeCalendario.new
     validador.existe_calendario(nombreCalendario)
