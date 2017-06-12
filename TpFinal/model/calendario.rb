@@ -1,4 +1,5 @@
 require_relative '../model/evento'
+require_relative '../model/generarRecurrencia'
 
 class Calendario  
  
@@ -37,6 +38,21 @@ class Calendario
       nombreEvento = nombreEvento.downcase      
       evento = Evento.new(id_evento,nombreEvento, nuevoInicio, nuevoFin, self)
       agregarEvento(evento); 
+  end
+  
+  def crearEventoRecurrente(idEvento,recurrencia)
+    
+    eventoNuevo = obtenerEvento? idEvento
+    
+    generadorDeRecurrencia = GenerarRecurrencia.new()
+    
+    eventosRecurrentes = generadorDeRecurrencia.crearEventosRecurrentes(self,eventoNuevo,recurrencia)
+    
+    #Agrego a la coleccion existente los nuevos
+		eventosRecurrentes.values.each do |eventoNuevo|
+			agregarEvento(eventoNuevo)
+		end
+    
   end
   
   def eliminarEvento(nombreEvento)

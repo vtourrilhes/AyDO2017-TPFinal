@@ -75,6 +75,8 @@ class ControllerCalendarios
       validadorEvento.validarDuracionEvento(nuevoInicio, nuevoFin)
       
       calendario.crearEvento(idEvento,nombreEvento,inicio,fin)
+      calendario.crearEventoRecurrente(idEvento,recurrencia)
+    
       self.repositoriocalendarios.agregarCalendario(calendario)
       persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios);
   end
@@ -87,15 +89,19 @@ class ControllerCalendarios
       inicio: datos_json["inicio"],
       fin: datos_json["fin"]
     } 
+      
       validadorDeJson.validar_parametros_evento(parametrosCalendario)
       nombreCalendario = parametrosEvento[:calendario]
       validadorCalendario.existe_calendario(self.repositoriocalendarios,nombreCalendario)
       calendario = self.repositoriocalendarios.obtenerCalendario(nombreCalendario)
+      
       nombreEvento = parametrosEvento[:nombre].downcase
       inicio = parametrosEvento[:inicio]
       fin = parametrosEvento[:fin]
+      
       validadorEvento.validarNoExisteEvento(nombreEvento,calendario)
       validadorEvento.validarDuracionEvento(nuevoInicio, nuevoFin)
+      
       calendario.actualizarEvento(nombreEvento,inicio,fin)
       self.repositoriocalendarios.agregarCalendario(calendario)
       persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios);
