@@ -23,19 +23,11 @@ class RepositorioCalendarios
   def obtenerCalendario(nombreCalendario)
     return self.calendarios[nombreCalendario]
   end
-  
-  #def obtenerCalendarioJSON(nombreCalendario)
-    #return self.calendarios[nombreCalendario].to_json
-  #end
-  
+    
   def obtenerCalendarios()
     return self.calendarios.values
   end
   
-  #def obtenerCalendariosJSON()
-    #return self.calendarios.to_json
-  #end
-
   def estaCalendario?(id_Calendario)
     return self.calendarios.key? id_Calendario
   end
