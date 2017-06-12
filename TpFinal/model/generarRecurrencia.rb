@@ -67,7 +67,7 @@ class GenerarRecurrencia
 			
 			#Itero entre los eventos actuales y el nuevo para ver que no se solape
 			eventosCalendario.values.each do |eventoCalendario|
-				validarEvento (evento,eventoCalendario)
+				validarEvento(evento,eventoCalendario)
 				#Si no valida, tira excepcion y anula toda la recurrencia
 			end
 
