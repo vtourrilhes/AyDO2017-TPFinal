@@ -33,10 +33,13 @@ class PersistidorDeDatos
 			File.open("#{path_calendarios}#{nameFile}", 'r') do |file|				
 				while (line = file.gets)					
 				    json = JSON.parse(line)
-				    inicio = Time.parse(json['fecha_inicio'])
+				    
+            id = json['id_evento']
+            nombre = json['nombre']
+            inicio = Time.parse(json['fecha_inicio'])
 				    fin = Time.parse(json['fecha_fin'])
 
-				    calendario.crearEvento(json['id_evento'], inicio, fin)				    
+				    calendario.crearEvento(id,nombre, inicio, fin)				    
 				end
 			end
 		end

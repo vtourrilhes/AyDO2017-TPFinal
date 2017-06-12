@@ -45,7 +45,6 @@ class ControllerCalendarios
   
   def eliminarCalendario(nombreCalendario)
     self.repositoriocalendarios.eliminarCalendario(nombreCalendario)
-    self.persistidorDeDatos.eliminarCalendario(nombreCalendario)
   end
   
   def crearEvento(datos_json)
@@ -66,12 +65,16 @@ class ControllerCalendarios
       nombreCalendario = parametrosEvento[:calendario]
       validadorCalendario.existe_calendario(self.repositoriocalendarios,nombreCalendario)
       calendario = self.repositoriocalendarios.obtenerCalendario(nombreCalendario)
+      
+      idEvento = parametrosEvento[:id].downcase
       nombreEvento = parametrosEvento[:nombre].downcase
       inicio = parametrosEvento[:inicio]
       fin = parametrosEvento[:fin]
+      
       validadorEvento.validarExisteEvento(nombreEvento,calendario)
       validadorEvento.validarDuracionEvento(nuevoInicio, nuevoFin)
-      calendario.crearEvento(nombreEvento,inicio,fin)
+      
+      calendario.crearEvento(idEvento,nombreEvento,inicio,fin)
       self.repositoriocalendarios.agregarCalendario(calendario)
       persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios);
   end

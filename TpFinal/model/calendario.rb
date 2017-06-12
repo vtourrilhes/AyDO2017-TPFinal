@@ -11,7 +11,7 @@ class Calendario
   end   
 
   def agregarEvento(nuevoEvento)   	
-  	self.eventos[nuevoEvento.nombre] = nuevoEvento
+  	self.eventos[nuevoEvento.id] = nuevoEvento
   end
 
   def obtenerEvento(id_evento)
@@ -32,14 +32,15 @@ class Calendario
   	return self.eventos.key? id_evento
   end
 
-  def crearEvento(nombreEvento, nuevoInicio, nuevoFin)
-      id_evento = nombreEvento.downcase      
-      evento = Evento.new(id_evento, nuevoInicio, nuevoFin, self)
+  def crearEvento(id_evento,nombreEvento, nuevoInicio, nuevoFin)
+      id_evento = id_evento.downcase        
+      nombreEvento = nombreEvento.downcase      
+      evento = Evento.new(id_evento,nombreEvento, nuevoInicio, nuevoFin, self)
       agregarEvento(evento); 
   end
   
   def eliminarEvento(nombreEvento)
-    self.eventos.delete(nombreCalendario)
+    self.eventos.delete(nombreEvento)
   end
  
 end
