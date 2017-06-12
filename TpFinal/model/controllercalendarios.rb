@@ -35,7 +35,7 @@ class ControllerCalendarios
     calendario = self.repositoriocalendarios.crearCalendario(nombreCalendario)
     persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios)
     
-    return calendario
+    return "Calendario creado con exito"
   end
   
   def obtenerCalendario(nombreCalendario)

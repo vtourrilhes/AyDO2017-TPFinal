@@ -5,17 +5,18 @@ require_relative 'model/convertidorJson'
 
 controlador = ControllerCalendarios.new
 convertidorJson = ConvertidorJson.new
-=begin
+
 post '/calendarios' do
   begin
     request.body.rewind
     datos_json = JSON.parse request.body.read
     controlador.crearCalendario(datos_json)
-  rescue Exception
+  rescue Exception => e
+    body e.message
     status 400
   end
 end
-
+=begin
 delete '/calendarios' do
   begin
     nombre = params[:nombre]
@@ -41,8 +42,8 @@ get '/calendarios/:nombre' do
     calendario = controlador.obtenerCalendario(nombre)
     body convertidorJson.obtenerJsonCalendario(calendario).to_json
     status 200
-  rescue Exception
-    # No encontrado
+  rescue Exception => e
+    body e.message
     status 404
   end
 end
@@ -53,7 +54,8 @@ post '/eventos' do
     datos_json = JSON.parse request.body.read
     controlador.crearEvento(datos_json)
     status 201
-  rescue Exception
+  rescue Exception => e
+    body e.message
     status 400
   end
 end
@@ -70,7 +72,8 @@ delete '/eventos/:id' do
   id_evento = params[:id]
   controlador.eliminarEvento(id_evento)
   status 200
-  rescue Exception
+  rescue Exception => e
+    body e.message
     status 400
   end
 end
