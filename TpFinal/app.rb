@@ -5,17 +5,18 @@ require_relative 'model/convertidorJson'
 
 controlador = ControllerCalendarios.new
 convertidorJson = ConvertidorJson.new
-=begin
+
 post '/calendarios' do
   begin
     request.body.rewind
-    datos_json = JSON.parse request.body.read
+    datos_json = JSON.parse(request.body.read)
     controlador.crearCalendario(datos_json)
-  rescue Exception
-    status 400
+  rescue Exception => ex
+    halt 400, "400 Bad Request: " + ex.to_s
   end
 end
 
+=begin
 delete '/calendarios' do
   begin
     nombre = params[:nombre]
