@@ -4,7 +4,7 @@ require_relative '../model/calendario'
 
 describe 'Evento' do
 
-  let(:evento) { Evento.new(Time.now, Time.now, "Aydoo", Calendario.new("TpFinal")) }  
+  let(:evento) { Evento.new("aydo01","Aydoo",Time.now, Time.now,  Calendario.new("TpFinal")) }  
 
   it 'actualizar evento inicio = 2017-06-03 20:00:00' do
   	nuevoInicio = Time.new("2017", "06","03","20","00")

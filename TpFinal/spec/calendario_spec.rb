@@ -37,15 +37,15 @@ describe 'Calendario' do
     end
 
     it "agregar dos eventos con mismo nombre a mismo calendario deberia lanzar una excepcion" do
-      calendario.crearEvento("AyDOO", Time.now, Time.now)      
+      calendario.crearEvento("aydo01","AyDOO", Time.now, Time.now)      
 
-      expect{validador.validarExisteEvento("AyDOO", calendario)}.to raise_error(NameError)
+      expect{validador.validarExisteEvento("aydo01","AyDOO", calendario)}.to raise_error(NameError)
     end
 
     it "preguntar evento de nombre Aydoo a calendario deberia devolver true" do
-      evento = calendario.crearEvento("AyDOO", Time.now, Time.now)      
+      evento = calendario.crearEvento("aydo01","AyDOO", Time.now, Time.now)      
 
-      expect(calendario.estaEvento? evento.nombre).to eq true
+      expect(calendario.estaEvento? evento.id).to eq true
     end
 
     it "validar que duracion del evento a crear sea menor o igual 72 horas" do
