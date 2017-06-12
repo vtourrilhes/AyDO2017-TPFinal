@@ -13,7 +13,7 @@ describe 'Calendario' do
 	end
 
 	it "agregar 1 evento a calendario sin eventos deberia devolver cantidad de eventos = 1 " do
-		evento = Evento.new("AyDoo", Time.now, Time.now, calendario)
+		evento = Evento.new("aydo01","AyDoo", Time.now, Time.now, calendario)
 
 		calendario.agregarEvento(evento)
 
@@ -21,19 +21,19 @@ describe 'Calendario' do
 	end
 
 	it "obtenerEvento de nombre AyDOO de calendario deberia devolver el evento " do
-		id_evento = "AyDOO".downcase
-		evento = Evento.new(id_evento, Time.now, Time.now, calendario)
+		nombre = "AyDOO".downcase
+		evento = Evento.new("aydo01",nombre, Time.now, Time.now, calendario)
 
 		calendario.agregarEvento(evento)		
 
-		expect(calendario.obtenerEvento(id_evento)).to eq evento	
+		expect(calendario.obtenerEvento("aydo01",)).to eq evento	
 	end
 
 	it "crearEvento Aydoo en calendario laboral" do
-      id_evento = "Aydoo"
-      evento = calendario.crearEvento(id_evento, Time.now, Time.now)
+      nombre = "Aydoo"
+      evento = calendario.crearEvento("aydo01",nombre, Time.now, Time.now)
 
-      expect(calendario.obtenerEvento(id_evento.downcase)).to eq evento
+      expect(calendario.obtenerEvento("aydo01")).to eq evento
     end
 
     it "agregar dos eventos con mismo nombre a mismo calendario deberia lanzar una excepcion" do
