@@ -18,11 +18,11 @@ post '/calendarios' do
   end
 end
 
-delete '/calendarios' do
+delete '/calendarios/:nombre' do
   begin
     nombre = params[:nombre]
     controlador.eliminarCalendario(nombre)
-    halt 200, "Se ha eliminado el calendario con exito el calendario " + calendario.nombre
+    halt 200, "Se ha eliminado con exito el calendario " + nombre
   rescue Exception =>ex
     halt 400, "404 Not Found: " + ex.to_s
   end
