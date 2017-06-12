@@ -23,7 +23,7 @@ delete '/calendarios' do
     nombre = params[:nombre]
     controlador.eliminarCalendario(nombre)
     halt 200, "Se ha eliminado el calendario con exito el calendario " + calendario.nombre
-  rescue Exception ex
+  rescue Exception =>ex
     halt 400, "404 Not Found: " + ex.to_s
   end
 end
@@ -64,7 +64,7 @@ put '/eventos' do
   datos_json = JSON.parse request.body.read
   controlador.actualizarEvento(datos_json)
   halt 200, "Se ha actualizado el evento con exito"
-  rescue Exception ex
+  rescue Exception => ex
     halt 404, "404 Not Found: " + ex.to_s
   end
 end
