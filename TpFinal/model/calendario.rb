@@ -1,5 +1,7 @@
 require_relative '../model/evento'
 require_relative '../model/generarRecurrencia'
+require_relative '../model/frecuenciaRecurrencia'
+
 
 class Calendario  
  
@@ -9,6 +11,8 @@ class Calendario
   def initialize (nombre)  
     self.nombre = nombre 
     self.eventos = {}
+    
+    
   end   
 
   def agregarEvento(nuevoEvento)   	
