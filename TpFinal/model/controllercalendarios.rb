@@ -45,6 +45,7 @@ class ControllerCalendarios
   
   def eliminarCalendario(nombreCalendario)
     self.repositoriocalendarios.eliminarCalendario(nombreCalendario)
+    self.persistidorDeDatos.eliminarCalendario(nombreCalendario)
   end
   
   def crearEvento(datos_json)

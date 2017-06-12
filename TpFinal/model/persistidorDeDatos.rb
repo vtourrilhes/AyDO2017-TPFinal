@@ -1,5 +1,6 @@
 require_relative '../model/repositorioCalendarios'
 require_relative '../model/convertidorJson'
+require 'fileutils'
 require 'json'
 require 'time'
 
@@ -41,5 +42,9 @@ class PersistidorDeDatos
 		end
 	
 		return repositorioCalendarios
+	end
+
+	def eliminarCalendario(nombreCalendario)
+		FileUtils.rm("#{path_calendarios}#{nombreCalendario}.txt")
 	end
 end
