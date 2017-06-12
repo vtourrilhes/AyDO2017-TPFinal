@@ -21,15 +21,15 @@ class ControllerCalendarios
     self.validadorEvento = ValidadorDeEvento.new
     self.validadorDeJson = ValidadorDeJSON.new
 
-    self.persistidorDeDatos.cargarDatosCalendarios(repositoriocalendarios) 
+    self.persistidorDeDatos.cargarDatosCalendarios(self.repositoriocalendarios) 
   end
   
   def crearCalendario(datos_json)
     nombreCalendario = datos_json['nombre'].downcase
 
-    validadorCalendario.existe_calendario(repositoriocalendarios, nombreCalendario)
+    validadorCalendario.existe_calendario(self.repositoriocalendarios,nombreCalendario)
     calendario = self.repositoriocalendarios.crearCalendario(nombreCalendario)
-    persistidorDeDatos.guardarDatosRepositorioCalendarios(repositoriocalendarios)
+    persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios)
     
     return calendario
   end
@@ -72,7 +72,7 @@ class ControllerCalendarios
       validadorEvento.validarDuracionEvento(nuevoInicio, nuevoFin)
       calendario.crearEvento(nombreEvento,inicio,fin)
       self.repositoriocalendarios.agregarCalendario(calendario)
-      persistidorDeDatos.guardarDatosRepositorioCalendarios(repositoriocalendarios);
+      persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios);
   end
   
     def actualizarEvento(datos_json)
@@ -94,7 +94,7 @@ class ControllerCalendarios
       validadorEvento.validarDuracionEvento(nuevoInicio, nuevoFin)
       calendario.actualizarEvento(nombreEvento,inicio,fin)
       self.repositoriocalendarios.agregarCalendario(calendario)
-      persistidorDeDatos.guardarDatosRepositorioCalendarios(repositoriocalendarios);
+      persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios);
 
   end
   
@@ -107,7 +107,7 @@ class ControllerCalendarios
       validadorEvento.validarNoExisteEvento(nombreEvento,calendario)
       calendario.eliminarEvento(nombreEvento)
       self.repositoriocalendarios.agregarCalendario(calendario)
-      persistidorDeDatos.guardarDatosRepositorioCalendarios(repositoriocalendarios);
+      persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios);
 
   end
   

@@ -10,9 +10,8 @@ class ValidadorDeCalendario
 
   def existe_calendario(repositorio,nombreCalendario)
   	if repositorio.estaCalendario? nombreCalendario
-  		raise NameError.new("Ya existe un calendario con ese nombre")
+  		raise NameError.new("Ya existe un calendario con ese nombre o el nombre ingresado es invalido")
   	end
-    #raise NameError.new("No existe el calendario") unless !repositorio.estaCalendario? nombreCalendario
   end
   
   def no_existe_calendario(repositorio,nombreCalendario)
