@@ -14,6 +14,7 @@ class ControllerCalendarios
   attr_accessor :validadorDeJson
   attr_accessor :validadorCalendario
   attr_accessor :validadorEvento
+  attr_accessor :frecuencias
 
   def initialize()  
     self.repositoriocalendarios = RepositorioCalendarios.new    
