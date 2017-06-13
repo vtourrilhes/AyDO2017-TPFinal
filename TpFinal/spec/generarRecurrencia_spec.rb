@@ -44,7 +44,7 @@ describe 'ControllerCalendarios' do
   
   it "Si genero recurrencia diaria por 7 dias para aydo01 tengo que obtener 7 eventos" do
     
-    frecuencia = Frecuencia.new("Diaria",7)
+    frecuencia = Frecuencia.new("Diaria",1)
     
     fechaFin = Time.new("2017", "01","26","01","00")
     
