@@ -42,7 +42,7 @@ class GenerarRecurrencia
 		  
 		index = 1
 		
-		while (fecha_inicio < fecha_fin)					
+		while (fecha_inicio <= fecha_fin)					
 			
       eventoId = eventoNuevo.id + index.to_s
       fechaFinEventoNuevo = fecha_inicio+tiempo_evento
@@ -56,7 +56,8 @@ class GenerarRecurrencia
 			end
 
 			#Validado OK , lo agrego
-			self.eventos[eventoNuevo.inicio] = evento
+			self.eventos[eventoId] = evento
+			validador.validarFechas(fecha_inicio,fecha_inicio+frecuencia)
 			fecha_inicio = fecha_inicio+frecuencia
       index = index + 1
 		end
