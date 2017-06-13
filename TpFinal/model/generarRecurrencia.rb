@@ -58,7 +58,7 @@ class GenerarRecurrencia
 		end
 		
 		#Retorno los nuevos eventos
-		return self.eventos
+		return self.eventos.values
 		
 	end
 

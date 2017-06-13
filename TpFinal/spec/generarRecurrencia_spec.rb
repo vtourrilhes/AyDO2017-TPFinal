@@ -46,15 +46,15 @@ describe 'ControllerCalendarios' do
     
     frecuencia = Frecuencia.new("Diaria",1)
     
-    fechaFin = Time.new("2017", "01","26","01","00")
+    fechaFin = Time.new("2017", "01","21","01","00")
     
     recurrenciaEvento = Recurrencia.new(fechaFin,frecuencia)
     
-    calendario.agregarEvento(evento3)
+    calendario.agregarEvento(evento4)
     
     result = generador.crearEventosRecurrentes(calendario,evento4,recurrenciaEvento)
     
-    expect{result.values.size}.to eq 7
+    expect{result.size}.to eq 2
   end
 
   
