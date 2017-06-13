@@ -3,17 +3,26 @@ require_relative '../model/evento'
 require_relative '../model/calendario'
 require_relative '../model/recurrenciaEvento'
 require_relative '../model/generarRecurrencia'
+require_relative '../model/validadorDeEvento'
 
 require 'json'
 
 describe 'ControllerCalendarios' do
 
   let(:generador) { GenerarRecurrencia.new}
+  let(:validador) {ValidadorDeEvento.new}
   let (:calendario) {Calendario.new("Laboral")}
-  let(:evento1) { Evento.new("aydo01","Aydoo",Time.now, Time.now,  calendario) } 
-  let(:evento2) { Evento.new("aydo02","Aydoo",Time.now, Time.now,  calendario) } 
-  let(:evento3) { Evento.new("aydo03","Aydoo",Time.now, Time.now,  calendario) } 
-  let(:evento4) { Evento.new("aydo04","Aydoo",Time.now, Time.now,  calendario) } 
+  let(:evento1) { Evento.new("aydo01","Aydoo",Time.new("2017", "01","19","01","00"), Time.new("2017", "01","19","23","30"),  calendario) } 
+  let(:evento2) { Evento.new("aydo02","Aydoo",Time.new("2017", "01","19","11","00"), Time.new("2017", "01","19","13","00"),  calendario) } 
+  let(:evento3) { Evento.new("aydo03","Aydoo",Time.new("2017", "01","19","09","00"), Time.new("2017", "01","19","12","00"),  calendario) } 
+  let(:evento4) { Evento.new("aydo04","Aydoo",Time.new("2017", "01","19","12","30"), Time.new("2017", "01","19","15","30"),  calendario) } 
+  
+    it "Si valido entre evento aydo03 y aydo04 obtengo true" do
+
+    result = validador.validarEvento(eventoNuevo,eventoActual)  
+
+    expect(result).to eq true
+  end
   
   #Time.new("2017", "06","03","21","00")
 =begin

@@ -1,45 +1,17 @@
 
 require_relative '../model/evento'
 require_relative '../model/recurrenciaEvento'
+require_relative '../model/validadorDeEvento'
 
 class GenerarRecurrencia
 
 	attr_accessor :eventos
 
-	def validarEvento (eventoNuevo,eventoActual)
-		
-		result = true
-		
-		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.inicio
-			result = false
-			#CASO A
-		end
-		
-		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.fin
-			result = false
-			#CASO B
-		end
-		
-		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.inicio
-			result = false
-			#CASO C
-		end
-		
-		if eventoNuevo.inicio < eventoActual.inicio and eventoNuevo.fin > eventoActual.fin
-			result = false
-			#CASO D
-		end
-		
-		if !result
-			raise NameError.new("Hay evento solapado")
-		end
-		
-		return result
-	end
-	
 	def crearEventosRecurrentes (calendario,eventoNuevo, recurrenciaEvento)
 		
 		self.eventos = {}
+    
+    validador = ValidadorDeEvento.new
 		
 		#Traigo todos los eventos que tengo actualmente en el calendario
 		eventosCalendario = calendario.obtenerEventos()
@@ -67,7 +39,7 @@ class GenerarRecurrencia
 			
 			#Itero entre los eventos actuales y el nuevo para ver que no se solape
 			eventosCalendario.values.each do |eventoCalendario|
-				validarEvento(evento,eventoCalendario)
+				validador.validarEvento(evento,eventoCalendario)
 				#Si no valida, tira excepcion y anula toda la recurrencia
 			end
 

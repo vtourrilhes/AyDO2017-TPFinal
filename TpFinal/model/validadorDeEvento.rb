@@ -31,5 +31,36 @@ class ValidadorDeEvento
       raise NameError.new("El evento no existe")
     end
   end
+  
+  def validarEvento (eventoNuevo,eventoActual)
+		
+		result = true
+		
+		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.inicio
+			result = false
+			#CASO A
+		end
+		
+		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.fin
+			result = false
+			#CASO B
+		end
+		
+		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.inicio
+			result = false
+			#CASO C
+		end
+		
+		if eventoNuevo.inicio < eventoActual.inicio and eventoNuevo.fin > eventoActual.fin
+			result = false
+			#CASO D
+		end
+		
+		if !result
+			raise NameError.new("Hay evento solapado")
+		end
+		
+		return result
+	end
 
 end
