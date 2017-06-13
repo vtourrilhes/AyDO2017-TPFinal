@@ -58,6 +58,42 @@ class ControllerCalendarios
   
   def crearEvento(datos_json)
       validadorDeJson.validar_parametros_evento(datos_json)
+    
+      datos_recurrencia = datos_json['recurrencia']      
+      nombreCalendario = datos_json['calendario']      
+    
+      validadorCalendario.no_existe_calendario(self.repositoriocalendarios,nombreCalendario.downcase)
+      calendario = self.repositoriocalendarios.obtenerCalendario(nombreCalendario.downcase)
+    
+      idEvento = datos_json['id']
+      nombreEvento = datos_json['nombre']
+      inicio = Time.parse(datos_json['inicio'])
+      fin = Time.parse(datos_json['fin'])
+      
+      validadorEvento.validarExisteEvento(idEvento.downcase,calendario)
+      validadorEvento.validarDuracionEvento(inicio, fin)
+      
+      calendario.crearEvento(idEvento,nombreEvento,inicio,fin)
+    
+    if !datos_recurrencia.nil
+    
+      frecuencia = datos_recurrencia["frecuencia"]
+      frecuencia_fin =  Time.parse(datos_recurrencia["fin"])
+    
+      frecuencia = self.frecuencias[frecuencia]
+      recurrencia = Recurrencia.new(frecuencia_fin,frecuencia)
+    
+      calendario.crearEventoRecurrente(idEvento,recurrencia)
+    end 
+    
+      self.repositoriocalendarios.agregarCalendario(calendario)
+      persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios)
+  end
+  
+=begin
+
+  def crearEvento(datos_json)
+      validadorDeJson.validar_parametros_evento(datos_json)
       datos_recurrencia = datos_json['recurrencia']      
       nombreCalendario = datos_json['calendario']      
       validadorCalendario.no_existe_calendario(self.repositoriocalendarios,nombreCalendario.downcase)
@@ -72,8 +108,7 @@ class ControllerCalendarios
       calendario.crearEvento(idEvento,nombreEvento,inicio,fin)
       persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios)
   end
-  
-=begin
+
 def crearEvento(datos_json)
   
     datos_recurrencia = JSON.parse datos_json["recurrencia"]

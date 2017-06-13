@@ -67,5 +67,24 @@ describe 'ControllerCalendarios' do
 
     expect{controlador.crearCalendario(json)}.to raise_error(NameError)
   end
+  
+    it "Se crea un calendario y un evento con recurrencia" do
+
+    json = JSON.parse '{"nombre":"Laboral"}'
+    nombre= json["nombre"].downcase
+    controlador.crearCalendario(json)
+    calendario = controlador.repositoriocalendarios.obtenerCalendario(nombre)  
+
+    expect(calendario.nombre).to eq nombre
+      
+    json = JSON.parse '{ "calendario":"Laboral",  "id":"unico-global",  "nombre":"aydoo",  "inicio": "2017-01-20T09:00:00",  "fin": "2017-01-20T12:00:00",  "recurrencia": {    "frecuencia": "diaria",    "fin":"2017-01-25"  }}'  
+    controlador.crearEvento(json)
+    calendario = controlador.obtenerCalendario(nombre)
+      
+    result = calendario.obtenerEventos()
+    
+    expect(result.size).to eq 7
+      
+  end
 
 end
