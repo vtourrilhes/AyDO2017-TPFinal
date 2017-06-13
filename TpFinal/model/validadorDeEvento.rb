@@ -40,6 +40,11 @@ class ValidadorDeEvento
 			result = false
 			#CASO D
 		end
+    
+    	if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.fin
+			result = false
+			#CASO B
+		end
 		
 =begin
 
@@ -47,10 +52,7 @@ class ValidadorDeEvento
 			result = false
 			#CASO A
 		end
-		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.fin
-			result = false
-			#CASO B
-		end
+	
 		
 		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.inicio
 			result = false
