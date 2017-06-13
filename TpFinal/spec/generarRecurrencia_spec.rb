@@ -42,11 +42,26 @@ describe 'ControllerCalendarios' do
     expect{validador.validarEvento(evento2,evento4)}.to raise_error(NameError)
   end
   
-  it "Si genero recurrencia diaria por 7 dias para aydo01 tengo que obtener 7 eventos" do
+  it "Si genero recurrencia diaria por 2 dias para aydo01 tengo que obtener 2 eventos" do
     
     frecuencia = Frecuencia.new("Diaria",1)
     
-    fechaFin = Time.new("2017", "01","21","01","00")
+    fechaFin = Time.new("2017", "01","22","01","00")
+    
+    recurrenciaEvento = Recurrencia.new(fechaFin,frecuencia)
+    
+    calendario.agregarEvento(evento4)
+    
+    result = generador.crearEventosRecurrentes(calendario,evento4,recurrenciaEvento)
+    
+    expect(result.size).to eq 2
+  end
+  
+    it "Si genero recurrencia diaria por 7 dias para aydo01 tengo que obtener 7 eventos" do
+    
+    frecuencia = Frecuencia.new("Diaria",1)
+    
+    fechaFin = Time.new("2017", "01","27","01","00")
     
     recurrenciaEvento = Recurrencia.new(fechaFin,frecuencia)
     
