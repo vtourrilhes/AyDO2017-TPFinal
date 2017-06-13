@@ -35,7 +35,7 @@ class GenerarRecurrencia
 		
 		while (fecha_inicio < fecha_fin)					
 			
-      eventoId = eventoNuevo.id +'_'+ index
+      eventoId = @eventoNuevo.id +'_'+ @index.to_s
       fechaFinEventoNuevo = fecha_inicio+tiempo_evento
       
 			evento = Evento.new(eventoId, eventoNuevo.nombre, fecha_inicio, fechaFinEventoNuevo,calendario)
