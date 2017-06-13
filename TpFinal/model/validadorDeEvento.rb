@@ -55,19 +55,12 @@ class ValidadorDeEvento
 			result = false
 			#CASO A
 		end
-		
-=begin
-
     
-
-		
-		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.inicio
+    if (eventoActual.inicio > eventoNuevo.inicio and eventoNuevo.fin > eventoActual.inicio and eventoActual.fin > eventoNuevo.fin)
 			result = false
 			#CASO C
 		end
 		
-		
-=end
 		if !result
 			raise NameError.new("Hay evento solapado")
 		end

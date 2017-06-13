@@ -33,8 +33,13 @@ describe 'ControllerCalendarios' do
   end
   
   it "Si valido entre evento aydo02 y aydo03 obtengo exception" do
-    #CASO C
+    #CASO A
     expect{validador.validarEvento(evento2,evento3)}.to raise_error(NameError)
+  end
+  
+  it "Si valido entre evento aydo02 y aydo04 obtengo exception" do
+    #CASO C
+    expect{validador.validarEvento(evento2,evento4)}.to raise_error(NameError)
   end
 
   #Time.new("2017", "06","03","21","00")
