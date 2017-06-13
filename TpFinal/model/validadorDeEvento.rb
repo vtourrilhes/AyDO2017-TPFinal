@@ -20,7 +20,9 @@ class ValidadorDeEvento
     if !result
       raise NameError.new("Fecha Final menor que Inicial")
     end
-    
+   return result
+  end
+  
     def validarFrecuencia(dias)
     result = (dias > 0) 
     
