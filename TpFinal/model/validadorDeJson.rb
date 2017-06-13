@@ -10,8 +10,6 @@ class ValidadorDeJSON
   def validar_parametros_evento(params)
     raise TypeError unless params.is_a? Hash
     
-    raise TypeError unless params[:recurrencia].is_a? Hash
-    
     raise TypeError unless !(params.has_key? :id)
     raise TypeError unless !(params.has_key? :calendario)
     raise TypeError unless !(params.has_key? :nombre)
