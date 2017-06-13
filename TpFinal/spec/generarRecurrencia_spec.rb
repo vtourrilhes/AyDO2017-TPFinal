@@ -9,7 +9,7 @@ require 'json'
 
 describe 'ControllerCalendarios' do
 
-  let(:generador) { GenerarRecurrencia.new}
+  let(:generador) { GeneradorDeRecurrencia.new}
   let(:validador) {ValidadorDeEvento.new}
   let(:calendario) {Calendario.new("Laboral")}
   let(:evento1) { Evento.new("aydo01","Aydoo",Time.new("2017", "01","19","01","00"), Time.new("2017", "01","19","23","30"),  calendario) } 

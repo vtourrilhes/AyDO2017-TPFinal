@@ -4,7 +4,7 @@ require_relative '../model/recurrenciaEvento'
 require_relative '../model/validadorDeEvento'
 require 'date'
 
-class GenerarRecurrencia
+class GeneradorDeRecurrencia
 
 	attr_accessor :eventos
 
@@ -14,30 +14,27 @@ class GenerarRecurrencia
     
     validador = ValidadorDeEvento.new
 		
-		#Traigo todos los eventos que tengo actualmente en el calendario
+		
 		eventosCalendario = {}
 		
-		#Cargo la coleccion existente
+		
 		calendario.obtenerEventos().each do |eventoCalendario|
 				eventosCalendario[eventoCalendario.nombre]=eventoCalendario
 			end
 		
-		#Eventos para cargar
-		#self.eventos[eventoNuevo.inicio] = eventoNuevo
 		
-		#Tiempo del evento, recurrencia y frecuencia
 		tiempo_evento = eventoNuevo.fin-eventoNuevo.inicio
 		recurrencia = recurrenciaEvento
 		frecuencia = recurrencia.frecuencia.peridodDeRepeticion*(24*3600)
 		
-		#Flags de While
+		
 		fecha_fin = recurrencia.fin
 		fecha_inicio = eventoNuevo.inicio
 		
 		validador.validarFrecuencia(frecuencia)
 		validador.validarFechas(fecha_inicio,fecha_inicio+frecuencia)
 		
-		#Primer evento a cargar
+		
 		fecha_inicio = fecha_inicio+frecuencia
 		  
 		index = 1
@@ -49,20 +46,20 @@ class GenerarRecurrencia
       
 			evento = Evento.new(eventoId, eventoNuevo.nombre, fecha_inicio, fechaFinEventoNuevo,calendario)
 			
-			#Itero entre los eventos actuales y el nuevo para ver que no se solape
+			
 			eventosCalendario.values.each do |eventoCalendario|
 				validador.validarEvento(evento,eventoCalendario)
-				#Si no valida, tira excepcion y anula toda la recurrencia
+				
 			end
 
-			#Validado OK , lo agrego
+			
 			self.eventos[eventoId] = evento
 			validador.validarFechas(fecha_inicio,fecha_inicio+frecuencia)
 			fecha_inicio = fecha_inicio+frecuencia
       index = index + 1
 		end
 		
-		#Retorno los nuevos eventos
+		
 		return self.eventos.values
 		
 	end

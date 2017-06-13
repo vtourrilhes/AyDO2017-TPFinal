@@ -10,3 +10,4 @@ Decisiones de Diseño:
  
  - Desde la clase controller al leer el json, que me permitira crear los distintos objetos, se llama el nombre de la llave en cada uno de los metodos segun corresponda. Esto puede generar inconveniente si se decide cambiar el nombre de la llave del json pues deberian recorrerse todos los metodos donde se llamen esas llaves y cambiarlos. Esto tambien viola  el pricipio de single responsability. 
  Una solucion puede consistir en generar un objeto que se encarge de leer el Json y me devuelva los datos mediante metodos. De esta manera si cambia el nombre de la llave solo modificar el metodo de esta clase en particular.
+- Por cuestiones de tiempo, los tipos de Frecuencia quedaron harcodeados en la clase controller, entendemos que no es lo mejor por lo que hubieramos querido levantar dicha parametría de un json y cargarlo en un diccionario para poder acceder a el.

@@ -44,11 +44,10 @@ class Calendario
      
      eventoNuevo = obtenerEvento(idEvento)
      
-     generadorDeRecurrencia = GenerarRecurrencia.new()
+     generadorDeRecurrencia = GeneradorDeRecurrencia.new()
      
      eventosRecurrentes = generadorDeRecurrencia.crearEventosRecurrentes(self,eventoNuevo,recurrencia)
      
-     #Agrego a la coleccion existente los nuevos
  		eventosRecurrentes.each do |eventoNuevo|
  			agregarEvento(eventoNuevo)
  		end
