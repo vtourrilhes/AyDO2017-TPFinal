@@ -35,6 +35,11 @@ class ValidadorDeEvento
   def validarEvento (eventoNuevo,eventoActual)
 		
 		result = true
+    
+    raise TypeError unless eventoNuevo.inicio.is_a? Time
+    raise TypeError unless eventoNuevo.fin.is_a? Time
+    raise TypeError unless eventoActual.inicio.is_a? Time
+    raise TypeError unless eventoActual.fin.is_a? Time
 		
     if eventoNuevo.inicio < eventoActual.inicio and eventoNuevo.fin > eventoActual.fin
 			result = false
