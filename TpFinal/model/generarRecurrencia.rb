@@ -2,6 +2,7 @@
 require_relative '../model/evento'
 require_relative '../model/recurrenciaEvento'
 require_relative '../model/validadorDeEvento'
+require 'date'
 
 class GenerarRecurrencia
 
@@ -28,7 +29,6 @@ class GenerarRecurrencia
 		tiempo_evento = eventoNuevo.fin-eventoNuevo.inicio
 		recurrencia = recurrenciaEvento
 		frecuencia = recurrencia.frecuencia.peridodDeRepeticion
-		
 		
 		#Flags de While
 		fecha_fin = recurrencia.fin
