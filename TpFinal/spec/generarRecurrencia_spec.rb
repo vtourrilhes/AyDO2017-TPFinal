@@ -54,7 +54,7 @@ describe 'ControllerCalendarios' do
     
     result = generador.crearEventosRecurrentes(calendario,evento4,recurrenciaEvento)
     
-    expect{result.values.size}.to equal 7
+    expect{result.values.size}.to eq 7
   end
 
   
