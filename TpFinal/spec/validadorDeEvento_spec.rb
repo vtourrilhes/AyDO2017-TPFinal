@@ -1,11 +1,11 @@
 require 'rspec' 
 require_relative '../model/evento'
 require_relative '../model/validadorDeEvento'
-
+require_relative '../model/calendario'
 describe 'ValidadorDeEvento' do
 
   let(:validador) {ValidadorDeEvento.new}
-  
+    let(:calendario) {Calendario.new("Laboral")}
   let(:evento1) { Evento.new("aydo01","Aydoo",Time.new("2017", "01","19","01","00"), Time.new("2017", "01","19","23","30"),  calendario) } 
   let(:evento2) { Evento.new("aydo02","Aydoo",Time.new("2017", "01","19","11","00"), Time.new("2017", "01","19","13","00"),  calendario) } 
   let(:evento3) { Evento.new("aydo03","Aydoo",Time.new("2017", "01","19","09","00"), Time.new("2017", "01","19","12","00"),  calendario) } 
