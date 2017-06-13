@@ -49,7 +49,7 @@ class Calendario
      eventosRecurrentes = generadorDeRecurrencia.crearEventosRecurrentes(self,eventoNuevo,recurrencia)
      
      #Agrego a la coleccion existente los nuevos
- 		eventosRecurrentes.values.each do |eventoNuevo|
+ 		eventosRecurrentes.each do |eventoNuevo|
  			agregarEvento(eventoNuevo)
  		end
      
