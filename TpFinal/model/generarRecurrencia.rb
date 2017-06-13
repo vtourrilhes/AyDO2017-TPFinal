@@ -34,11 +34,11 @@ class GenerarRecurrencia
 		fecha_fin = recurrencia.fin
 		fecha_inicio = eventoNuevo.inicio
 		
-		validarFrecuencia(frecuencia)
-		validador.validarFechas(fecha_inicio,fecha_inicio+frecuencia)
+		validador.validarFrecuencia(frecuencia)
+		validador.validarFechas(fecha_inicio,fecha_inicio.next_day(frecuencia))
 		
 		#Primer evento a cargar
-		fecha_inicio = fecha_inicio+frecuencia
+		fecha_inicio = fecha_inicio.next_day(frecuencia)
 		  
 		index = 1
 		
@@ -57,7 +57,7 @@ class GenerarRecurrencia
 
 			#Validado OK , lo agrego
 			self.eventos[eventoNuevo.inicio] = evento
-			fecha_inicio = fecha_inicio+frecuencia
+			fecha_inicio = fecha_inicio.next_day(frecuencia)
       index = index + 1
 		end
 		
