@@ -50,7 +50,9 @@ describe 'ControllerCalendarios' do
     
     recurrenciaEvento = Recurrencia.new(fechaFin,frecuencia)
     
-    result = generador.crearEventosRecurrentes(calendario,evento1,recurrenciaEvento)
+    calendario.agregarEvento(evento3)
+    
+    result = generador.crearEventosRecurrentes(calendario,evento4,recurrenciaEvento)
     
     expect{result.values.size}.to equal 7
   end

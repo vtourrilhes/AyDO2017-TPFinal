@@ -14,7 +14,12 @@ class GenerarRecurrencia
     validador = ValidadorDeEvento.new
 		
 		#Traigo todos los eventos que tengo actualmente en el calendario
-		eventosCalendario = calendario.obtenerEventos()
+		eventosCalendario = {}
+		
+		#Cargo la coleccion existente
+		calendario.obtenerEventos().each do |eventoCalendario|
+				eventosCalendario[eventoCalendario.nombre]=eventoCalendario
+			end
 		
 		#Eventos para cargar
 		#self.eventos[eventoNuevo.inicio] = eventoNuevo
