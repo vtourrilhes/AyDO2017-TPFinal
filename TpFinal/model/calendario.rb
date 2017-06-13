@@ -30,7 +30,7 @@ class Calendario
   end
 
   def estaEvento?(id_evento)
-  	return self.eventos.key? id_evento
+  	return self.eventos.key(id_evento)
   end
 
   def crearEvento(id_evento,nombreEvento, nuevoInicio, nuevoFin)
