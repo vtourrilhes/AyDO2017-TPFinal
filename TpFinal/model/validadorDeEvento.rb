@@ -46,18 +46,15 @@ class ValidadorDeEvento
 			#CASO B
 		end
     
-    if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.inicio
-			result = false
-			#CASO C
-		end
-		
-=begin
-
     if (eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.inicio and eventoActual.fin < eventoNuevo.fin)
 			result = false
 			#CASO A
 		end
-	
+		
+=begin
+
+    
+
 		
 		if eventoActual.inicio < eventoNuevo.inicio and eventoActual.fin > eventoNuevo.inicio
 			result = false
