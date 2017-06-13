@@ -20,6 +20,7 @@ class ConvertidorJson
 
 	def obtenerJsonEvento(evento)
 		jsonString = {
+			calendario: evento.calendario.nombre,
 			id_evento: evento.id, 
 			nombre: evento.nombre, 
 			fecha_inicio: evento.inicio, 

@@ -2,11 +2,7 @@
 
 require_relative '../model/calendario'
 
-class ValidadorDeEvento
-  
-  def initialize()
-    
-  end
+class ValidadorDeEvento  
 
   def validarDuracionEvento(inicio, fin)
     result = ((fin - inicio) >= 0) && ((fin - inicio)/3600 <= 72) 
@@ -19,25 +15,21 @@ class ValidadorDeEvento
   end
   
   def validarExisteEvento(id_evento,calendario)
-  	result = calendario.estaEvento? id_evento
-    
-    if !result
+    if calendario.estaEvento? id_evento
       raise NameError.new("El evento ya existe")
     end
+  end
 
-    return result
+  def validarActualizacionEvento(evento)
+    if evento.nil?
+      raise NameError.new("El evento ha actualizar no existe")
+    end
   end
   
   def validarNoExisteEvento(id_evento,calendario)
-  	result = calendario.estaEvento? id_evento
-    
-    result = !result
-    
-    if !result
+    if !(calendario.estaEvento? id_evento)
       raise NameError.new("El evento no existe")
     end
-
-    return result
   end
 
 end
