@@ -28,7 +28,7 @@ class GenerarRecurrencia
 		#Tiempo del evento, recurrencia y frecuencia
 		tiempo_evento = eventoNuevo.fin-eventoNuevo.inicio
 		recurrencia = recurrenciaEvento
-		frecuencia = recurrencia.frecuencia.peridodDeRepeticion*24
+		frecuencia = recurrencia.frecuencia.peridodDeRepeticion*(24*3600)
 		
 		#Flags de While
 		fecha_fin = recurrencia.fin
