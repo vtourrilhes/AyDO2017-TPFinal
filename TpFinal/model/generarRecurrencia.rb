@@ -35,7 +35,7 @@ class GenerarRecurrencia
 		
 		while (fecha_inicio < fecha_fin)					
 			
-      eventoId = eventoNuevo.id +'_'+ index.to_s
+      eventoId = eventoNuevo.id +'_'+ index
       fechaFinEventoNuevo = fecha_inicio+tiempo_evento
       
 			evento = Evento.new(eventoId, eventoNuevo.nombre, fecha_inicio, fechaFinEventoNuevo)
@@ -48,7 +48,8 @@ class GenerarRecurrencia
 
 			#Validado OK , lo agrego
 			self.eventos[eventoNuevo.inicio] = evento
-			fecha_inicio = fecha_inicio+frecuencia			
+			fecha_inicio = fecha_inicio+frecuencia
+      index = index + 1
 		end
 		
 		#Retorno los nuevos eventos
