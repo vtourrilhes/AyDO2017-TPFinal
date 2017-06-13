@@ -75,7 +75,7 @@ class ControllerCalendarios
       
       calendario.crearEvento(idEvento,nombreEvento,inicio,fin)
     
-    if !datos_recurrencia.nil
+    if (datos_recurrencia.is_a? Hash)
     
       frecuencia = datos_recurrencia["frecuencia"]
       frecuencia_fin =  Time.parse(datos_recurrencia["fin"])
