@@ -41,19 +41,19 @@ describe 'ControllerCalendarios' do
     #CASO C
     expect{validador.validarEvento(evento2,evento4)}.to raise_error(NameError)
   end
-
-  #Time.new("2017", "06","03","21","00")
-=begin
   
-  
-  it "Si valido entre evento aydo02 y aydo03 obtengo exception" do
-
-    expect{validador.validarEvento(evento2,evento3)}.to raise_error(NameError)
+  it "Si genero recurrencia diaria por 7 dias para aydo01 tengo que obtener 7 eventos" do
+    
+    frecuencia = Frecuencia.new("Diaria",7)
+    
+    fechaFin = Time.new("2017", "01","26","01","00")
+    
+    recurrenciaEvento = Recurrencia.new(fechaFin,frecuencia)
+    
+    result = crearEventosRecurrentes (calendario,evento01, recurrenciaEvento)
+    
+    expect{result.values.size}.to equal 7
   end
-  
-    it "Si valido entre evento aydo02 y aydo04 obtengo exception" do
 
-    expect{validador.validarEvento(evento4,evento2)}.to raise_error(NameError)
-  end
-=end
+  
 end
