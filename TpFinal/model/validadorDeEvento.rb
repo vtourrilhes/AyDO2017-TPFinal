@@ -14,6 +14,23 @@ class ValidadorDeEvento
     return result
   end
   
+  def validarFechas(inicio, fin)
+    result = ((fin - inicio) > 0) 
+    
+    if !result
+      raise NameError.new("Fecha Final menor que Inicial")
+    end
+    
+    def validarFrecuencia(dias)
+    result = (dias > 0) 
+    
+    if !result
+      raise NameError.new("La frecuencia no es valida")
+    end
+
+    return result
+  end
+  
   def validarExisteEvento(id_evento,calendario)
     if calendario.estaEvento? id_evento
       raise NameError.new("El evento ya existe")

@@ -29,13 +29,17 @@ class GenerarRecurrencia
 		recurrencia = recurrenciaEvento
 		frecuencia = recurrencia.frecuencia.peridodDeRepeticion
 		
+		
 		#Flags de While
 		fecha_fin = recurrencia.fin
 		fecha_inicio = eventoNuevo.inicio
 		
+		validarFrecuencia(frecuencia)
+		validador.validarFechas(fecha_inicio,fecha_inicio+frecuencia)
+		
 		#Primer evento a cargar
 		fecha_inicio = fecha_inicio+frecuencia
-		
+		  
 		index = 1
 		
 		while (fecha_inicio < fecha_fin)					
