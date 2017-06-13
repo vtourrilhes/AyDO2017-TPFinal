@@ -34,10 +34,10 @@ class PersistidorDeDatos
 				while (line = file.gets)					
 				    json = JSON.parse(line)
 				    
-				    id = json['id_evento']
+				    id = json['id']
 		            nombre = json['nombre']
-		            inicio = Time.parse(json['fecha_inicio'])
-				    fin = Time.parse(json['fecha_fin'])
+		            inicio = Time.parse(json['inicio'])
+				    fin = Time.parse(json['fin'])
 
 				    calendario.crearEvento(id, nombre, inicio, fin)				    
 				end

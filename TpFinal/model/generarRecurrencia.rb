@@ -45,12 +45,12 @@ class GenerarRecurrencia
 		eventosCalendario = calendario.obtenerEventos()
 		
 		#Eventos para cargar
-		self.eventos[eventoNuevo.inicio] = eventoNuevo
+		#self.eventos[eventoNuevo.inicio] = eventoNuevo
 		
 		#Tiempo del evento, recurrencia y frecuencia
 		tiempo_evento = eventoNuevo.fin-eventoNuevo.inicio
-		recurrencia = eventoNuevo.recurrencia
-		frecuencia = recurrencia.peridodDeRepeticion
+		recurrencia = recurrenciaEvento
+		frecuencia = recurrencia.frecuencia.peridodDeRepeticion
 		
 		#Flags de While
 		fecha_fin = recurrencia.fin
@@ -59,13 +59,15 @@ class GenerarRecurrencia
 		#Primer evento a cargar
 		fecha_inicio = fecha_inicio+frecuencia
 		
+		index = 1
+		
 		while (fecha_inicio < fecha_fin)					
 			
-			evento = Evento.new(eventoNuevo.nombre, fecha_inicio, fecha_inicio+tiempo_evento)
+			evento = Evento.new(eventoNuevo.id +"_"+ index.to_s, eventoNuevo.nombre, fecha_inicio, fecha_inicio+tiempo_evento)
 			
 			#Itero entre los eventos actuales y el nuevo para ver que no se solape
 			eventosCalendario.values.each do |eventoCalendario|
-				validarEvento (evento,eventoCalendario)
+				validarEvento(evento,eventoCalendario)
 				#Si no valida, tira excepcion y anula toda la recurrencia
 			end
 
@@ -74,10 +76,8 @@ class GenerarRecurrencia
 			fecha_inicio = fecha_inicio+frecuencia			
 		end
 		
-		#Agrego a la coleccion existente los nuevos
-		eventos.values.each do |eventoNuevo|
-			calendario.agregarEvento(eventoNuevo)
-		end
+		#Retorno los nuevos eventos
+		return self.eventos
 		
 	end
 

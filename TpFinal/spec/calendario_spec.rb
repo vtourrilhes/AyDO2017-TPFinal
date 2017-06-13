@@ -22,11 +22,11 @@ describe 'Calendario' do
 
 	it "obtenerEvento de nombre AyDOO de calendario deberia devolver el evento " do
 		nombre = "AyDOO".downcase
-		evento = Evento.new("aydo01",nombre, Time.now, Time.now, calendario)
+		evento = Evento.new("aydo",nombre, Time.now, Time.now, calendario)
 
 		calendario.agregarEvento(evento)		
 
-		expect(calendario.obtenerEvento("aydo01",)).to eq evento	
+		expect(calendario.obtenerEvento("aydo")).to eq evento	
 	end
 
 	it "crearEvento Aydoo en calendario laboral" do
@@ -39,7 +39,7 @@ describe 'Calendario' do
     it "agregar dos eventos con mismo nombre a mismo calendario deberia lanzar una excepcion" do
       calendario.crearEvento("aydo01","AyDOO", Time.now, Time.now)      
 
-      expect{validador.validarExisteEvento("Aydoo", calendario)}.to raise_error(NameError)
+      expect{validador.validarExisteEvento("aydo01", calendario)}.to raise_error(NameError)
     end
 
     it "preguntar evento de nombre Aydoo a calendario deberia devolver true" do
