@@ -35,7 +35,10 @@ class GenerarRecurrencia
 		
 		while (fecha_inicio < fecha_fin)					
 			
-			evento = Evento.new(eventoNuevo.id +"_"+ index.to_s, eventoNuevo.nombre, fecha_inicio, fecha_inicio+tiempo_evento)
+      eventoId = eventoNuevo.id +"_"+ index.to_s
+      fechaFinEventoNuevo = fecha_inicio+tiempo_evento
+      
+			evento = Evento.new(eventoId, eventoNuevo.nombre, fecha_inicio, fechaFinEventoNuevo)
 			
 			#Itero entre los eventos actuales y el nuevo para ver que no se solape
 			eventosCalendario.values.each do |eventoCalendario|
