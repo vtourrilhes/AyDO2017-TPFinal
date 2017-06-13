@@ -1,6 +1,7 @@
   # Validador de Evento
 
 require_relative '../model/calendario'
+require 'date'
 
 class ValidadorDeEvento  
 
