@@ -83,7 +83,7 @@ describe 'ControllerCalendarios' do
       
     result = calendario.obtenerEventos()
     
-    expect(result.size).to eq 7
+    expect(result.size).to eq 5
       
   end
 
