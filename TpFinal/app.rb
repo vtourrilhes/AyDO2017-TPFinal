@@ -63,18 +63,23 @@ put '/eventos' do
   begin
   request.body.rewind
   datos_json = JSON.parse request.body.read
-  controlador.actualizarEvento(datos_json)
-  halt 200, "Se ha actualizado el evento con exito"
+
+  result = controlador.actualizarEvento(datos_json)
+  if result
+    halt 200, "Se ha actualizado el evento con exito"
+  end
   rescue Exception => ex
     halt 404, "404 Not Found: " + ex.to_s
   end
 end
 
-delete '/eventos/:id' do
+delete '/eventos/:id_calendario/:id' do
   begin
+  id_calendario = params[:id_calendario]
   id_evento = params[:id]
-  controlador.eliminarEvento(id_evento)
-  halt 200, "Se ha eliminado el evento con exito"
+  
+  controlador.eliminarEvento(id_calendario, id_evento)
+  halt 200, "Se ha eliminado con exito el evento"
   rescue Exception => ex
     halt 400, "400 Bad Request: " + ex.to_s
   end
@@ -82,18 +87,9 @@ end
 
 get '/eventos' do
   begin
-  eventos = controlador.obtenerTodosLosEventos()
-  halt 200, convertidorJson.obtenerArrayJsonEventos(eventos).to_json
-  rescue Exception => ex
-    halt 400, "400 Bad Request: " + ex.to_s
-  end
-end
-
-get '/eventos' do
-  begin
-  id_calendario = params[:calendario]
-  eventos = controlador.obtenerEventos(id_calendario.downcase)
-  halt 200, convertidorJson.obtenerArrayJsonEventos(eventos).to_json
+    id_calendario = params[:calendario]
+    eventos = controlador.obtenerEventos(id_calendario)    
+    halt 200, convertidorJson.obtenerArrayJsonEventos(eventos).to_json
   rescue Exception => ex
     halt 400, "400 Bad Request: " + ex.to_s
   end
@@ -103,7 +99,7 @@ get '/eventos/:id' do
   begin
   id_evento = params[:id]
   evento = controlador.obtenerEvento(id_evento.downcase)
-  halt 200, convertidorJson.obtenerJsonEvento(evento).to_json
+  halt 200, convertidorJson.obtenerArrayJsonEventos(evento).to_json
   rescue Exception => ex
     halt 400, "400 Bad Request: " + ex.to_s
 end

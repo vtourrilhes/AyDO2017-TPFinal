@@ -1,4 +1,6 @@
 # Validador de JSON
+require_relative 'jsonEvento'
+
 require 'json'
 class ValidadorDeJSON
 
@@ -7,15 +9,23 @@ class ValidadorDeJSON
     raise TypeError unless params[:nombre].is_a? String
   end
   
-  def validar_parametros_evento(params)
-    raise TypeError unless params.is_a? Hash
+  def validar_parametros_actualizacion_evento(params)  
+    json = JsonEvento.new(params)
+
+    raise TypeError.new("No se especifico el id del evento") unless !(json.obtenerIdEvento().nil?)
+    raise TypeError.new("No se especifico el calendario del evento") unless !(json.obtenerNombreCalendario().nil?)
     
-    raise TypeError unless !(params.has_key? :id)
-    raise TypeError unless !(params.has_key? :calendario)
-    raise TypeError unless !(params.has_key? :nombre)
-    raise TypeError unless !(params.has_key? :inicio)
-    raise TypeError unless !(params.has_key? :fin)
-    raise TypeError unless !(params.has_key? :recurrencia)
+  end
+
+  def validar_parametros_evento(params)
+    json = JsonEvento.new(params)   
+    
+    raise TypeError.new("No se especifico el id del evento") unless !(json.obtenerIdEvento().nil?)
+    raise TypeError.new("No se especifico el id del calendario") unless !(json.obtenerNombreCalendario().nil?)
+    raise TypeError.new("No se especifico el nombre del evento") unless !(json.obtenerNombreEvento().nil?)
+    raise TypeError.new("No se especifico el fecha inicio del evento") unless !(json.obtenerFechaInicio().nil?)
+    raise TypeError.new("No se especifico el fecha fin del evento") unless !(json.obtenerFechaFin().nil?)
+    
   end
 
 end

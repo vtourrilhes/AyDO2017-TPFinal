@@ -9,7 +9,7 @@ class ValidadorDeEvento
     result = ((fin - inicio) >= 0) && ((fin - inicio)/3600 <= 72) 
     
     if !result
-      raise NameError.new("El evento excede la duración máxima de 72 horas")
+      raise NameError.new("El evento excede la duracion maxima de 72 horas")
     end
 
     return result

@@ -1,5 +1,7 @@
 require_relative '../model/repositorioCalendarios'
 require_relative '../model/convertidorJson'
+require_relative '../model/jsonEvento'
+require_relative '../model/convertidorStringAFechaTiempo'
 require 'fileutils'
 require 'json'
 require 'time'
@@ -25,19 +27,20 @@ class PersistidorDeDatos
 		end
 	end
 
-	def cargarDatosCalendarios(repositorioCalendarios)
+	def cargarDatosCalendarios(repositorioCalendarios)		
 		Dir.glob("#{path_calendarios}*").each do |fullNameFile|
 			nameFile = fullNameFile.gsub('./calendarios/', '')
 			calendario = repositorioCalendarios.crearCalendario(nameFile.gsub('.txt',''))
 
 			File.open("#{path_calendarios}#{nameFile}", 'r') do |file|				
 				while (line = file.gets)					
-				    json = JSON.parse(line)
+				    json = JsonEvento.new(JSON.parse(line))
+
 				    
-				    id = json['id']
-		            nombre = json['nombre']
-		            inicio = Time.parse(json['inicio'])
-				    fin = Time.parse(json['fin'])
+				    id = json.obtenerIdEvento()
+		            nombre = json.obtenerNombreEvento()
+		            inicio = convertirStringATime(json.obtenerFechaInicio())
+				    fin = convertirStringATime(json.obtenerFechaFin())
 
 				    calendario.crearEvento(id, nombre, inicio, fin)				    
 				end

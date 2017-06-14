@@ -40,18 +40,14 @@ class Calendario
       agregarEvento(evento); 
   end
   
-  def crearEventoRecurrente(idEvento,recurrencia)
+  def crearEventoRecurrente(idEvento,recurrencia)     
+    eventoNuevo = obtenerEvento(idEvento)     
+    generadorDeRecurrencia = GeneradorDeRecurrencia.new()
      
-     eventoNuevo = obtenerEvento(idEvento)
-     
-     generadorDeRecurrencia = GeneradorDeRecurrencia.new()
-     
-     eventosRecurrentes = generadorDeRecurrencia.crearEventosRecurrentes(self,eventoNuevo,recurrencia)
-     
+    eventosRecurrentes = generadorDeRecurrencia.crearEventosRecurrentes(self,eventoNuevo,recurrencia)     
  		eventosRecurrentes.each do |eventoNuevo|
  			agregarEvento(eventoNuevo)
- 		end
-     
+ 		end     
    end
   
   def eliminarEvento(nombreEvento)
