@@ -1,5 +1,5 @@
 require_relative '../model/evento'
-require_relative '../model/generarRecurrencia'
+require_relative '../model/generadorRecurrencia'
 
 class Calendario  
  

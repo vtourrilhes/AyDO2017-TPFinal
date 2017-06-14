@@ -2,7 +2,7 @@ require 'rspec'
 require_relative '../model/evento'
 require_relative '../model/calendario'
 require_relative '../model/recurrenciaEvento'
-require_relative '../model/generarRecurrencia'
+require_relative '../model/generadorRecurrencia'
 require_relative '../model/validadorDeEvento'
 
 require 'json'
