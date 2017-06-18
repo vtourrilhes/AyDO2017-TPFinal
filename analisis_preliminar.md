@@ -68,7 +68,7 @@ No cumple con la funcionalidad solicitada.
 
 ## ¿Tiene suficiente pruebas?
 
-Si bien tiene una cobertura muy buena, se hace muy dificil seguir que pruebas hicieron y cuales no dado que los test estan mal organizados. Uno espera que al abrir el archivo de test de Calendarios se encuentren las pruebas a los metodos de dicha clase mientras que lo que uno encuentra son pruebas referentes a otras clases, como por ejemplo ValidadorDeEvento. Por ejemplo en los test de calendarios no hay ningun test para el metodo "crearEventoRecurrente".
+La cobertura de las pruebas es de un 78.63%. Se hace muy dificil seguir que pruebas hicieron y cuales no dado que los test estan mal organizados. Uno espera que al abrir el archivo de test de Calendarios se encuentren las pruebas a los metodos de dicha clase mientras que lo que uno encuentra son pruebas referentes a otras clases, como por ejemplo ValidadorDeEvento. Por ejemplo en los test de calendarios no hay ningun test para el metodo "crearEventoRecurrente".
 
 ___
 
