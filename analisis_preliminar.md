@@ -34,7 +34,11 @@ Si bien en un apartado puntual del README donde se detallan los las cuestiones d
 ## ¿Implementa toda la funcionalidad pedida?
 
 No cumple con la funcionalidad solicitada.
-* @TODO Buscar todos los casos con ejemplos para detallar.
+
+* Si se crea un evento recurrente, y luego se piden los eventos de la aplicación (curl localhost:4567/eventos), se retorna más de un evento (tantos como entren teniendo en cuanta la frecuencia y el fin de la recurrencia), y se le asigna a cada uno un id distinto.
+* Si se quiere realizar una actualización en un evento, exige indicarle a qué calendario pertenece. Caso contrario, arroja el error "404 Not Found: No se especifico el calendario del evento".
+* Si se quiere eliminar un evento (curl -X DELETE localhost:4567/eventos/evento1), se recibe el error "Sinatra doesn't know this ditty"
+* Permite crear un calendario sin nombre (curl -X POST -d '{"nombre":""}' localhost:4567/calendarios).
 
 ## ¿Qué observaciones tiene sobre el modelo?
 
