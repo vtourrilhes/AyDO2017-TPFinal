@@ -4,36 +4,33 @@ class RepositorioCalendarios
 
   attr_accessor :calendarios
 
-  def initialize()  
-    self.calendarios = {}
-  end
-  
-  def agregarCalendario(calendario)    
-    self.calendarios[calendario.nombre] = calendario
+  def initialize
+    @calendarios = {}
   end
 
-  def crearCalendario(nombreCalendario)
-    
-      calendario = Calendario.new(nombreCalendario)
-      agregarCalendario(calendario)
-    
-      return self.calendarios[nombreCalendario]
-  end
-  
-  def obtenerCalendario(nombreCalendario)
-    return self.calendarios[nombreCalendario]
-  end
-  
-  def obtenerCalendarios()
-    return self.calendarios.values
+  def agregar_calendario(calendario)
+    @calendarios[calendario.nombre] = calendario
   end
 
-  def estaCalendario?(id_Calendario)
-    return self.calendarios.key? id_Calendario
-  end
-  
-  def eliminarCalendario(nombreCalendario)
-    self.calendarios.delete(nombreCalendario)
+  def crear_calendario(nombre)
+    calendario = Calendario.new(nombre)
+    agregar_calendario(calendario)
+    @calendarios[nombre]
   end
 
+  def obtener_calendario(nombre)
+    @calendarios[nombre]
+  end
+
+  def obtener_calendarios
+    @calendarios.values
+  end
+
+  def esta_calendario?(id)
+    @calendarios.key?(id)
+  end
+
+  def eliminar_calendario(nombre)
+    @calendarios.delete(nombre)
+  end
 end

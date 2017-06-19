@@ -9,48 +9,43 @@ require 'time'
 class PersistidorDeDatos
 
 	attr_accessor :path_calendarios
-	attr_accessor :convertidorJson
+	attr_accessor :convertidor_json
 
 	def initialize
-		self.path_calendarios = "./calendarios/"
-		self.convertidorJson = ConvertidorJson.new
+		@path_calendarios = './calendarios/'
+		@convertidor_json = ConvertidorJson.new
 	end
 
-	def guardarDatosRepositorioCalendarios(repositorioCalendarios)		
-		repositorioCalendarios.calendarios.values.each do |calendario|
+	def guardar_repositorio(repositorio)
+		repositorio.calendarios.values.each do |calendario|
 			File.open("#{path_calendarios}#{calendario.nombre}.txt", 'w') do |file|
-				calendario.obtener_eventos().each do |evento|
-					json_string = self.convertidorJson.obtenerJsonEvento(evento)
-					file.puts(json_string.to_json) 
+				calendario.obtener_eventos.each do |evento|
+					json_string = @convertidor_json.obtenerJsonEvento(evento)
+					file.puts(json_string.to_json)
 				end
 			end
 		end
 	end
 
-	def cargarDatosCalendarios(repositorioCalendarios)		
+	def cargar_repositorio(repositorio)
 		Dir.glob("#{path_calendarios}*").each do |fullNameFile|
-			nameFile = fullNameFile.gsub('./calendarios/', '')
-			calendario = repositorioCalendarios.crearCalendario(nameFile.gsub('.txt',''))
-
-			File.open("#{path_calendarios}#{nameFile}", 'r') do |file|				
-				while (line = file.gets)					
-				    json = JsonEvento.new(JSON.parse(line))
-
-				    
-				    id = json.obtenerIdEvento()
-		            nombre = json.obtenerNombreEvento()
-		            inicio = convertirStringATime(json.obtenerFechaInicio())
-				    fin = convertirStringATime(json.obtenerFechaFin())
-
-				    calendario.crear_evento(id, nombre, inicio, fin)
+			name_file = fullNameFile.gsub('./calendarios/', '')
+			calendario = repositorio.crear_calendario(name_file.gsub('.txt', ''))
+			File.open("#{path_calendarios}#{name_file}", 'r') do |file|
+				while (line = file.gets)
+					json = JsonEvento.new(JSON.parse(line))
+					id = json.obtenerIdEvento
+					nombre = json.obtenerNombreEvento
+					inicio = convertir_string_a_time(json.obtenerFechaInicio)
+					fin = convertir_string_a_time(json.obtenerFechaFin)
+					calendario.crear_evento(id, nombre, inicio, fin)
 				end
 			end
 		end
-	
-		return repositorioCalendarios
+		repositorio
 	end
 
-	def eliminarCalendario(nombreCalendario)
-		FileUtils.rm("#{path_calendarios}#{nombreCalendario}.txt")
+	def eliminar_calendario(nombre)
+		FileUtils.rm("#{path_calendarios}#{nombre}.txt")
 	end
 end

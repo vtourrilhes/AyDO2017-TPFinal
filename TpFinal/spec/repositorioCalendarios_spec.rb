@@ -9,15 +9,15 @@ describe 'RespositorioCalendarios' do
     it "Se crea un calendario de nombre Laboral al llamar a obtenerCalendario deberia devolver calendario de nombre laboral" do
       calendarioLaboral = Calendario.new('Laboral')
 
-      repositorio.agregarCalendario(calendarioLaboral)
+      repositorio.agregar_calendario(calendarioLaboral)
 
-      expect(repositorio.obtenerCalendario(calendarioLaboral.nombre)).to eq calendarioLaboral
+      expect(repositorio.obtener_calendario(calendarioLaboral.nombre)).to eq calendarioLaboral
     end
 
     it "Agregar calendario en repositorio sin calendarios deberia devolver una lista de calendario de tamanio 1" do
       calendarioLaboral = Calendario.new('Laboral')
 
-      repositorio.agregarCalendario(calendarioLaboral)
+      repositorio.agregar_calendario(calendarioLaboral)
 
       expect(repositorio.calendarios.values.size).to eq 1	
     end
@@ -25,20 +25,20 @@ describe 'RespositorioCalendarios' do
     it "Agregar calendario de nombre Aydoo al preguntar si esta el calendario deberia devolver true" do
       calendarioLaboral = Calendario.new('Aydoo')
 
-      repositorio.agregarCalendario(calendarioLaboral)
+      repositorio.agregar_calendario(calendarioLaboral)
 
-      expect(repositorio.estaCalendario?calendarioLaboral.nombre).to eq true
+      expect(repositorio.esta_calendario? calendarioLaboral.nombre).to eq true
     end
 
     it "Crear calendario en repositorio vacio deberia devolver tamanio lista de calendarios en 1" do
-      repositorio.crearCalendario("Aydoo")
+      repositorio.crear_calendario("Aydoo")
 
       expect(repositorio.calendarios.values.size).to eq 1
     end
 
     it "Crear 2 calendarios con el mismo nombre deberia devolver 1 calendario ya existente" do
-      repositorio.crearCalendario("Aydoo")
-      repositorio.crearCalendario("Aydoo")
+      repositorio.crear_calendario("Aydoo")
+      repositorio.crear_calendario("Aydoo")
       expect(repositorio.calendarios.values.size).to eq 1  
     end
   
