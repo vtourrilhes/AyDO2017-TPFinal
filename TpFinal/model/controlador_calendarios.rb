@@ -62,8 +62,8 @@ class ControladorCalendarios
     id_evento = json_evento.obtenerIdEvento.downcase
     inicio = convertir_string_a_time(json_evento.obtenerFechaInicio)
     fin = convertir_string_a_time(json_evento.obtenerFechaFin)
-    @validador_evento.validarExisteEvento(id_evento.downcase,calendario)
-    @validador_evento.validarDuracionEvento(inicio, fin)
+    @validador_evento.validar_existe_evento(id_evento.downcase, calendario)
+    @validador_evento.validar_duracion_evento(inicio, fin)
     calendario.crear_evento(id_evento, json_evento.obtenerNombreEvento, inicio, fin)
     if json_evento.tieneRecurrencia?
       frecuencia = json_evento.obtenerFrecuenciaDeRecurrencia
@@ -85,12 +85,12 @@ class ControladorCalendarios
     @validador_calendario.no_existe_calendario(@repositorio_calendarios, id_calendario)
     calendario = @repositorio_calendarios.obtener_calendario(id_calendario)
     evento = calendario.obtener_evento(json_evento.obtenerIdEvento.downcase)
-    @validador_evento.validarActualizacionEvento(evento)
+    @validador_evento.validar_actualizacion_evento(evento)
     actualizar = !(inicio.nil?) || !(fin.nil?)
     if actualizar
       inicio = asignar_fecha(inicio, evento)
       fin = asignar_fecha(fin, evento)
-      @validador_evento.validarDuracionEvento(inicio, fin)
+      @validador_evento.validar_duracion_evento(inicio, fin)
       evento.actualizar_evento(inicio, fin)
       @persistidor_de_datos.guardar_repositorio(@repositorio_calendarios)
     end
@@ -108,7 +108,7 @@ class ControladorCalendarios
   def eliminar_evento(id_calendario, id_evento)
     @validador_calendario.no_existe_calendario(@repositorio_calendarios,id_calendario)
     calendario = @repositorio_calendarios.obtener_calendario(id_calendario)
-    @validador_evento.validarNoExisteEvento(id_evento,calendario)
+    @validador_evento.validar_no_existe_evento(id_evento, calendario)
     calendario.eliminar_evento(id_evento)
     @persistidor_de_datos.guardar_repositorio(@repositorio_calendarios)
   end

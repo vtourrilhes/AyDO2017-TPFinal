@@ -13,28 +13,28 @@ describe 'ValidadorDeEvento' do
   let(:evento4) { Evento.new("aydo04","Aydoo",Time.new("2017", "01","19","12","30"), Time.new("2017", "01","19","15","30"),  calendario) } 
   
    it "Si valido entre evento aydo03 y aydo04 obtengo true" do
-    result = validador.validarEvento(evento3,evento4)  
+    result = validador.validar_evento(evento3, evento4)
     expect(result).to eq true
   end
   
   it "Si valido entre evento aydo01 y aydo02 obtengo exception" do
     #CASO D
-    expect{validador.validarEvento(evento1,evento2)}.to raise_error(NameError)
+    expect{validador.validar_evento(evento1, evento2)}.to raise_error(NameError)
   end
   
   it "Si valido entre evento aydo01 y aydo02 obtengo exception" do
     #CASO B
-    expect{validador.validarEvento(evento2,evento1)}.to raise_error(NameError)
+    expect{validador.validar_evento(evento2, evento1)}.to raise_error(NameError)
   end
   
   it "Si valido entre evento aydo02 y aydo03 obtengo exception" do
     #CASO A
-    expect{validador.validarEvento(evento2,evento3)}.to raise_error(NameError)
+    expect{validador.validar_evento(evento2, evento3)}.to raise_error(NameError)
   end
   
   it "Si valido entre evento aydo02 y aydo04 obtengo exception" do
     #CASO C
-    expect{validador.validarEvento(evento2,evento4)}.to raise_error(NameError)
+    expect{validador.validar_evento(evento2, evento4)}.to raise_error(NameError)
   end
   
   
