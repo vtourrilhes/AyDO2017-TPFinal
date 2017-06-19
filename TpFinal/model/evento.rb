@@ -1,5 +1,3 @@
-require_relative '../model/recurrencia_evento'
-
 class Evento
 
 	attr_reader :id
@@ -9,17 +7,17 @@ class Evento
 	attr_accessor :calendario
 	attr_accessor :recurrencia
 
-	def initialize (id, nombre, ini, fin, calendario, *recurrencia)
+	def initialize (id, nombre, fecha_inicio, fecha_fin, calendario, *recurrencia)
 		@id = id
 		@nombre = nombre
-		@inicio = ini
-		@fin = fin
+		@inicio = fecha_inicio
+		@fin = fecha_fin
 		@calendario = calendario
 		@recurrencia = recurrencia
 	end
 
-	def actualizar_evento (nuevo_inicio, nuevo_fin)
-		@inicio = nuevo_inicio
-		@fin = nuevo_fin
+	def actualizar_evento (fecha_inicio, fecha_fin)
+		@inicio = fecha_inicio
+		@fin = fecha_fin
 	end
 end

@@ -16,13 +16,13 @@ class Calendario
     @eventos[evento.id] = evento
   end
 
-  def obtener_evento(id_evento)
-    @eventos[id_evento]
+  def obtener_evento(id)
+    @eventos[id]
   end
 
-  def actualizar_evento(id_evento, nuevo_inicio, nuevo_fin)
-    evento = obtener_evento(id_evento)
-    evento.actualizar_evento(nuevo_inicio, nuevo_fin)
+  def actualizar_evento(id, fecha_inicio, fecha_fin)
+    evento = obtener_evento(id)
+    evento.actualizar_evento(fecha_inicio, fecha_fin)
     agrega_evento(evento)
   end
 
@@ -30,8 +30,8 @@ class Calendario
     @eventos.values
   end
 
-  def esta_evento?(id_evento)
-    @eventos.key?(id_evento)
+  def esta_evento?(id)
+    @eventos.key?(id)
   end
 
   def crear_evento(id, nombre, fecha_inicio, fecha_fin)
@@ -41,8 +41,8 @@ class Calendario
     agrega_evento(evento)
   end
 
-  def crear_evento_recurrente(id_evento, recurrencia)
-    evento_nuevo = obtener_evento(id_evento)
+  def crear_evento_recurrente(id, recurrencia)
+    evento_nuevo = obtener_evento(id)
     generador_de_recurrencia = GeneradorDeRecurrencia.new
     eventos_recurrentes = generador_de_recurrencia.crear_eventos_recurrentes(self, evento_nuevo, recurrencia)
     eventos_recurrentes.each do |evento|
@@ -50,8 +50,8 @@ class Calendario
     end
   end
 
-  def eliminar_evento(id_evento)
-    @eventos.delete(id_evento)
+  def eliminar_evento(id)
+    @eventos.delete(id)
   end
 
 end
