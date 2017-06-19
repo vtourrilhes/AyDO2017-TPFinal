@@ -1,10 +1,10 @@
 require 'sinatra'
 require 'json'
 require_relative 'model/controlador_calendarios'
-require_relative 'model/convertidor_json'
+require_relative 'model/conversor_json'
 
 controlador = ControladorCalendarios.new
-convertidorJson = ConvertidorJson.new
+convertidorJson = ConversorJson.new
 
 post '/calendarios' do
   begin
@@ -30,7 +30,7 @@ end
 get '/calendarios' do
   begin
     calendarios = controlador.obtener_calendarios()
-    halt 200, convertidorJson.obtenerArrayJsonCalendarios(calendarios).to_json
+    halt 200, convertidorJson.obtener_array_json_calendarios(calendarios).to_json
   rescue Exception => ex
     halt 400, "400 Bad Request: " + ex.to_s
   end
@@ -40,7 +40,7 @@ get '/calendarios/:nombre' do
   begin
     nombre = params[:nombre]
     calendario = controlador.obtener_calendario(nombre)
-    halt 200, convertidorJson.obtenerJsonCalendario(calendario).to_json
+    halt 200, convertidorJson.obtener_json_calendario(calendario).to_json
   rescue Exception => ex
     halt 404, "404 Not Found: " + ex.to_s
   end
@@ -85,7 +85,7 @@ get '/eventos' do
   begin
     id_calendario = params[:calendario]
     eventos = controlador.obtener_eventos(id_calendario)
-    halt 200, convertidorJson.obtenerArrayJsonEventos(eventos).to_json
+    halt 200, convertidorJson.obtener_array_json_eventos(eventos).to_json
   rescue Exception => ex
     halt 400, "400 Bad Request: " + ex.to_s
   end
@@ -95,7 +95,7 @@ get '/eventos/:id' do
   begin
     id_evento = params[:id]
     evento = controlador.obtener_evento(id_evento.downcase)
-    halt 200, convertidorJson.obtenerArrayJsonEventos(evento).to_json
+    halt 200, convertidorJson.obtener_array_json_eventos(evento).to_json
   rescue Exception => ex
     halt 400, "400 Bad Request: " + ex.to_s
   end
