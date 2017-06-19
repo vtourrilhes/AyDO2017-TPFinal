@@ -37,7 +37,7 @@ class Calendario
   def crear_evento(id, nombre, fecha_inicio, fecha_fin)
     id = id.downcase
     nombre = nombre.downcase
-    evento = Evento.new(id, nombre, fecha_inicio, fecha_fin,  self)
+    evento = Evento.new(id, nombre, fecha_inicio, fecha_fin, self)
     agrega_evento(evento)
   end
 

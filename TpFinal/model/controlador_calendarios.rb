@@ -7,7 +7,7 @@ require_relative '../model/json_evento'
 require_relative '../model/validador_de_json'
 require_relative '../model/validador_de_calendario'
 require_relative '../model/validador_de_evento'
-require_relative '../model/convertidor_string_a_fecha_tiempo'
+require_relative '../model/conversor_string_a_fecha_tiempo'
 require_relative '../model/frecuencia'
 require 'json'
 

@@ -1,7 +1,7 @@
 require_relative '../model/repositorio_calendarios'
 require_relative '../model/conversor_json'
 require_relative '../model/json_evento'
-require_relative '../model/convertidor_string_a_fecha_tiempo'
+require_relative '../model/conversor_string_a_fecha_tiempo'
 require 'fileutils'
 require 'json'
 require 'time'
