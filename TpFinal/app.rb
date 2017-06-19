@@ -105,7 +105,7 @@ post '/recursos' do
   begin
     request.body.rewind
     datos_json = JSON.parse(request.body.read)
-    recurso = controlador.crearRecurso(datos_json)
+    recurso = controlador.crear_recurso(datos_json)
     halt 200, "Se ha creado con exito el recurso " + recurso.nombre
   rescue Exception => ex
     halt 400, "400 Bad Request: " + ex.to_s
@@ -115,7 +115,7 @@ end
 get '/recursos' do
   begin
     recursos = controlador.obtener_recursos
-    halt 200, convertidorJson.obtenerArrayJsonRecursos(recursos).to_json
+    halt 200, convertidor_json.obtener_array_json_recursos(recursos).to_json
   rescue Exception => ex
     halt 400, "400 Bad Request: " + ex.to_s
   end
@@ -124,7 +124,7 @@ end
 delete '/recursos/:nombre' do
   begin
     nombre = params[:nombre]
-    controlador.eliminarRecurso(nombre)
+    controlador.eliminar_recurso(nombre)
     halt 200, "Se ha eliminado con exito el recurso " + nombre
   rescue Exception =>ex
     halt 400, "404 Not Found: " + ex.to_s
