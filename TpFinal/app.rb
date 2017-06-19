@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'json'
-require_relative 'model/controllercalendarios'
-require_relative 'model/convertidorJson'
+require_relative 'model/controller_calendarios'
+require_relative 'model/convertidor_json'
 
 controlador = ControllerCalendarios.new
 convertidorJson = ConvertidorJson.new

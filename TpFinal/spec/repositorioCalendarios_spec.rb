@@ -1,6 +1,6 @@
 require 'rspec' 
 require_relative '../model/calendario'
-require_relative '../model/repositorioCalendarios'
+require_relative '../model/repositorio_calendarios'
 
 describe 'RespositorioCalendarios' do
     

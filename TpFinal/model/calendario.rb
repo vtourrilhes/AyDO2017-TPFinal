@@ -1,5 +1,5 @@
 require_relative '../model/evento'
-require_relative '../model/generadorRecurrencia'
+require_relative '../model/generador_de_recurrencia'
 
 # Clase que funciona como controlador y repositorio de Eventos.
 class Calendario
@@ -44,7 +44,7 @@ class Calendario
   def crear_evento_recurrente(id_evento, recurrencia)
     evento_nuevo = obtener_evento(id_evento)
     generador_de_recurrencia = GeneradorDeRecurrencia.new
-    eventos_recurrentes = generador_de_recurrencia.crearEventosRecurrentes(self,evento_nuevo,recurrencia)
+    eventos_recurrentes = generador_de_recurrencia.crear_eventos_recurrentes(self, evento_nuevo, recurrencia)
     eventos_recurrentes.each do |evento|
       agrega_evento(evento)
     end

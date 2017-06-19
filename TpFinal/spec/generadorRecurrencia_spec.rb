@@ -1,9 +1,9 @@
 require 'rspec' 
 require_relative '../model/evento'
 require_relative '../model/calendario'
-require_relative '../model/recurrenciaEvento'
-require_relative '../model/generadorRecurrencia'
-require_relative '../model/validadorDeEvento'
+require_relative '../model/recurrencia_evento'
+require_relative '../model/generador_de_recurrencia'
+require_relative '../model/validador_de_evento'
 
 require 'json'
 
@@ -28,7 +28,7 @@ describe 'ControllerCalendarios' do
     
     calendario.agrega_evento(evento4)
     
-    result = generador.crearEventosRecurrentes(calendario,evento4,recurrenciaEvento)
+    result = generador.crear_eventos_recurrentes(calendario, evento4, recurrenciaEvento)
     
     expect(result.size).to eq 2
   end
@@ -43,7 +43,7 @@ describe 'ControllerCalendarios' do
     
     calendario.agrega_evento(evento4)
     
-    result = generador.crearEventosRecurrentes(calendario,evento4,recurrenciaEvento)
+    result = generador.crear_eventos_recurrentes(calendario, evento4, recurrenciaEvento)
     
     expect(result.size).to eq 7
   end

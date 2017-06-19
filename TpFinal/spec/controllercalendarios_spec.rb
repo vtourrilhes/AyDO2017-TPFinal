@@ -1,8 +1,8 @@
 require 'rspec' 
 require_relative '../model/calendario'
-require_relative '../model/repositorioCalendarios'
-require_relative '../model/controllercalendarios'
-require_relative '../model/validadorDeCalendario'
+require_relative '../model/repositorio_calendarios'
+require_relative '../model/controller_calendarios'
+require_relative '../model/validador_de_calendario'
 require 'json'
 
 describe 'ControllerCalendarios' do

@@ -9,18 +9,17 @@ class Evento
 	attr_accessor :calendario
 	attr_accessor :recurrencia
 
-	def initialize (id,nombre, ini, fin, calendario, *recurrencia)
-		self.id = id
-		self.nombre = nombre
-		self.inicio = ini
-		self.fin = fin
-		self.calendario = calendario
-		self.recurrencia = recurrencia
+	def initialize (id, nombre, ini, fin, calendario, *recurrencia)
+		@id = id
+		@nombre = nombre
+		@inicio = ini
+		@fin = fin
+		@calendario = calendario
+		@recurrencia = recurrencia
 	end
 
 	def actualizar_evento (nuevo_inicio, nuevo_fin)
-		self.inicio = nuevo_inicio
-		self.fin = nuevo_fin
+		@inicio = nuevo_inicio
+		@fin = nuevo_fin
 	end
-
 end

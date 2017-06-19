@@ -1,6 +1,6 @@
 # Validador de Calendario
 
-require_relative '../model/repositorioCalendarios'
+require_relative '../model/repositorio_calendarios'
 
 class ValidadorDeCalendario
 

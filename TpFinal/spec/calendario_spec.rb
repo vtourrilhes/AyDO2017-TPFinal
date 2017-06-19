@@ -1,12 +1,12 @@
 require 'rspec' 
 require_relative '../model/calendario'
 require_relative '../model/evento'
-require_relative '../model/validadorDeEvento'
+require_relative '../model/validador_de_evento'
 
 describe 'Calendario' do
 
 	let (:calendario) {Calendario.new("Laboral")}
-	let (:validador) {ValidadorDeEvento.new()}
+	let (:validador) {ValidadorDeEvento.new}
 
 	it "Si creo un calendario de nombre Laboral tengo que obtenerlo" do
 		expect(calendario.nombre).to eq 'Laboral'

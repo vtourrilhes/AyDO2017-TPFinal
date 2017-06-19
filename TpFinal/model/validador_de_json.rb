@@ -1,7 +1,6 @@
-# Validador de JSON
-require_relative 'jsonEvento'
-
+require_relative 'json_evento'
 require 'json'
+
 class ValidadorDeJSON
 
   def validar_parametros_calendario(params)
