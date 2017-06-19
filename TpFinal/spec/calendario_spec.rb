@@ -39,7 +39,7 @@ describe 'Calendario' do
     it "agregar dos eventos con mismo nombre a mismo calendario deberia lanzar una excepcion" do
       calendario.crear_evento("aydo01", "AyDOO", Time.now, Time.now)
 
-      expect{validador.validarExisteEvento("aydo01", calendario)}.to raise_error(NameError)
+      expect{validador.validar_existe_evento("aydo01", calendario)}.to raise_error(NameError)
     end
 
     it "preguntar evento de nombre Aydoo a calendario deberia devolver true" do
@@ -52,14 +52,14 @@ describe 'Calendario' do
       inicio = Time.parse("2017-06-06 22:49")
       fin = Time.parse("2017-06-09 22:49")      
 
-      expect(validador.validarDuracionEvento(inicio, fin)).to eq true
+      expect(validador.validar_duracion_evento(inicio, fin)).to eq true
     end
 
     it "crear evento con duracion mayor a 72 horas deberia devolver excepcion de exceso de duracion" do
       inicio = Time.parse("2017-06-06 22:49")
       fin = Time.parse("2017-06-10 22:49")      
 			
-      expect{validador.validarDuracionEvento(inicio, fin)}.to raise_error(NameError)
+      expect{validador.validar_duracion_evento(inicio, fin)}.to raise_error(NameError)
     end
 
 end
