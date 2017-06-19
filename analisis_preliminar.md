@@ -39,6 +39,9 @@ No cumple con la funcionalidad solicitada.
 * Si se quiere realizar una actualización en un evento, exige indicarle a qué calendario pertenece. Caso contrario, arroja el error "404 Not Found: No se especifico el calendario del evento".
 * Si se quiere eliminar un evento (curl -X DELETE localhost:4567/eventos/evento1), se recibe el error "Sinatra doesn't know this ditty"
 * Permite crear un calendario sin nombre (curl -X POST -d '{"nombre":""}' localhost:4567/calendarios).
+* Al intentar modificar el inicio de un evento, también se modifica la hora fin de ese evento.
+* No permite ingresar recurrencia a un evento que no es recurrente. No arroja error, pero no realiza el cambio solicitado.
+* Como los eventos recurrentes se crean como múltiples eventos simples, entonces tampoco nos permite realizar cambios sobre la recurrencia del evento.
 
 ## ¿Qué observaciones tiene sobre el modelo?
 
