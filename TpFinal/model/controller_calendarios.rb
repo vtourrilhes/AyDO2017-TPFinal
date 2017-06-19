@@ -110,7 +110,7 @@
           fin = setearFecha(fin, evento)
 
           validadorEvento.validarDuracionEvento(inicio, fin)
-          evento.actualizarEvento(inicio,fin)
+          evento.actualizar_evento(inicio, fin)
           persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios);
         end
 
