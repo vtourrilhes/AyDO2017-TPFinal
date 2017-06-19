@@ -11,7 +11,7 @@ require_relative '../model/convertidor_string_a_fecha_tiempo'
 require_relative '../model/frecuencia'
 require 'json'
 
-class ControllerCalendarios
+class ControladorCalendarios
 
   attr_accessor :repositorio_calendarios
   attr_accessor :persistidor_de_datos

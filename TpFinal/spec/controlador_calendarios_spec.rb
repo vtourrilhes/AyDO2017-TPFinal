@@ -1,14 +1,14 @@
 require 'rspec'
 require_relative '../model/calendario'
 require_relative '../model/repositorio_calendarios'
-require_relative '../model/controller_calendarios'
+require_relative '../model/controlador_calendarios'
 require_relative '../model/validador_de_calendario'
 require_relative '../model/persistidor_de_datos'
 require 'json'
 
 describe 'ControllerCalendarios' do
 
-  let(:controlador) { ControllerCalendarios.new}
+  let(:controlador) { ControladorCalendarios.new}
   let(:validador) { ValidadorDeCalendario.new}
 
   before do
