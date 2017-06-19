@@ -26,7 +26,7 @@ describe 'ControllerCalendarios' do
     
     recurrenciaEvento = Recurrencia.new(fechaFin,frecuencia)
     
-    calendario.agregarEvento(evento4)
+    calendario.agrega_evento(evento4)
     
     result = generador.crearEventosRecurrentes(calendario,evento4,recurrenciaEvento)
     
@@ -41,7 +41,7 @@ describe 'ControllerCalendarios' do
     
     recurrenciaEvento = Recurrencia.new(fechaFin,frecuencia)
     
-    calendario.agregarEvento(evento4)
+    calendario.agrega_evento(evento4)
     
     result = generador.crearEventosRecurrentes(calendario,evento4,recurrenciaEvento)
     

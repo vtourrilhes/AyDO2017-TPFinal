@@ -35,7 +35,7 @@ class ValidadorDeEvento
   end
   
   def validarExisteEvento(id_evento,calendario)
-    if calendario.estaEvento? id_evento
+    if calendario.esta_evento? id_evento
       raise NameError.new("El evento ya existe")
     end
   end
@@ -47,7 +47,7 @@ class ValidadorDeEvento
   end
   
   def validarNoExisteEvento(id_evento,calendario)
-    if !(calendario.estaEvento? id_evento)
+    if !(calendario.esta_evento? id_evento)
       raise NameError.new("El evento no existe")
     end
   end

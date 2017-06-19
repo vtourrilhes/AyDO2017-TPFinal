@@ -18,7 +18,7 @@ class GeneradorDeRecurrencia
 		eventosCalendario = {}
 		
 		
-		calendario.obtenerEventos().each do |eventoCalendario|
+		calendario.obtener_eventos().each do |eventoCalendario|
 				eventosCalendario[eventoCalendario.id]=eventoCalendario
 			end
 		

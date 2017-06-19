@@ -1,57 +1,57 @@
 require_relative '../model/evento'
 require_relative '../model/generadorRecurrencia'
 
-class Calendario  
- 
+# Clase que funciona como controlador y repositorio de Eventos.
+class Calendario
+
   attr_accessor :eventos
-  attr_accessor :nombre
+  attr_reader :nombre
 
-  def initialize (nombre)  
-    self.nombre = nombre 
-    self.eventos = {}
-  end   
-
-  def agregarEvento(nuevoEvento)   	
-  	self.eventos[nuevoEvento.id] = nuevoEvento
+  def initialize(nombre)
+    @nombre = nombre
+    @eventos = {}
   end
 
-  def obtenerEvento(id_evento)
-  	return self.eventos[id_evento]
-  end
-  
-  def actualizarEvento (id_evento,nuevoInicio, nuevoFin)
-    evento = obtenerEvento(id_evento)
-    evento.actualizarEvento(nuevoInicio, nuevoFin)
-    agregarEvento(evento)
-  end
-  
-  def obtenerEventos()
-  	return self.eventos.values
+  def agrega_evento(evento)
+    @eventos[evento.id] = evento
   end
 
-  def estaEvento?(id_evento)
-  	return self.eventos.key? id_evento
+  def obtener_evento(id_evento)
+    @eventos[id_evento]
   end
 
-  def crearEvento(id_evento,nombreEvento, nuevoInicio, nuevoFin)
-      id_evento = id_evento.downcase        
-      nombreEvento = nombreEvento.downcase      
-      evento = Evento.new(id_evento,nombreEvento, nuevoInicio, nuevoFin, self)
-      agregarEvento(evento); 
+  def actualizar_evento(id_evento, nuevo_inicio, nuevo_fin)
+    evento = obtener_evento(id_evento)
+    evento.actualizar_evento(nuevo_inicio, nuevo_fin)
+    agrega_evento(evento)
   end
-  
-  def crearEventoRecurrente(idEvento,recurrencia)     
-    eventoNuevo = obtenerEvento(idEvento)     
-    generadorDeRecurrencia = GeneradorDeRecurrencia.new()
-     
-    eventosRecurrentes = generadorDeRecurrencia.crearEventosRecurrentes(self,eventoNuevo,recurrencia)     
- 		eventosRecurrentes.each do |eventoNuevo|
- 			agregarEvento(eventoNuevo)
- 		end     
-   end
-  
-  def eliminarEvento(nombreEvento)
-    self.eventos.delete(nombreEvento)
+
+  def obtener_eventos
+    @eventos.values
   end
- 
+
+  def esta_evento?(id_evento)
+    @eventos.key?(id_evento)
+  end
+
+  def crear_evento(id, nombre, fecha_inicio, fecha_fin)
+    id = id.downcase
+    nombre = nombre.downcase
+    evento = Evento.new(id, nombre, fecha_inicio, fecha_fin,  self)
+    agrega_evento(evento)
+  end
+
+  def crear_evento_recurrente(id_evento, recurrencia)
+    evento_nuevo = obtener_evento(id_evento)
+    generador_de_recurrencia = GeneradorDeRecurrencia.new
+    eventos_recurrentes = generador_de_recurrencia.crearEventosRecurrentes(self,evento_nuevo,recurrencia)
+    eventos_recurrentes.each do |evento|
+      agrega_evento(evento)
+    end
+  end
+
+  def eliminar_evento(id_evento)
+    @eventos.delete(id_evento)
+  end
+
 end

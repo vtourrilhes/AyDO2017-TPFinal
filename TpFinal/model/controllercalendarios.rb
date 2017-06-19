@@ -80,13 +80,13 @@
         fin = convertirStringATime(jsonEvento.obtenerFechaFin())
         validadorEvento.validarExisteEvento(idEvento.downcase,calendario)
         validadorEvento.validarDuracionEvento(inicio, fin)
-        calendario.crearEvento(idEvento,jsonEvento.obtenerNombreEvento(),inicio,fin)    
+        calendario.crear_evento(idEvento, jsonEvento.obtenerNombreEvento(), inicio, fin)
         if (jsonEvento.tieneRecurrencia?)
           frecuencia = jsonEvento.obtenerFrecuenciaDeRecurrencia()
           frecuencia = self.frecuencias[frecuencia]
           finRecurrencia = convertirStringATime(jsonEvento.obtenerFinDeRecurrencia())
           recurrencia = Recurrencia.new(finRecurrencia,frecuencia)
-          calendario.crearEventoRecurrente(idEvento,recurrencia)
+          calendario.crear_evento_recurrente(idEvento, recurrencia)
         end 
 
         self.repositoriocalendarios.agregarCalendario(calendario)
@@ -101,7 +101,7 @@
         fin = jsonEvento.obtenerFechaFin()        
         validadorCalendario.no_existe_calendario(self.repositoriocalendarios, id_calendario)
         calendario = self.repositoriocalendarios.obtenerCalendario(id_calendario)        
-        evento = calendario.obtenerEvento(jsonEvento.obtenerIdEvento().downcase)
+        evento = calendario.obtener_evento(jsonEvento.obtenerIdEvento().downcase)
         validadorEvento.validarActualizacionEvento(evento)                  
 
         actualizar = !(inicio.nil?) || !(fin.nil?)
@@ -110,7 +110,7 @@
           fin = setearFecha(fin, evento)
 
           validadorEvento.validarDuracionEvento(inicio, fin)
-          evento.actualizarEvento(inicio,fin)
+          evento.actualizar_evento(inicio, fin)
           persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios);
         end
 
@@ -131,7 +131,7 @@
         validadorCalendario.no_existe_calendario(self.repositoriocalendarios,id_calendario)
         calendario = self.repositoriocalendarios.obtenerCalendario(id_calendario)        
         validadorEvento.validarNoExisteEvento(id_evento,calendario)
-        calendario.eliminarEvento(id_evento)
+        calendario.eliminar_evento(id_evento)
   
         persistidorDeDatos.guardarDatosRepositorioCalendarios(self.repositoriocalendarios);
     end
@@ -150,7 +150,7 @@
       if !nombreCalendario.nil?
         validadorCalendario.no_existe_calendario(self.repositoriocalendarios,nombreCalendario)
         calendario = self.repositoriocalendarios.obtenerCalendario(nombreCalendario)
-        eventos = calendario.obtenerEventos()
+        eventos = calendario.obtener_eventos()
       end
       return eventos
     end
@@ -161,7 +161,7 @@
       contador = 0;
 
       calendarios.each do |calendario|
-        calendario.obtenerEventos.each do |evento|
+        calendario.obtener_eventos.each do |evento|
           eventos[contador] = evento
           contador = contador + 1
         end
