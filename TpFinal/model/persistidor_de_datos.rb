@@ -1,51 +1,22 @@
-require_relative '../model/repositorio_calendarios'
-require_relative '../model/formateador_json'
-require_relative '../model/json_evento'
-require_relative '../model/conversor_string_a_fecha_tiempo'
-require 'fileutils'
-require 'json'
-require 'time'
-
+# Encargado de guardar y leer objetos de archivos.
 class PersistidorDeDatos
 
-	attr_accessor :ruta_directorio
-	attr_accessor :formateador_json
+	attr_accessor :ruta
 
 	def initialize
-		@ruta_directorio = './calendarios/'
-		@formateador_json = FormateadorJson.new
+		@ruta = './db.dump'
 	end
 
-	def guardar_repositorio(repositorio)
-		repositorio.calendarios.values.each do |calendario|
-			File.open("#{@ruta_directorio}#{calendario.nombre}.txt", 'w') do |file|
-				calendario.obtener_eventos.each do |evento|
-					json_string = @formateador_json.formatear_elemento(evento)
-					file.puts(json_string.to_json)
-				end
-			end
-		end
+	def guardar_elemento(elemento)
+		archivo = File.open(@ruta, 'w')
+    Marshal.dump(elemento, archivo)
+    archivo.close
 	end
 
-	def cargar_repositorio(repositorio)
-		Dir.glob("#{@ruta_directorio}*").each do |fullNameFile|
-			name_file = fullNameFile.gsub('./calendarios/', '')
-			calendario = repositorio.crear_calendario(name_file.gsub('.txt', ''))
-			File.open("#{@ruta_directorio}#{name_file}", 'r') do |file|
-				while (line = file.gets)
-					json = JsonEvento.new(JSON.parse(line))
-					id = json.obtener_id_evento
-					nombre = json.obtener_nombre_evento
-					inicio = convertir_string_a_time(json.obtener_fecha_inicio)
-					fin = convertir_string_a_time(json.obtener_fecha_fin)
-					calendario.crear_evento(id, nombre, inicio, fin)
-				end
-			end
-		end
-		repositorio
-	end
-
-	def eliminar_calendario(nombre)
-		FileUtils.rm("#{@ruta_directorio}#{nombre}.txt")
-	end
+	def cargar_elemento
+    if File.file?(@ruta)
+      archivo = File.open(@ruta, 'r')
+      Marshal.load(archivo)
+    end
+  end
 end

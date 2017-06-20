@@ -13,7 +13,7 @@ describe 'ControllerCalendarios' do
 
   before do
     persistidor = controlador.persistidor_de_datos
-    persistidor.stub(:guardar_repositorio => 'calendario guardado')
+    persistidor.stub(:guardar_elemento => 'calendario guardado')
     controlador.repositorio = RepositorioCalendarios.new
   end
 

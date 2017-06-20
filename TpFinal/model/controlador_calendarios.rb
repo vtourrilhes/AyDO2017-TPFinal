@@ -22,9 +22,8 @@ class ControladorCalendarios
 
   def initialize
     inicializar_frecuencias
-    @repositorio = RepositorioCalendarios.new
     @persistidor_de_datos = PersistidorDeDatos.new
-    @persistidor_de_datos.cargar_repositorio(@repositorio)
+    @repositorio = @persistidor_de_datos.cargar_elemento || RepositorioCalendarios.new
     @validador_calendario = ValidadorDeCalendario.new
     @validador_evento = ValidadorDeEvento.new
     @validador_json = ValidadorDeJSON.new
@@ -35,7 +34,7 @@ class ControladorCalendarios
     nombre_calendario = json_calendario.obtener_nombre_calendario
     @validador_calendario.existe_calendario(@repositorio, nombre_calendario)
     calendario = @repositorio.crear_calendario(nombre_calendario)
-    @persistidor_de_datos.guardar_repositorio(@repositorio)
+    @persistidor_de_datos.guardar_elemento(@repositorio)
     calendario
   end
 
@@ -49,7 +48,6 @@ class ControladorCalendarios
 
   def eliminar_calendario(nombre)
     @repositorio.eliminar_calendario(nombre)
-    @persistidor_de_datos.eliminar_calendario(nombre)
   end
 
   def crear_evento(datos_json)
@@ -73,7 +71,7 @@ class ControladorCalendarios
       calendario.crear_evento_recurrente(id_evento, recurrencia)
     end
     @repositorio.agregar_calendario(calendario)
-    @persistidor_de_datos.guardar_repositorio(@repositorio)
+    @persistidor_de_datos.guardar_elemento(@repositorio)
   end
 
   def actualizar_evento(datos_json)
@@ -92,7 +90,7 @@ class ControladorCalendarios
       fecha_fin = asignar_fecha(fecha_fin, evento)
       @validador_evento.validar_duracion_evento(fecha_inicio, fecha_fin)
       evento.actualizar_evento(fecha_inicio, fecha_fin)
-      @persistidor_de_datos.guardar_repositorio(@repositorio)
+      @persistidor_de_datos.guardar_elemento(@repositorio)
     end
     actualizar
   end
@@ -110,7 +108,7 @@ class ControladorCalendarios
     calendario = @repositorio.obtener_calendario(id_calendario)
     @validador_evento.validar_no_existe_evento(id_evento, calendario)
     calendario.eliminar_evento(id_evento)
-    @persistidor_de_datos.guardar_repositorio(@repositorio)
+    @persistidor_de_datos.guardar_elemento(@repositorio)
   end
 
   def obtener_evento(id)

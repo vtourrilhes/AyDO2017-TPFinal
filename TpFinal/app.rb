@@ -4,14 +4,13 @@ require_relative 'model/controlador_calendarios'
 require_relative 'model/formateador_json'
 
 controlador = ControladorCalendarios.new
-formateador_json = FormateadorJson.new
 
 post '/calendarios' do
   begin
     request.body.rewind
     datos_json = JSON.parse(request.body.read)
     calendario = controlador.crear_calendario(datos_json)
-    formateador_json.formatear_elemento(calendario)
+    FormateadorJson.formatear_elemento(calendario)
   rescue Exception
     status 400
   end
@@ -28,14 +27,14 @@ end
 
 get '/calendarios' do
   calendarios = controlador.obtener_calendarios
-  formateador_json.formatear_elementos(calendarios)
+  FormateadorJson.formatear_elementos(calendarios)
 end
 
 get '/calendarios/:nombre' do
   begin
     nombre = params[:nombre]
     calendario = controlador.obtener_calendario(nombre)
-    formateador_json.formatear_elemento(calendario)
+    FormateadorJson.formatear_elemento(calendario)
   rescue Exception
     status 404
   end
@@ -75,7 +74,7 @@ get '/eventos' do
   begin
     id_calendario = params[:calendario]
     eventos = controlador.obtener_eventos(id_calendario)
-    formateador_json.formatear_elementos(eventos)
+    FormateadorJson.formatear_elementos(eventos)
   rescue Exception
     status 400
   end
@@ -85,7 +84,7 @@ get '/eventos/:id' do
   begin
     id_evento = params[:id]
     evento = controlador.obtener_evento(id_evento.downcase)
-    formateador_json.formatear_elemento(evento)
+    FormateadorJson.formatear_elemento(evento)
   rescue Exception
     status 404
   end
