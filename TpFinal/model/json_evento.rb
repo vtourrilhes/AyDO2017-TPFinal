@@ -1,46 +1,45 @@
 class JsonEvento
 
-	attr_accessor :datosJson
+	attr_accessor :datos_json
 
 	def initialize(json)
-		self.datosJson = json
+		@datos_json = json
 	end
 
-	def obtenerIdEvento		
-		return datosJson['id']
+	def obtener_id_evento
+		@datos_json['id']
 	end
 
-	def obtenerFechaInicio		
-		return datosJson['inicio']
+	def obtener_fecha_inicio
+		@datos_json['inicio']
 	end
 
-	def obtenerFechaFin		
-		return datosJson['fin']
+	def obtener_fecha_fin
+		@datos_json['fin']
 	end
 
-	def obtenerNombreEvento		
-		return datosJson['nombre']
+	def obtener_nombre_evento
+		@datos_json['nombre']
 	end
 
-	def obtenerNombreCalendario		
-		return datosJson['calendario']
+	def obtener_nombre_calendario
+		@datos_json['calendario']
 	end
 
-	def tieneRecurrencia?
-		recurrencia = obtenerRecurrencia
-
-		return !recurrencia.nil?
+	def tiene_recurrencia?
+		recurrencia = obtener_recurrencia
+		!recurrencia.nil?
 	end
 
-	def obtenerRecurrencia
-		return datosJson['recurrencia']
+	def obtener_recurrencia
+		@datos_json['recurrencia']
 	end
 
-	def obtenerFrecuenciaDeRecurrencia
-		return obtenerRecurrencia['frecuencia']
+	def obtener_frecuencia_de_recurrencia
+		obtener_recurrencia['frecuencia']
 	end
 
-	def obtenerFinDeRecurrencia
-		return obtenerRecurrencia['fin']
+	def obtener_fin_de_recurrencia
+		obtener_recurrencia['fin']
 	end
 end

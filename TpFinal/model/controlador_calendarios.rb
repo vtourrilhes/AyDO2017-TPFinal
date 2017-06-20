@@ -55,20 +55,20 @@ class ControladorCalendarios
   def crear_evento(datos_json)
     @validador_json.validar_parametros_evento(datos_json)
     json_evento = JsonEvento.new(datos_json)
-    nombre_calendario = json_evento.obtenerNombreCalendario.downcase
+    nombre_calendario = json_evento.obtener_nombre_calendario.downcase
 
     @validador_calendario.no_existe_calendario(@repositorio_calendarios,nombre_calendario)
     calendario = @repositorio_calendarios.obtener_calendario(nombre_calendario)
-    id_evento = json_evento.obtenerIdEvento.downcase
-    inicio = convertir_string_a_time(json_evento.obtenerFechaInicio)
-    fin = convertir_string_a_time(json_evento.obtenerFechaFin)
+    id_evento = json_evento.obtener_id_evento.downcase
+    inicio = convertir_string_a_time(json_evento.obtener_fecha_inicio)
+    fin = convertir_string_a_time(json_evento.obtener_fecha_fin)
     @validador_evento.validar_existe_evento(id_evento.downcase, calendario)
     @validador_evento.validar_duracion_evento(inicio, fin)
-    calendario.crear_evento(id_evento, json_evento.obtenerNombreEvento, inicio, fin)
-    if json_evento.tieneRecurrencia?
-      frecuencia = json_evento.obtenerFrecuenciaDeRecurrencia
+    calendario.crear_evento(id_evento, json_evento.obtener_nombre_evento, inicio, fin)
+    if json_evento.tiene_recurrencia?
+      frecuencia = json_evento.obtener_frecuencia_de_recurrencia
       frecuencia = @frecuencias[frecuencia]
-      fin_recurrencia = convertir_string_a_time(json_evento.obtenerFinDeRecurrencia)
+      fin_recurrencia = convertir_string_a_time(json_evento.obtener_fin_de_recurrencia)
       recurrencia = Recurrencia.new(fin_recurrencia,frecuencia)
       calendario.crear_evento_recurrente(id_evento, recurrencia)
     end
