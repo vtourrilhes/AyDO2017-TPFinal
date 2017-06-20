@@ -11,19 +11,19 @@ class ValidadorDeJSON
   def validar_parametros_actualizacion_evento(params)  
     json = JsonEvento.new(params)
 
-    raise TypeError.new("No se especifico el id del evento") unless !(json.obtenerIdEvento().nil?)
-    raise TypeError.new("No se especifico el calendario del evento") unless !(json.obtenerNombreCalendario().nil?)
+    raise TypeError.new("No se especifico el id del evento") unless !(json.obtener_id_evento().nil?)
+    raise TypeError.new("No se especifico el calendario del evento") unless !(json.obtener_nombre_calendario().nil?)
     
   end
 
   def validar_parametros_evento(params)
     json = JsonEvento.new(params)   
     
-    raise TypeError.new("No se especifico el id del evento") unless !(json.obtenerIdEvento().nil?)
-    raise TypeError.new("No se especifico el id del calendario") unless !(json.obtenerNombreCalendario().nil?)
-    raise TypeError.new("No se especifico el nombre del evento") unless !(json.obtenerNombreEvento().nil?)
-    raise TypeError.new("No se especifico el fecha inicio del evento") unless !(json.obtenerFechaInicio().nil?)
-    raise TypeError.new("No se especifico el fecha fin del evento") unless !(json.obtenerFechaFin().nil?)
+    raise TypeError.new("No se especifico el id del evento") unless !(json.obtener_id_evento().nil?)
+    raise TypeError.new("No se especifico el id del calendario") unless !(json.obtener_nombre_calendario().nil?)
+    raise TypeError.new("No se especifico el nombre del evento") unless !(json.obtener_nombre_evento().nil?)
+    raise TypeError.new("No se especifico el fecha inicio del evento") unless !(json.obtener_fecha_inicio().nil?)
+    raise TypeError.new("No se especifico el fecha fin del evento") unless !(json.obtener_fecha_fin().nil?)
     
   end
 
