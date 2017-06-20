@@ -1,5 +1,5 @@
 require_relative '../model/repositorio_calendarios'
-require_relative '../model/conversor_json'
+require_relative '../model/formateador_json'
 require_relative '../model/json_evento'
 require_relative '../model/conversor_string_a_fecha_tiempo'
 require 'fileutils'
@@ -9,18 +9,18 @@ require 'time'
 class PersistidorDeDatos
 
 	attr_accessor :ruta_directorio
-	attr_accessor :conversor_json
+	attr_accessor :formateador_json
 
 	def initialize
 		@ruta_directorio = './calendarios/'
-		@conversor_json = ConversorJson.new
+		@formateador_json = FormateadorJson.new
 	end
 
 	def guardar_repositorio(repositorio)
 		repositorio.calendarios.values.each do |calendario|
 			File.open("#{@ruta_directorio}#{calendario.nombre}.txt", 'w') do |file|
 				calendario.obtener_eventos.each do |evento|
-					json_string = @conversor_json.obtener_json_evento(evento)
+					json_string = @formateador_json.formatear_elemento(evento)
 					file.puts(json_string.to_json)
 				end
 			end

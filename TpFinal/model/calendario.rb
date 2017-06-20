@@ -7,6 +7,12 @@ class Calendario
   attr_accessor :eventos
   attr_reader :nombre
 
+  def to_h
+    {
+      'nombre' => @nombre
+    }
+  end
+
   def initialize(nombre)
     @nombre = nombre
     @eventos = {}

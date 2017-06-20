@@ -7,6 +7,17 @@ class Evento
 	attr_accessor :calendario
 	attr_accessor :recurrencia
 
+  def to_h
+    {
+      'id' => @id,
+      'nombre' => @nombre,
+      'calendario' => @calendario.nombre,
+      'fecha_inicio' => @fecha_inicio,
+      'fecha_fin' => @fecha_fin,
+      'recurrencia' => @recurrencia,
+    }
+  end
+
 	def initialize (id, nombre, fecha_inicio, fecha_fin, calendario, *recurrencia)
 		@id = id
 		@nombre = nombre
