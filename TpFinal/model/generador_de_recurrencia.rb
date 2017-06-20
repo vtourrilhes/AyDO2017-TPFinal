@@ -19,7 +19,7 @@ class GeneradorDeRecurrencia
 
 		tiempo_evento = evento.fecha_fin - evento.fecha_inicio
 		recurrencia = recurrencia
-		frecuencia = recurrencia.frecuencia.periodo_de_repeticion*(24*3600)
+		frecuencia = recurrencia.frecuencia.periodo_repeticion*(24*3600)
 
 		fecha_fin = recurrencia.fecha_fin
 		fecha_inicio = evento.fecha_inicio
