@@ -16,11 +16,11 @@ class ConversorJson
 
 	def obtener_json_evento(evento)
 		{
-			calendario: evento.calendario.nombre,
-			id: evento.id,
-			nombre: evento.nombre,
-			inicio: evento.inicio,
-			fin: evento.fin
+				calendario: evento.calendario.nombre,
+				id: evento.id,
+				nombre: evento.nombre,
+				fecha_inicio: evento.fecha_inicio,
+				fecha_fin: evento.fecha_fin
 		}
 	end
 

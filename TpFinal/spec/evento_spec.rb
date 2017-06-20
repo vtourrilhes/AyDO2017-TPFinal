@@ -12,8 +12,8 @@ describe 'Evento' do
 
   	evento.actualizar_evento(nuevoInicio, nuevoFin)
 
-    expect(evento.inicio).to eq nuevoInicio
-    expect(evento.fin).to eq nuevoFin
+    expect(evento.fecha_inicio).to eq nuevoInicio
+    expect(evento.fecha_fin).to eq nuevoFin
   end
 
  end

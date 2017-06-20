@@ -17,12 +17,12 @@ class GeneradorDeRecurrencia
 			eventos_calendarios[evento_calendario.id]=evento_calendario
 		end
 
-		tiempo_evento = evento.fin - evento.inicio
+		tiempo_evento = evento.fecha_fin - evento.fecha_inicio
 		recurrencia = recurrencia
 		frecuencia = recurrencia.frecuencia.periodo_de_repeticion*(24*3600)
 
-		fecha_fin = recurrencia.fin
-		fecha_inicio = evento.inicio
+		fecha_fin = recurrencia.fecha_fin
+		fecha_inicio = evento.fecha_inicio
 
 		validador.validar_frecuencia(frecuencia)
 		validador.validar_fechas(fecha_inicio, fecha_inicio + frecuencia)
@@ -46,7 +46,7 @@ class GeneradorDeRecurrencia
 
 			@eventos[evento_id] = evento
 			validador.validar_fechas(fecha_inicio, fecha_inicio+frecuencia)
-			fecha_inicio = fecha_inicio+frecuencia
+			fecha_inicio = fecha_inicio + frecuencia
 			index = index + 1
 		end
 

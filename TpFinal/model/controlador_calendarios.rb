@@ -98,7 +98,7 @@ class ControladorCalendarios
   end
 
   def asignar_fecha(fecha_string, evento)
-    fecha = evento.inicio
+    fecha = evento.fecha_inicio
     unless fecha_string.nil?
       fecha = convertir_string_a_time(fecha_string)
     end

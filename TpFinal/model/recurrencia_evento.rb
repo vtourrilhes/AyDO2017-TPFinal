@@ -1,10 +1,9 @@
 class Recurrencia
-
-	attr_accessor :fin
+	attr_accessor :fecha_fin
 	attr_accessor :frecuencia
 
-	def initialize(fin, frecuencia)
-		@fin = fin
+	def initialize(fecha_fin, frecuencia)
+		@fecha_fin = fecha_fin
 		@frecuencia = frecuencia
 	end
 end
