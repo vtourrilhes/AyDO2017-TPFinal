@@ -1,5 +1,5 @@
 require_relative '../model/calendario'
-require_relative '../model/recurrencia_evento'
+require_relative '../model/recurrencia'
 require_relative '../model/repositorio_calendarios'
 require_relative '../model/persistidor_de_datos'
 require_relative '../model/json_calendario'
@@ -13,7 +13,7 @@ require 'json'
 
 class ControladorCalendarios
 
-  attr_accessor :repositorio_calendarios
+  attr_accessor :repositorio
   attr_accessor :persistidor_de_datos
   attr_accessor :validador_json
   attr_accessor :validador_calendario
@@ -22,9 +22,9 @@ class ControladorCalendarios
 
   def initialize
     inicializar_frecuencias
-    @repositorio_calendarios = RepositorioCalendarios.new
+    @repositorio = RepositorioCalendarios.new
     @persistidor_de_datos = PersistidorDeDatos.new
-    @persistidor_de_datos.cargar_repositorio(@repositorio_calendarios)
+    @persistidor_de_datos.cargar_repositorio(@repositorio)
     @validador_calendario = ValidadorDeCalendario.new
     @validador_evento = ValidadorDeEvento.new
     @validador_json = ValidadorDeJSON.new
@@ -32,23 +32,23 @@ class ControladorCalendarios
 
   def crear_calendario(datos_json)
     json_calendario = JsonCalendario.new(datos_json)
-    nombre_calendario = json_calendario.obtenerNombreCalendario
-    @validador_calendario.existe_calendario(@repositorio_calendarios,nombre_calendario)
-    calendario = @repositorio_calendarios.crear_calendario(nombre_calendario)
-    @persistidor_de_datos.guardar_repositorio(@repositorio_calendarios)
+    nombre_calendario = json_calendario.obtener_nombre_calendario
+    @validador_calendario.existe_calendario(@repositorio, nombre_calendario)
+    calendario = @repositorio.crear_calendario(nombre_calendario)
+    @persistidor_de_datos.guardar_repositorio(@repositorio)
     calendario
   end
 
   def obtener_calendario(nombre)
-    @repositorio_calendarios.obtener_calendario(nombre)
+    @repositorio.obtener_calendario(nombre)
   end
 
   def obtener_calendarios
-    @repositorio_calendarios.obtener_calendarios
+    @repositorio.obtener_calendarios
   end
 
   def eliminar_calendario(nombre)
-    @repositorio_calendarios.eliminar_calendario(nombre)
+    @repositorio.eliminar_calendario(nombre)
     @persistidor_de_datos.eliminar_calendario(nombre)
   end
 
@@ -57,8 +57,8 @@ class ControladorCalendarios
     json_evento = JsonEvento.new(datos_json)
     nombre_calendario = json_evento.obtener_nombre_calendario.downcase
 
-    @validador_calendario.no_existe_calendario(@repositorio_calendarios,nombre_calendario)
-    calendario = @repositorio_calendarios.obtener_calendario(nombre_calendario)
+    @validador_calendario.no_existe_calendario(@repositorio, nombre_calendario)
+    calendario = @repositorio.obtener_calendario(nombre_calendario)
     id_evento = json_evento.obtener_id_evento.downcase
     inicio = convertir_string_a_time(json_evento.obtener_fecha_inicio)
     fin = convertir_string_a_time(json_evento.obtener_fecha_fin)
@@ -66,33 +66,33 @@ class ControladorCalendarios
     @validador_evento.validar_duracion_evento(inicio, fin)
     calendario.crear_evento(id_evento, json_evento.obtener_nombre_evento, inicio, fin)
     if json_evento.tiene_recurrencia?
-      frecuencia = json_evento.obtener_frecuencia_de_recurrencia
+      frecuencia = json_evento.obtener_frecuencia_recurrencia
       frecuencia = @frecuencias[frecuencia]
       fin_recurrencia = convertir_string_a_time(json_evento.obtener_fin_de_recurrencia)
-      recurrencia = Recurrencia.new(fin_recurrencia,frecuencia)
+      recurrencia = Recurrencia.new(fin_recurrencia, frecuencia)
       calendario.crear_evento_recurrente(id_evento, recurrencia)
     end
-    @repositorio_calendarios.agregar_calendario(calendario)
-    @persistidor_de_datos.guardar_repositorio(@repositorio_calendarios)
+    @repositorio.agregar_calendario(calendario)
+    @persistidor_de_datos.guardar_repositorio(@repositorio)
   end
 
   def actualizar_evento(datos_json)
     @validador_json.validar_parametros_actualizacion_evento(datos_json)
     json_evento = JsonEvento.new(datos_json)
-    id_calendario = json_evento.obtenerNombreCalendario.downcase
-    inicio = json_evento.obtenerFechaInicio
-    fin = json_evento.obtenerFechaFin
-    @validador_calendario.no_existe_calendario(@repositorio_calendarios, id_calendario)
-    calendario = @repositorio_calendarios.obtener_calendario(id_calendario)
-    evento = calendario.obtener_evento(json_evento.obtenerIdEvento.downcase)
+    id_calendario = json_evento.obtener_nombre_calendario.downcase
+    fecha_inicio = json_evento.obtener_fecha_inicio
+    fecha_fin = json_evento.obtener_fecha_fin
+    @validador_calendario.no_existe_calendario(@repositorio, id_calendario)
+    calendario = @repositorio.obtener_calendario(id_calendario)
+    evento = calendario.obtener_evento(json_evento.obtener_id_evento.downcase)
     @validador_evento.validar_actualizacion_evento(evento)
-    actualizar = !(inicio.nil?) || !(fin.nil?)
+    actualizar = !(fecha_inicio.nil?) || !(fecha_fin.nil?)
     if actualizar
-      inicio = asignar_fecha(inicio, evento)
-      fin = asignar_fecha(fin, evento)
-      @validador_evento.validar_duracion_evento(inicio, fin)
-      evento.actualizar_evento(inicio, fin)
-      @persistidor_de_datos.guardar_repositorio(@repositorio_calendarios)
+      fecha_inicio = asignar_fecha(fecha_inicio, evento)
+      fecha_fin = asignar_fecha(fecha_fin, evento)
+      @validador_evento.validar_duracion_evento(fecha_inicio, fecha_fin)
+      evento.actualizar_evento(fecha_inicio, fecha_fin)
+      @persistidor_de_datos.guardar_repositorio(@repositorio)
     end
     actualizar
   end
@@ -106,30 +106,30 @@ class ControladorCalendarios
   end
 
   def eliminar_evento(id_calendario, id_evento)
-    @validador_calendario.no_existe_calendario(@repositorio_calendarios,id_calendario)
-    calendario = @repositorio_calendarios.obtener_calendario(id_calendario)
+    @validador_calendario.no_existe_calendario(@repositorio, id_calendario)
+    calendario = @repositorio.obtener_calendario(id_calendario)
     @validador_evento.validar_no_existe_evento(id_evento, calendario)
     calendario.eliminar_evento(id_evento)
-    @persistidor_de_datos.guardar_repositorio(@repositorio_calendarios)
+    @persistidor_de_datos.guardar_repositorio(@repositorio)
   end
 
   def obtener_evento(id)
     eventos = obtener_todos_los_eventos
-    eventos.select{|evento| evento.id == id}
+    eventos.select {|evento| evento.id == id}
   end
 
   def obtener_eventos(nombre_calendario)
     eventos = obtener_todos_los_eventos
     unless nombre_calendario.nil?
-      @validador_calendario.no_existe_calendario(@repositorio_calendarios, nombre_calendario)
-      calendario = @repositorio_calendarios.obtener_calendario(nombre_calendario)
+      @validador_calendario.no_existe_calendario(@repositorio, nombre_calendario)
+      calendario = @repositorio.obtener_calendario(nombre_calendario)
       eventos = calendario.obtener_eventos
     end
     eventos
   end
 
   def obtener_todos_los_eventos
-    calendarios = @repositorio_calendarios.obtener_calendarios
+    calendarios = @repositorio.obtener_calendarios
     eventos = []
     contador = 0
     calendarios.each do |calendario|
@@ -145,9 +145,9 @@ class ControladorCalendarios
 
   def inicializar_frecuencias
     @frecuencias = {}
-    @frecuencias['diaria'] = Frecuencia.new('diaria',1)
-    @frecuencias['semanal'] = Frecuencia.new('semanal',7)
-    @frecuencias['quincenal'] = Frecuencia.new('quincenal',15)
-    @frecuencias['mensual'] = Frecuencia.new('mensual',30)
+    @frecuencias['diaria'] = Frecuencia.new('diaria', 1)
+    @frecuencias['semanal'] = Frecuencia.new('semanal', 7)
+    @frecuencias['quincenal'] = Frecuencia.new('quincenal', 15)
+    @frecuencias['mensual'] = Frecuencia.new('mensual', 30)
   end
 end

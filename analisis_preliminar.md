@@ -66,12 +66,15 @@ No cumple con la funcionalidad solicitada.
 * Rompe con el principio de inversion de dependencia. Ejemplos:
     * En el metodo "crearEventoRecurrente" de la clase Calendario cuando instancia un GeneradorDeRecurrencia. 
     * En el metodo "crearCalendario" de la clase ControllerCalendarios cuando instancia un JsonCalendario 
+    * En el metodo initialize de ControllerCalendario  cuando instancia ValidadorDeCalendario, ValidadorDeEvento, ValidadorDeJSON
 
 @TODO Identificar con cuales otros principios no cumple y ejemplificar
 
 ## ¿Tiene suficiente pruebas?
 
-La cobertura de las pruebas es de un 78.63%. Se hace muy dificil seguir que pruebas hicieron y cuales no dado que los test estan mal organizados. Uno espera que al abrir el archivo de test de Calendarios se encuentren las pruebas a los metodos de dicha clase mientras que lo que uno encuentra son pruebas referentes a otras clases, como por ejemplo ValidadorDeEvento. Por ejemplo en los test de calendarios no hay ningun test para el metodo "crearEventoRecurrente".
+Luego de eliminar un test que no realizaba ninguna prueba significativa, es decir solo ejecutaba codigo, la cobertura dio un 67%. 
+Se hace muy dificil seguir que pruebas hicieron y cuales no dado que los test estan mal organizados. 
+Uno espera que al abrir el archivo de test de Calendarios se encuentren las pruebas a los metodos de dicha clase mientras que lo que uno encuentra son pruebas referentes a otras clases, como por ejemplo ValidadorDeEvento. Por ejemplo en los test de calendarios no hay ningun test para el metodo "crearEventoRecurrente".
 
 ___
 

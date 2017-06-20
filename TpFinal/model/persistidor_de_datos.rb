@@ -8,19 +8,19 @@ require 'time'
 
 class PersistidorDeDatos
 
-	attr_accessor :path_calendarios
-	attr_accessor :convertidor_json
+	attr_accessor :ruta_directorio
+	attr_accessor :conversor_json
 
 	def initialize
-		@path_calendarios = './calendarios/'
-		@convertidor_json = ConversorJson.new
+		@ruta_directorio = './calendarios/'
+		@conversor_json = ConversorJson.new
 	end
 
 	def guardar_repositorio(repositorio)
 		repositorio.calendarios.values.each do |calendario|
-			File.open("#{path_calendarios}#{calendario.nombre}.txt", 'w') do |file|
+			File.open("#{@ruta_directorio}#{calendario.nombre}.txt", 'w') do |file|
 				calendario.obtener_eventos.each do |evento|
-					json_string = @convertidor_json.obtener_json_evento(evento)
+					json_string = @conversor_json.obtener_json_evento(evento)
 					file.puts(json_string.to_json)
 				end
 			end
@@ -28,16 +28,16 @@ class PersistidorDeDatos
 	end
 
 	def cargar_repositorio(repositorio)
-		Dir.glob("#{path_calendarios}*").each do |fullNameFile|
+		Dir.glob("#{@ruta_directorio}*").each do |fullNameFile|
 			name_file = fullNameFile.gsub('./calendarios/', '')
 			calendario = repositorio.crear_calendario(name_file.gsub('.txt', ''))
-			File.open("#{path_calendarios}#{name_file}", 'r') do |file|
+			File.open("#{@ruta_directorio}#{name_file}", 'r') do |file|
 				while (line = file.gets)
 					json = JsonEvento.new(JSON.parse(line))
-					id = json.obtenerIdEvento
-					nombre = json.obtenerNombreEvento
-					inicio = convertir_string_a_time(json.obtenerFechaInicio)
-					fin = convertir_string_a_time(json.obtenerFechaFin)
+					id = json.obtener_id_evento
+					nombre = json.obtener_nombre_evento
+					inicio = convertir_string_a_time(json.obtener_fecha_inicio)
+					fin = convertir_string_a_time(json.obtener_fecha_fin)
 					calendario.crear_evento(id, nombre, inicio, fin)
 				end
 			end
@@ -46,6 +46,6 @@ class PersistidorDeDatos
 	end
 
 	def eliminar_calendario(nombre)
-		FileUtils.rm("#{path_calendarios}#{nombre}.txt")
+		FileUtils.rm("#{@ruta_directorio}#{nombre}.txt")
 	end
 end

@@ -31,15 +31,17 @@ class JsonEvento
 		!recurrencia.nil?
 	end
 
-	def obtener_recurrencia
-		@datos_json['recurrencia']
-	end
-
-	def obtener_frecuencia_de_recurrencia
+	def obtener_frecuencia_recurrencia
 		obtener_recurrencia['frecuencia']
 	end
 
 	def obtener_fin_de_recurrencia
 		obtener_recurrencia['fin']
+	end
+
+	private
+
+	def obtener_recurrencia
+		@datos_json['recurrencia']
 	end
 end

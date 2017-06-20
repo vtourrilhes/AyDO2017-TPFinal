@@ -61,7 +61,7 @@ class ValidadorDeEvento
     end
     if  evento_actual.fecha_inicio > evento_nuevo.fecha_inicio and
         evento_nuevo.fecha_fin > evento_actual.fecha_inicio and
-        evento_actual.fin > evento_nuevo.fin
+        evento_actual.fecha_fin > evento_nuevo.fecha_fin
       raise NameError.new('Hay evento solapado - caso C ' + evento_nuevo.fecha_inicio.to_s)
     end
     if  evento_nuevo.fecha_inicio < evento_actual.fecha_inicio and

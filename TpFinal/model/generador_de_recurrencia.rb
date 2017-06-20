@@ -1,5 +1,5 @@
 require_relative '../model/evento'
-require_relative '../model/recurrencia_evento'
+require_relative '../model/recurrencia'
 require_relative '../model/validador_de_evento'
 require 'date'
 
