@@ -181,4 +181,51 @@ describe 'Evento' do
     nuevo_inicio = inicio - casi_tres_dias
     evento.fecha_inicio = nuevo_inicio
   end
+
+  it 'Deberia devolver un diccionario con sus atributos si le pido to_h' do
+    fecha_inicio = DateTime.now
+    fecha_fin = DateTime.now
+    hash = {
+      'id' => 'id',
+      'nombre' => 'nombre',
+      'fecha_inicio' => fecha_inicio,
+      'fecha_fin' => fecha_fin,
+      'recurso' => nil
+    }
+    expect(Evento.new('id', 'nombre', fecha_inicio, fecha_fin).to_h).to eq(hash)
+  end
+
+  it 'Deberia poder asignar un recurso y obtenerlo' do
+    id = 'id_1'
+    nombre = 'Evento 1'
+    inicio = DateTime.now
+    fin = inicio
+    evento = Evento.new(id, nombre, inicio, fin)
+    recurso = double('Recurso')
+    evento.asignar_recurso(recurso)
+    expect(evento.recurso).to eq recurso
+  end
+
+  it 'Deberia poder desasignar un recurso' do
+    id = 'id_1'
+    nombre = 'Evento 1'
+    inicio = DateTime.now
+    fin = inicio
+    evento = Evento.new(id, nombre, inicio, fin)
+    recurso = double('Recurso')
+    evento.asignar_recurso(recurso)
+    evento.desasignar_recurso
+    expect(evento.recurso).to eq nil
+  end
+
+  it 'Deberia poder actualizar un evento' do
+    id = 'id_1'
+    nombre = 'Evento 1'
+    inicio = DateTime.now
+    fin = inicio
+    evento = Evento.new(id, nombre, inicio, fin)
+    evento.actualizar_evento(inicio + 1, fin + 1)
+    expect(evento.fecha_fin).to eq fin + 1
+    expect(evento.fecha_inicio).to eq inicio + 1
+  end
 end
