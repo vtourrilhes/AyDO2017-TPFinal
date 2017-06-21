@@ -39,12 +39,6 @@ class ValidadorDeEvento
     end
   end
 
-  def validar_no_existe_evento(id_evento, calendario)
-    unless calendario.esta_evento? id_evento
-      raise NameError.new('El evento no existe')
-    end
-  end
-
   def validar_evento (evento_nuevo, evento_actual)
     raise TypeError unless evento_nuevo.fecha_inicio.is_a? Time
     raise TypeError unless evento_nuevo.fecha_fin.is_a? Time
