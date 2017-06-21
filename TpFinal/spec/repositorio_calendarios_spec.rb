@@ -32,8 +32,7 @@ describe 'Respositorio Calendarios' do
 
   it 'Crear 2 calendarios con el mismo nombre deberia devolver 1 calendario ya existente' do
     repositorio.crear_calendario('Aydoo')
-    repositorio.crear_calendario('Aydoo')
-    expect(repositorio.calendarios.values.size).to eq 1
+    expect{ repositorio.crear_calendario('Aydoo')}.to raise_error(ExcepcionUnicidadCalendario)
   end
 
 end
