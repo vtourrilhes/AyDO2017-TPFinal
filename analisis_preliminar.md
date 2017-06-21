@@ -85,7 +85,7 @@ ___
 * Refactors para cumplir con convenciones y que sea mas simple la lectura.
 * Identificar que metodos deberian ser privados y cuales publicos para identificar bien las pruebas faltantes.
 * Crear excepciones particulares y modificar los test para ver si hay casos de pruebas incorrectos.
-* Uninir las clases referidas al uso del controlador y parse de datos.
+* Unir las clases referidas al uso del controlador y parse de datos.
 * Hacer que el codigo y el diagrama de clases sean coherentes.
 * Hacer los cambios para que cumpla con funcionalidad TP parte 1
 * Hacer analisis para funcionalidad TP parte 2
