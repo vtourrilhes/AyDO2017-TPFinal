@@ -5,8 +5,6 @@ require_relative '../model/calendario'
 require_relative '../model/repositorio_calendarios'
 require_relative '../model/repositorio_recursos'
 require_relative '../model/persistidor_de_datos'
-require_relative '../model/json_evento'
-require_relative '../model/conversor_string_a_fecha_tiempo'
 require_relative '../model/excepcion_solapamiento_recurso'
 require_relative '../model/repositorio_frecuencias'
 require 'json'
@@ -53,20 +51,20 @@ class ControladorCalendarios
   end
 
   def crear_evento(datos_json)
-    json_evento = JsonEvento.new(datos_json)
-    nombre_calendario = json_evento.obtener_nombre_calendario.downcase
+    nombre_calendario = datos_json['calendario']
     calendario = @repositorio_calendarios.obtener_calendario(nombre_calendario)
-    id_evento = json_evento.obtener_id_evento.downcase
-    inicio = convertir_string_a_time(json_evento.obtener_fecha_inicio)
-    fin = convertir_string_a_time(json_evento.obtener_fecha_fin)
+    id_evento = datos_json['id'].downcase
+    inicio = DateTime.parse(datos_json['inicio'])
+    fin = DateTime.parse(datos_json['fin'])
     id_evento = id_evento.downcase
-    nombre = json_evento.obtener_nombre_evento.downcase
-    recurso = json_evento.obtener_recurso
+    nombre = datos_json['nombre']
+    recurso = datos_json['recurso']
+    recurrencia = datos_json['recurrencia']
 
-    if json_evento.tiene_recurrencia?
+    if !recurrencia.nil?
 
-      frecuencia = @frecuencias[json_evento.obtener_frecuencia_recurrencia]
-      fin_recurrencia = convertir_string_a_time(json_evento.obtener_fin_de_recurrencia)
+      frecuencia = @frecuencias[datos_json['recurrencia']['frecuencia']]
+      fin_recurrencia = DateTime.parse(datos_json['recurrencia']['fin'])
       evento = EventoRecurrente.new(id_evento, nombre, inicio, fin, frecuencia, fin_recurrencia)
       asignar_recurso(recurso, evento)
     else
@@ -79,11 +77,10 @@ class ControladorCalendarios
   end
 
   def actualizar_evento(datos_json)
-    json_evento = JsonEvento.new(datos_json)
-    id_evento = json_evento.obtener_id_evento.downcase
-    fecha_inicio = json_evento.obtener_fecha_inicio
-    fecha_fin = json_evento.obtener_fecha_fin
-    recurso = json_evento.obtener_recurso
+    id_evento = datos_json['id'].downcase
+    fecha_inicio = datos_json['inicio']
+    fecha_fin = datos_json['fin']
+    recurso = datos_json['recurso']
     repositorio_evento = nil
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
       repositorio_evento = calendario if calendario.eventos.key?(id_evento)
@@ -105,7 +102,7 @@ class ControladorCalendarios
   def asignar_fecha(fecha_string, evento)
     fecha = evento.fecha_inicio
     unless fecha_string.nil?
-      fecha = convertir_string_a_time(fecha_string)
+      fecha = DateTime.parse(fecha_string)
     end
     fecha
   end
