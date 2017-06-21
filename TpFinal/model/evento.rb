@@ -1,5 +1,4 @@
 class Evento
-
   attr_reader :id
   attr_accessor :fecha_inicio
   attr_accessor :fecha_fin
@@ -7,10 +6,10 @@ class Evento
 
   def to_h
     {
-        'id' => @id,
-        'nombre' => @nombre,
-        'fecha_inicio' => @fecha_inicio,
-        'fecha_fin' => @fecha_fin,
+      'id' => @id,
+      'nombre' => @nombre,
+      'fecha_inicio' => @fecha_inicio,
+      'fecha_fin' => @fecha_fin
     }
   end
 
