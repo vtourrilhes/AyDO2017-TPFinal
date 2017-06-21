@@ -9,13 +9,15 @@ class Evento
   attr_accessor :fecha_inicio
   attr_accessor :fecha_fin
   attr_accessor :nombre
+  attr_accessor :recurso
 
   def to_h
     {
       'id' => @id,
       'nombre' => @nombre,
       'fecha_inicio' => @fecha_inicio,
-      'fecha_fin' => @fecha_fin
+      'fecha_fin' => @fecha_fin,
+      'recurso' => @recurso
     }
   end
 
@@ -45,6 +47,14 @@ class Evento
 
   def obtener_intervalo
     @fecha_inicio..@fecha_fin
+  end
+
+  def asignar_recurso(recurso)
+    @recurso = recurso
+  end
+
+  def desasignar_recurso
+    @recurso = nil
   end
 
   private
