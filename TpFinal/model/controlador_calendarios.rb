@@ -61,11 +61,13 @@ class ControladorCalendarios
     id_evento = json_evento.obtener_id_evento.downcase
     inicio = convertir_string_a_time(json_evento.obtener_fecha_inicio)
     fin = convertir_string_a_time(json_evento.obtener_fecha_fin)
+    recurso = json_evento.obtener_recurso.downcase
 
     # Creacion de un evento y asociacion a calendario
     id_evento = id_evento.downcase
     nombre = json_evento.obtener_nombre_evento.downcase
     evento = Evento.new(id_evento, nombre, inicio, fin)
+    asignar_recurso(recurso, evento)
     @validador_unicidad_eventos.validar(@repositorio_calendarios, evento.id)
     calendario.agregar_evento(evento)
 
@@ -153,7 +155,7 @@ class ControladorCalendarios
 
   def asignar_recurso(nombre_recurso, evento)
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
-      calendario.obtener_eventos_simultaneos.each do |evento_simultaneo|
+      calendario.obtener_eventos_simultaneos(evento).each do |evento_simultaneo|
         raise(ExcepcionSolapamientoRecurso) if evento_simultaneo.recurso.nombre == nombre_recurso
       end
     end

@@ -111,10 +111,8 @@ post '/recursos' do
 end
 
 get '/recursos' do
-  begin
-    recursos = controlador.obtener_todos_los_recursos
-    FormateadorJson.formatear_elementos(recursos)
-  end
+  recursos = controlador.obtener_todos_los_recursos
+  FormateadorJson.formatear_elementos(recursos)
 end
 
 delete '/recursos/:nombre' do
