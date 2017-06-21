@@ -1,4 +1,5 @@
 require_relative '../model/evento'
+require_relative '../model/validador_unicidad_evento'
 require_relative '../model/generador_de_recurrencia'
 require_relative '../model/calendario'
 require_relative '../model/recurrencia'
@@ -14,9 +15,11 @@ class ControladorCalendarios
   attr_accessor :repositorio
   attr_accessor :persistidor_de_datos
   attr_accessor :frecuencias
+  attr_accessor :validador_unicidad_eventos
 
   def initialize
     inicializar_frecuencias
+    @validador_unicidad_eventos = ValidadorUnicidadEvento.new
     @persistidor_de_datos = PersistidorDeDatos.new
     @repositorio = @persistidor_de_datos.cargar_elemento || RepositorioCalendarios.new
   end
@@ -54,6 +57,7 @@ class ControladorCalendarios
     id_evento = id_evento.downcase
     nombre = json_evento.obtener_nombre_evento.downcase
     evento = Evento.new(id_evento, nombre, inicio, fin)
+    validador_unicidad_eventos.validar(@repositorio, evento.id)
     calendario.agregar_evento(evento)
 
     if json_evento.tiene_recurrencia?
