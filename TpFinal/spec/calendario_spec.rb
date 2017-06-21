@@ -247,4 +247,10 @@ describe 'Calendario' do
       calendario.agregar_evento(segundo_evento)
     end.to raise_error(ExcepcionSolapamientoEvento)
   end
+
+  it 'Deberia devolver un diccionario con su nombre si le pido to_h' do
+    hash = {'nombre' => 'calendario'}
+    Calendario.new('calendario').to_h
+    expect(Calendario.new('calendario').to_h).to eq(hash)
+  end
 end

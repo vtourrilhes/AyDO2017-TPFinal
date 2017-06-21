@@ -37,10 +37,6 @@ class Calendario
     @eventos.values
   end
 
-  def esta_evento?(id)
-    @eventos.key?(id)
-  end
-
   def eliminar_evento(id)
     raise ExcepcionEventoInexistente unless @eventos.delete(id)
   end
