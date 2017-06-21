@@ -64,7 +64,7 @@ class ControladorCalendarios
     id_evento = id_evento.downcase
     nombre = json_evento.obtener_nombre_evento.downcase
     evento = Evento.new(id_evento, nombre, inicio, fin)
-    validador_unicidad_eventos.validar(@repositorio, evento.id)
+    @validador_unicidad_eventos.validar(@repositorio_calendarios, evento.id)
     calendario.agregar_evento(evento)
 
     if json_evento.tiene_recurrencia?

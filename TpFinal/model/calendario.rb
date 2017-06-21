@@ -54,7 +54,6 @@ class Calendario
         intervalos.push(evento.obtener_intervalo)
         intervalos && intervalos.flatten!
         intervalos.each do |intervalo|
-          puts intervalo
           min_interseccion = [intervalo_evento_otro_calendario.min, intervalo.min].max
           max_interseccion = [intervalo_evento_otro_calendario.max, intervalo.max].min
           interseccion = (min_interseccion <= max_interseccion)
