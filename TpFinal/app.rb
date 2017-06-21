@@ -11,7 +11,8 @@ post '/calendarios' do
     datos_json = JSON.parse(request.body.read)
     calendario = controlador.crear_calendario(datos_json)
     FormateadorJson.formatear_elemento(calendario)
-  rescue Exception
+  rescue  ExcepcionUnicidadCalendario,
+          ExcepcionNombreCalendario
     status 400
   end
 end
@@ -20,7 +21,7 @@ delete '/calendarios/:nombre' do
   begin
     nombre = params[:nombre]
     controlador.eliminar_calendario(nombre)
-  rescue Exception
+  rescue ExcepcionCalendarioInexistente
     status 404
   end
 end
@@ -35,7 +36,7 @@ get '/calendarios/:nombre' do
     nombre = params[:nombre]
     calendario = controlador.obtener_calendario(nombre)
     FormateadorJson.formatear_elemento(calendario)
-  rescue Exception
+  rescue ExcepcionCalendarioInexistente
     status 404
   end
 end
@@ -45,7 +46,11 @@ post '/eventos' do
     request.body.rewind
     datos_json = JSON.parse(request.body.read)
     controlador.crear_evento(datos_json)
-  rescue Exception
+  rescue  ExcepcionCalendarioInexistente,
+          ExcepcionIntervaloErroneo,
+          ExcepcionIntervaloMaximo,
+          ExcepcionUnicidadEvento,
+          ExcepcionSolapamientoEvento
     status 400
   end
 end
@@ -55,27 +60,30 @@ put '/eventos' do
     request.body.rewind
     datos_json = JSON.parse request.body.read
     controlador.actualizar_evento(datos_json)
-  rescue Exception
-    status 404
+  rescue  ExcepcionCalendarioInexistente,
+          ExcepcionEventoInexistente,
+          ExcepcionIntervaloErroneo,
+          ExcepcionIntervaloMaximo,
+          ExcepcionSolapamientoEvento
+    status 400
   end
 end
 
-delete '/eventos/:id_calendario/:id' do
+delete '/eventos/:id' do
   begin
-    id_calendario = params[:id_calendario]
     id_evento = params[:id]
-    controlador.eliminar_evento(id_calendario, id_evento)
-  rescue Exception
+    controlador.eliminar_evento(id_evento)
+  rescue ExcepcionEventoInexistente
     status 404
   end
 end
 
 get '/eventos' do
   begin
-    id_calendario = params[:calendario]
-    eventos = controlador.obtener_eventos(id_calendario)
+    nombre_calendario = params[:calendario]
+    eventos = nombre_calendario.nil? ? controlador.obtener_todos_los_eventos : controlador.obtener_eventos(nombre_calendario)
     FormateadorJson.formatear_elementos(eventos)
-  rescue Exception
+  rescue ExcepcionCalendarioInexistente
     status 400
   end
 end
@@ -83,9 +91,9 @@ end
 get '/eventos/:id' do
   begin
     id_evento = params[:id]
-    evento = controlador.obtener_evento(id_evento.downcase)
+    evento = controlador.obtener_evento(id_evento)
     FormateadorJson.formatear_elemento(evento)
-  rescue Exception
+  rescue ExcepcionEventoInexistente
     status 404
   end
 end

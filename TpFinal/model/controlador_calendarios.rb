@@ -99,34 +99,29 @@ class ControladorCalendarios
     fecha
   end
 
-  def eliminar_evento(id_calendario, id_evento)
-    calendario = @repositorio.obtener_calendario(id_calendario)
-    calendario.eliminar_evento(id_evento)
+  def eliminar_evento(id_evento)
+    @repositorio.obtener_calendarios.each do |calendario|
+      calendario.eliminar_evento(id_evento)
+    end
     @persistidor_de_datos.guardar_elemento(@repositorio)
   end
 
   def obtener_evento(id)
     eventos = obtener_todos_los_eventos
-    eventos.select {|evento| evento.id == id}
+    evento = eventos.select { |evento| evento.id == id }
+    evento[0] || raise(ExcepcionEventoInexistente)
   end
 
   def obtener_eventos(nombre_calendario)
-    eventos = obtener_todos_los_eventos
-    unless nombre_calendario.nil?
-      calendario = @repositorio.obtener_calendario(nombre_calendario)
-      eventos = calendario.obtener_eventos
-    end
-    eventos
+    calendario = @repositorio.obtener_calendario(nombre_calendario)
+    calendario.obtener_eventos
   end
 
   def obtener_todos_los_eventos
-    calendarios = @repositorio.obtener_calendarios
     eventos = []
-    contador = 0
-    calendarios.each do |calendario|
+    @repositorio.obtener_calendarios.each do |calendario|
       calendario.obtener_eventos.each do |evento|
-        eventos[contador] = evento
-        contador = contador + 1
+        eventos << evento
       end
     end
     eventos
