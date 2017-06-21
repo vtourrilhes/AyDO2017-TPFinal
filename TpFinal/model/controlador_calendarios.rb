@@ -5,7 +5,6 @@ require_relative '../model/recurrencia'
 require_relative '../model/repositorio_calendarios'
 require_relative '../model/persistidor_de_datos'
 require_relative '../model/json_evento'
-require_relative '../model/validador_de_evento'
 require_relative '../model/conversor_string_a_fecha_tiempo'
 require_relative '../model/frecuencia'
 require 'json'
@@ -14,19 +13,18 @@ class ControladorCalendarios
 
   attr_accessor :repositorio
   attr_accessor :persistidor_de_datos
-  attr_accessor :validador_evento
   attr_accessor :frecuencias
 
   def initialize
     inicializar_frecuencias
     @persistidor_de_datos = PersistidorDeDatos.new
     @repositorio = @persistidor_de_datos.cargar_elemento || RepositorioCalendarios.new
-    @validador_evento = ValidadorDeEvento.new
   end
 
   def crear_calendario(datos_json)
-    nombre_calendario = datos_json['nombre'].downcase
-    calendario = @repositorio.crear_calendario(nombre_calendario)
+    nombre_calendario = datos_json['nombre']
+    calendario = Calendario.new(nombre_calendario)
+    @repositorio.agregar_calendario(calendario)
     @persistidor_de_datos.guardar_elemento(@repositorio)
     calendario
   end
@@ -51,8 +49,6 @@ class ControladorCalendarios
     id_evento = json_evento.obtener_id_evento.downcase
     inicio = convertir_string_a_time(json_evento.obtener_fecha_inicio)
     fin = convertir_string_a_time(json_evento.obtener_fecha_fin)
-    @validador_evento.validar_existe_evento(@repositorio,id_evento.downcase)
-    @validador_evento.validar_duracion_evento(inicio, fin)
 
     # Creacion de un evento y asociacion a calendario
     id_evento = id_evento.downcase

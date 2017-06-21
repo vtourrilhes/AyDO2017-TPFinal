@@ -18,7 +18,7 @@ describe 'ControllerCalendarios' do
 
   it 'Se crea un calendario de nombre Laboral al llamar a obtenerCalendario deberia devolver calendario de nombre laboral' do
     json = JSON.parse '{"nombre":"Laboral"}'
-    nombre= json['nombre'].downcase
+    nombre= json['nombre']
     controlador.crear_calendario(json)
     calendario = controlador.repositorio.obtener_calendario(nombre)
     expect(calendario.nombre).to eq nombre
@@ -29,13 +29,6 @@ describe 'ControllerCalendarios' do
     controlador.crear_calendario(json)
     calendarios = controlador.repositorio.obtener_calendarios
     expect(calendarios.size).to eq 1
-  end
-
-  it 'Agregar calendario de nombre Aydoo al preguntar si esta el calendario deberia devolver true' do
-    json = JSON.parse '{"nombre":"Laboral"}'
-    nombre= json['nombre'].downcase
-    controlador.crear_calendario(json)
-    expect(controlador.repositorio.esta_calendario? nombre).to eq true
   end
 
   it 'Crear calendario en repositorio vacio deberia devolver tamanio lista de calendarios en 1' do

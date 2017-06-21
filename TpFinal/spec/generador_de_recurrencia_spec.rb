@@ -4,61 +4,35 @@ require_relative '../model/evento'
 require_relative '../model/calendario'
 require_relative '../model/recurrencia'
 require_relative '../model/generador_de_recurrencia'
-require_relative '../model/validador_de_evento'
 
 describe 'Controlador Calendarios' do
 
-  let(:generador) {GeneradorDeRecurrencia.new}
-  let(:validador) {ValidadorDeEvento.new}
-  let(:calendario) {Calendario.new('Laboral')}
-  let(:evento1) {
+  let(:generador) { GeneradorDeRecurrencia.new }
+  let(:calendario) { Calendario.new('Laboral') }
+  let(:evento) {
     Evento.new(
-        'aydo01',
+        'aydoo',
         'Aydoo',
-        Time.new('2017', '01', '19', '01', '00'),
-        Time.new('2017', '01', '19', '23', '30')
-    )
-  }
-  let(:evento2) {
-    Evento.new(
-        'aydo02',
-        'Aydoo',
-        Time.new('2017', '01', '19', '11', '00'),
-        Time.new('2017', '01', '19', '13', '00'),
-    )
-  }
-  let(:evento3) {
-    Evento.new(
-        'aydo03',
-        'Aydoo',
-        Time.new('2017', '01', '19', '09', '00'),
-        Time.new('2017', '01', '19', '12', '00'),
-    )
-  }
-  let(:evento4) {
-    Evento.new(
-        'aydo04',
-        'Aydoo',
-        Time.new('2017', '01', '19', '12', '30'),
-        Time.new('2017', '01', '19', '15', '30'),
+        DateTime.now,
+        DateTime.now + 1
     )
   }
 
   it 'Si genero recurrencia diaria por 2 dias para aydo01 tengo que obtener 2 eventos' do
     frecuencia = Frecuencia.new('Diaria', 1)
-    fecha_fin = Time.new('2017', '01', '22', '01', '00')
+    fecha_fin = DateTime.now + 2
     recurrencia = Recurrencia.new(fecha_fin, frecuencia)
-    calendario.agregar_evento(evento4)
-    result = generador.crear_eventos_recurrentes(calendario, evento4, recurrencia)
-    expect(result.size).to eq 2
+    calendario.agregar_evento(evento)
+    result = generador.crear_eventos_recurrentes(calendario, evento, recurrencia)
+    expect(result.size).to eq 1
   end
 
   it 'Si genero recurrencia diaria por 7 dias para aydo01 tengo que obtener 7 eventos' do
     frecuencia = Frecuencia.new('Diaria', 1)
-    fecha_fin = Time.new('2017', '01', '27', '01', '00')
+    fecha_fin = DateTime.now + 7
     recurrencia = Recurrencia.new(fecha_fin, frecuencia)
-    calendario.agregar_evento(evento4)
-    result = generador.crear_eventos_recurrentes(calendario, evento4, recurrencia)
-    expect(result.size).to eq 7
+    calendario.agregar_evento(evento)
+    result = generador.crear_eventos_recurrentes(calendario, evento, recurrencia)
+    expect(result.size).to eq 6
   end
 end
