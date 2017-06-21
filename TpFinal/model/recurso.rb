@@ -1,15 +1,13 @@
 class Recurso
-
   attr_reader :nombre
 
   def to_h
     {
-        'nombre' => @nombre
+      'nombre' => @nombre
     }
   end
 
-  def initilize(nombre)
+  def initialize(nombre)
     @nombre = nombre
   end
-
 end
