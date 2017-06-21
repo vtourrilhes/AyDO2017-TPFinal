@@ -31,11 +31,6 @@ describe 'Calendario' do
       expect(calendario.obtener_evento('aydo01')).to eq evento
     end
 
-    it 'agregar dos eventos con mismo nombre a mismo calendario deberia lanzar una excepcion' do
-      calendario.crear_evento('aydo01', 'AyDOO', Time.now, Time.now)
-      expect{validador.validar_existe_evento('aydo01', calendario)}.to raise_error(NameError)
-    end
-
     it 'preguntar evento de nombre Aydoo a calendario deberia devolver true' do
       evento = calendario.crear_evento('aydo01', 'AyDOO', Time.now, Time.now)
       expect(calendario.esta_evento? evento.id).to eq true

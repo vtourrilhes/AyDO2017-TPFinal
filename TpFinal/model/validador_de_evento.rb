@@ -27,9 +27,9 @@ class ValidadorDeEvento
     result
   end
 
-  def validar_existe_evento(id_evento, calendario)
-    if calendario.esta_evento? id_evento
-      raise NameError.new('El evento ya existe')
+  def validar_existe_evento(repositorio, id_evento)
+    repositorio.calendarios.values.each do |calendario|
+      calendario.eventos.key?(id_evento) && raise(NameError.new('El evento ya existe'))
     end
   end
 
