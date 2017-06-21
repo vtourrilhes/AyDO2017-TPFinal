@@ -4,7 +4,6 @@ require_relative '../model/calendario'
 require_relative '../model/recurrencia'
 require_relative '../model/repositorio_calendarios'
 require_relative '../model/persistidor_de_datos'
-require_relative '../model/json_calendario'
 require_relative '../model/json_evento'
 require_relative '../model/validador_de_json'
 require_relative '../model/validador_de_calendario'
@@ -32,8 +31,7 @@ class ControladorCalendarios
   end
 
   def crear_calendario(datos_json)
-    json_calendario = JsonCalendario.new(datos_json)
-    nombre_calendario = json_calendario.obtener_nombre_calendario
+    nombre_calendario = datos_json['nombre'].downcase
     @validador_calendario.existe_calendario(@repositorio, nombre_calendario)
     calendario = @repositorio.crear_calendario(nombre_calendario)
     @persistidor_de_datos.guardar_elemento(@repositorio)
