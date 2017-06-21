@@ -42,8 +42,8 @@ class Evento
 
 
   def actualizar_evento(fecha_inicio, fecha_fin)
-    @fecha_inicio = fecha_inicio
-    @fecha_fin = fecha_fin
+    @inicio = fecha_inicio
+    @fin = fecha_fin
   end
 
   private
