@@ -5,4 +5,10 @@ class FrecuenciaMensual
   def initialize
     @periodo_repeticion = 30
   end
+
+  def to_h
+    {
+      'periodo_repeticion' => @periodo_repeticion
+    }
+  end
 end

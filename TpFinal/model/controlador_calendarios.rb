@@ -1,4 +1,5 @@
 require_relative '../model/evento'
+require_relative '../model/evento_recurrente'
 require_relative '../model/validador_unicidad_evento'
 require_relative '../model/generador_de_recurrencia'
 require_relative '../model/calendario'
@@ -56,34 +57,22 @@ class ControladorCalendarios
   def crear_evento(datos_json)
     json_evento = JsonEvento.new(datos_json)
     nombre_calendario = json_evento.obtener_nombre_calendario.downcase
-
     calendario = @repositorio_calendarios.obtener_calendario(nombre_calendario)
     id_evento = json_evento.obtener_id_evento.downcase
     inicio = convertir_string_a_time(json_evento.obtener_fecha_inicio)
     fin = convertir_string_a_time(json_evento.obtener_fecha_fin)
-
-    # Creacion de un evento y asociacion a calendario
     id_evento = id_evento.downcase
     nombre = json_evento.obtener_nombre_evento.downcase
-    evento = Evento.new(id_evento, nombre, inicio, fin)
+    if json_evento.tiene_recurrencia?
+
+      frecuencia = @frecuencias[json_evento.obtener_frecuencia_recurrencia]
+      fin_recurrencia = convertir_string_a_time(json_evento.obtener_fin_de_recurrencia)
+      evento = EventoRecurrente.new(id_evento, nombre, inicio, fin, frecuencia, fin_recurrencia)
+    else
+      evento = Evento.new(id_evento, nombre, inicio, fin)
+    end
     @validador_unicidad_eventos.validar(@repositorio_calendarios, evento.id)
     calendario.agregar_evento(evento)
-
-    if json_evento.tiene_recurrencia?
-      frecuencia = json_evento.obtener_frecuencia_recurrencia
-      frecuencia = @frecuencias[frecuencia]
-      fin_recurrencia = convertir_string_a_time(json_evento.obtener_fin_de_recurrencia)
-      recurrencia = Recurrencia.new(fin_recurrencia, frecuencia)
-
-      # Creacion de eventos recurrentes.
-      evento_nuevo = calendario.obtener_evento(id_evento)
-      generador_de_recurrencia = GeneradorDeRecurrencia.new
-      eventos_recurrentes = generador_de_recurrencia.crear_eventos_recurrentes(calendario, evento_nuevo, recurrencia)
-      eventos_recurrentes.each do |evento_recurrente|
-        calendario.agregar_evento(evento_recurrente)
-      end
-
-    end
     @persistidor_de_calendarios.guardar_elemento(@repositorio_calendarios)
   end
 

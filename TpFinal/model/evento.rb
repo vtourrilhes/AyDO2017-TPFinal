@@ -17,7 +17,7 @@ class Evento
       'nombre' => @nombre,
       'fecha_inicio' => @fecha_inicio,
       'fecha_fin' => @fecha_fin,
-      'recurso' => @recurso
+      'recurso' => @recurso.to_h
     }
   end
 

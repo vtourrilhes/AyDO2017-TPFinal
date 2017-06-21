@@ -54,6 +54,6 @@ describe 'ControllerCalendarios' do
     controlador.crear_evento(json)
     calendario = controlador.obtener_calendario(nombre)
     result = calendario.obtener_eventos
-    expect(result.size).to eq 5
+    expect(result.size).to eq 1
   end
 end
