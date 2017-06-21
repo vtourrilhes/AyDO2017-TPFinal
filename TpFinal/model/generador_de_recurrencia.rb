@@ -1,6 +1,5 @@
 require_relative '../model/evento'
 require_relative '../model/recurrencia'
-require_relative '../model/validador_de_evento'
 require 'date'
 
 class GeneradorDeRecurrencia
@@ -17,12 +16,12 @@ class GeneradorDeRecurrencia
       eventos_calendarios[evento_calendario.id]=evento_calendario
     end
 
-    tiempo_evento = evento.fecha_fin - evento.fecha_inicio
+    tiempo_evento = evento.fin - evento.inicio
     recurrencia = recurrencia
     frecuencia = recurrencia.frecuencia.periodo_repeticion*(24*3600)
 
     fecha_fin = recurrencia.fecha_fin
-    fecha_inicio = evento.fecha_inicio
+    fecha_inicio = evento.inicio
 
     validador.validar_frecuencia(frecuencia)
     validador.validar_fechas(fecha_inicio, fecha_inicio + frecuencia)
