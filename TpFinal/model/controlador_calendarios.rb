@@ -60,7 +60,7 @@ class ControladorCalendarios
     id_evento = json_evento.obtener_id_evento.downcase
     inicio = convertir_string_a_time(json_evento.obtener_fecha_inicio)
     fin = convertir_string_a_time(json_evento.obtener_fecha_fin)
-    @validador_evento.validar_existe_evento(id_evento.downcase, calendario)
+    @validador_evento.validar_existe_evento(@repositorio,id_evento.downcase)
     @validador_evento.validar_duracion_evento(inicio, fin)
     calendario.crear_evento(id_evento, json_evento.obtener_nombre_evento, inicio, fin)
     if json_evento.tiene_recurrencia?
