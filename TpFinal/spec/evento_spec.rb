@@ -6,10 +6,10 @@ describe 'Evento' do
 
   let(:evento) {
     Evento.new(
-      'aydo01',
-      'Aydoo',
-      Time.now,
-      Time.now,
+        'aydo01',
+        'Aydoo',
+        Time.now,
+        Time.now,
     )
   }
 

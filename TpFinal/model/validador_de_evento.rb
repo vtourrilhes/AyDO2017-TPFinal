@@ -50,21 +50,21 @@ class ValidadorDeEvento
     raise TypeError unless evento_nuevo.fecha_fin.is_a? Time
     raise TypeError unless evento_actual.fecha_inicio.is_a? Time
     raise TypeError unless evento_actual.fecha_fin.is_a? Time
-    if  evento_nuevo.fecha_inicio > evento_actual.fecha_inicio and
+    if evento_nuevo.fecha_inicio > evento_actual.fecha_inicio and
         evento_actual.fecha_fin > evento_nuevo.fecha_inicio and
         evento_nuevo.fecha_fin > evento_actual.fecha_fin
       raise NameError.new('Hay evento solapado - caso A ' + evento_nuevo.fecha_inicio.to_s)
     end
-    if  evento_actual.fecha_inicio < evento_nuevo.fecha_inicio and
+    if evento_actual.fecha_inicio < evento_nuevo.fecha_inicio and
         evento_actual.fecha_fin > evento_nuevo.fecha_fin
       raise NameError.new('Hay evento solapado - caso B ' + evento_nuevo.fecha_inicio.to_s)
     end
-    if  evento_actual.fecha_inicio > evento_nuevo.fecha_inicio and
+    if evento_actual.fecha_inicio > evento_nuevo.fecha_inicio and
         evento_nuevo.fecha_fin > evento_actual.fecha_inicio and
         evento_actual.fecha_fin > evento_nuevo.fecha_fin
       raise NameError.new('Hay evento solapado - caso C ' + evento_nuevo.fecha_inicio.to_s)
     end
-    if  evento_nuevo.fecha_inicio < evento_actual.fecha_inicio and
+    if evento_nuevo.fecha_inicio < evento_actual.fecha_inicio and
         evento_nuevo.fecha_fin > evento_actual.fecha_fin
       raise NameError.new('Hay evento solapado - caso D ' + evento_nuevo.fecha_inicio.to_s)
     end

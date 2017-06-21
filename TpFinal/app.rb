@@ -52,9 +52,9 @@ end
 
 put '/eventos' do
   begin
-  request.body.rewind
-  datos_json = JSON.parse request.body.read
-  controlador.actualizar_evento(datos_json)
+    request.body.rewind
+    datos_json = JSON.parse request.body.read
+    controlador.actualizar_evento(datos_json)
   rescue Exception
     status 404
   end
@@ -62,9 +62,9 @@ end
 
 delete '/eventos/:id_calendario/:id' do
   begin
-  id_calendario = params[:id_calendario]
-  id_evento = params[:id]
-  controlador.eliminar_evento(id_calendario, id_evento)
+    id_calendario = params[:id_calendario]
+    id_evento = params[:id]
+    controlador.eliminar_evento(id_calendario, id_evento)
   rescue Exception
     status 404
   end

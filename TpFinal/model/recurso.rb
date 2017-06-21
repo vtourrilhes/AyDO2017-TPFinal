@@ -5,5 +5,5 @@ class Recurso
   def initilize(nombre)
     @nombre = nombre
   end
-  
+
 end

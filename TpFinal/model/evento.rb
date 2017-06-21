@@ -7,10 +7,10 @@ class Evento
 
   def to_h
     {
-      'id' => @id,
-      'nombre' => @nombre,
-      'fecha_inicio' => @fecha_inicio,
-      'fecha_fin' => @fecha_fin,
+        'id' => @id,
+        'nombre' => @nombre,
+        'fecha_inicio' => @fecha_inicio,
+        'fecha_fin' => @fecha_fin,
     }
   end
 

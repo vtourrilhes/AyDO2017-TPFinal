@@ -8,8 +8,8 @@ require 'json'
 
 describe 'ControllerCalendarios' do
 
-  let(:controlador) { ControladorCalendarios.new}
-  let(:validador) { ValidadorDeCalendario.new}
+  let(:controlador) {ControladorCalendarios.new}
+  let(:validador) {ValidadorDeCalendario.new}
 
   before do
     persistidor = controlador.persistidor_de_datos
@@ -49,7 +49,7 @@ describe 'ControllerCalendarios' do
   it 'Crear 2 calendarios con el mismo nombre deberia devolver excepcion de calendario ya existente' do
     json = JSON.parse '{"nombre":"Laboral"}'
     controlador.crear_calendario(json)
-    expect{controlador.crear_calendario(json)}.to raise_error(NameError)
+    expect {controlador.crear_calendario(json)}.to raise_error(NameError)
   end
 
   it 'Se crea un calendario y un evento con recurrencia' do

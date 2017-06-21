@@ -4,7 +4,7 @@ require_relative '../model/repositorio_calendarios'
 
 describe 'Respositorio Calendarios' do
 
-  let(:repositorio) { RepositorioCalendarios.new}
+  let(:repositorio) {RepositorioCalendarios.new}
 
   it 'Se crea un calendario de nombre Laboral al llamar a obtenerCalendario deberia devolver calendario de nombre laboral' do
     calendario_laboral = Calendario.new('Laboral')

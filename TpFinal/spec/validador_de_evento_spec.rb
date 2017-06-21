@@ -1,4 +1,4 @@
-require 'rspec' 
+require 'rspec'
 require_relative '../model/evento'
 require_relative '../model/validador_de_evento'
 require_relative '../model/calendario'
@@ -39,24 +39,24 @@ describe 'ValidadorDeEvento' do
         Time.new('2017', '01', '19', '15', '30'),
     )
   }
-  
+
   it 'Debe validar entre evento aydo03 y aydo04' do
     validador.validar_evento(evento3, evento4)
   end
-  
+
   it 'Si valido entre evento aydo01 y aydo02 obtengo exception' do
-    expect{validador.validar_evento(evento1, evento2)}.to raise_error(NameError)
+    expect {validador.validar_evento(evento1, evento2)}.to raise_error(NameError)
   end
-  
+
   it 'Si valido entre evento aydo01 y aydo02 obtengo exception' do
-    expect{validador.validar_evento(evento2, evento1)}.to raise_error(NameError)
+    expect {validador.validar_evento(evento2, evento1)}.to raise_error(NameError)
   end
-  
+
   it 'Si valido entre evento aydo02 y aydo03 obtengo exception' do
-    expect{validador.validar_evento(evento2, evento3)}.to raise_error(NameError)
+    expect {validador.validar_evento(evento2, evento3)}.to raise_error(NameError)
   end
-  
+
   it 'Si valido entre evento aydo02 y aydo04 obtengo exception' do
-    expect{validador.validar_evento(evento2, evento4)}.to raise_error(NameError)
+    expect {validador.validar_evento(evento2, evento4)}.to raise_error(NameError)
   end
 end
