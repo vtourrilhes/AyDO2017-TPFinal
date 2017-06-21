@@ -79,15 +79,12 @@ class ControladorCalendarios
     id_calendario = json_evento.obtener_nombre_calendario.downcase
     fecha_inicio = json_evento.obtener_fecha_inicio
     fecha_fin = json_evento.obtener_fecha_fin
-    @validador_calendario.no_existe_calendario(@repositorio, id_calendario)
     calendario = @repositorio.obtener_calendario(id_calendario)
     evento = calendario.obtener_evento(json_evento.obtener_id_evento.downcase)
-    @validador_evento.validar_actualizacion_evento(evento)
     actualizar = !(fecha_inicio.nil?) || !(fecha_fin.nil?)
     if actualizar
       fecha_inicio = asignar_fecha(fecha_inicio, evento)
       fecha_fin = asignar_fecha(fecha_fin, evento)
-      @validador_evento.validar_duracion_evento(fecha_inicio, fecha_fin)
       evento.actualizar_evento(fecha_inicio, fecha_fin)
       @persistidor_de_datos.guardar_elemento(@repositorio)
     end
@@ -103,7 +100,6 @@ class ControladorCalendarios
   end
 
   def eliminar_evento(id_calendario, id_evento)
-    @validador_calendario.no_existe_calendario(@repositorio, id_calendario)
     calendario = @repositorio.obtener_calendario(id_calendario)
     calendario.eliminar_evento(id_evento)
     @persistidor_de_datos.guardar_elemento(@repositorio)
@@ -117,7 +113,6 @@ class ControladorCalendarios
   def obtener_eventos(nombre_calendario)
     eventos = obtener_todos_los_eventos
     unless nombre_calendario.nil?
-      @validador_calendario.no_existe_calendario(@repositorio, nombre_calendario)
       calendario = @repositorio.obtener_calendario(nombre_calendario)
       eventos = calendario.obtener_eventos
     end
