@@ -253,4 +253,20 @@ describe 'Calendario' do
     Calendario.new('calendario').to_h
     expect(Calendario.new('calendario').to_h).to eq(hash)
   end
+
+  it 'Deberia obtener un listado de eventos simultaneos si paso un evento paralelo' do
+    nombre_calendario = 'Calendario 1'
+    intervalo_primer_evento = DateTime.now..DateTime.now
+    primer_evento = double('Evento 1')
+    allow(primer_evento).to receive(:id).and_return('id_1')
+    allow(primer_evento).to receive(:obtener_intervalo).and_return(intervalo_primer_evento)
+    intervalo_segundo_evento = (DateTime.now - 1)..(DateTime.now + 1)
+    segundo_evento = double('Evento 2')
+    allow(segundo_evento).to receive(:id).and_return('id_2')
+    allow(segundo_evento).to receive(:obtener_intervalo).and_return(intervalo_segundo_evento)
+    calendario = Calendario.new(nombre_calendario)
+    calendario.agregar_evento(primer_evento)
+    intervalos = calendario.obtener_eventos_simultaneos(segundo_evento)
+    expect(intervalos).to eq([primer_evento])
+  end
 end

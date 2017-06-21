@@ -41,6 +41,30 @@ class Calendario
     raise ExcepcionEventoInexistente unless @eventos.delete(id)
   end
 
+  def obtener_eventos_simultaneos(evento_otro_calendario)
+    eventos_simultaneos = []
+
+    intervalos_evento_otro_calendario = []
+    intervalos_evento_otro_calendario.push(evento_otro_calendario.obtener_intervalo)
+    intervalos_evento_otro_calendario && intervalos_evento_otro_calendario.flatten!
+
+    intervalos_evento_otro_calendario.each do |intervalo_evento_otro_calendario|
+      intervalos = []
+      @eventos.values.each do |evento|
+        intervalos.push(evento.obtener_intervalo)
+        intervalos && intervalos.flatten!
+        intervalos.each do |intervalo|
+          puts intervalo
+          min_interseccion = [intervalo_evento_otro_calendario.min, intervalo.min].max
+          max_interseccion = [intervalo_evento_otro_calendario.max, intervalo.max].min
+          interseccion = (min_interseccion <= max_interseccion)
+          interseccion && eventos_simultaneos.push(evento)
+        end
+      end
+    end
+    eventos_simultaneos
+  end
+
   private
 
   def comprobar_unicidad_evento(identificacion)
