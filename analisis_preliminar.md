@@ -67,6 +67,7 @@ No cumple con la funcionalidad solicitada.
     * En el metodo "crearEventoRecurrente" de la clase Calendario cuando instancia un GeneradorDeRecurrencia. 
     * En el metodo "crearCalendario" de la clase ControllerCalendarios cuando instancia un JsonCalendario 
     * En el metodo initialize de ControllerCalendario  cuando instancia ValidadorDeCalendario, ValidadorDeEvento, ValidadorDeJSON
+* Rompe con el principio de single responsability. La clase ControllerCalendario se encarga practicamente de todo.
 
 @TODO Identificar con cuales otros principios no cumple y ejemplificar
 
