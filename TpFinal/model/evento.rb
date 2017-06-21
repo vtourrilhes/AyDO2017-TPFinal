@@ -24,4 +24,8 @@ class Evento
     @fecha_inicio = fecha_inicio
     @fecha_fin = fecha_fin
   end
+
+  def obtener_intervalo
+    @fecha_inicio..@fecha_fin
+  end
 end

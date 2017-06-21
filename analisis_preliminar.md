@@ -57,6 +57,7 @@ No cumple con la funcionalidad solicitada.
     frecuencia = recurrencia.frecuencia.peridodDeRepeticion*(24*3600)
     ```
 * No hay uso de polimorfismo
+* Se detectaron metodos que no se utilizaban. Como por ejemplo actualizar_evento en Calendario.
 * En los test no hay uso de mocking
 * Los test estan mezclados, es decir, en el archivo que referencia a pruebas de Calendario se realizan pruebas sobre ValidadorDeEvento.
 * Existen varios clases para la cumplir el rol de controlador cuando no parece necesario. ServicioApp,  ControllerCalendarios, JsonEvento, JsonCalendario.
@@ -67,7 +68,9 @@ No cumple con la funcionalidad solicitada.
     * En el metodo "crearEventoRecurrente" de la clase Calendario cuando instancia un GeneradorDeRecurrencia. 
     * En el metodo "crearCalendario" de la clase ControllerCalendarios cuando instancia un JsonCalendario 
     * En el metodo initialize de ControllerCalendario  cuando instancia ValidadorDeCalendario, ValidadorDeEvento, ValidadorDeJSON
-* Rompe con el principio de single responsability. La clase ControllerCalendario se encarga practicamente de todo.
+* Rompe con el principio de single responsability. 
+    * Por ejemplo la clase ControllerCalendario se encarga practicamente de todo.
+    * Por ejemplo el validador de evento se encarga de validar cosas de calendario.
 
 @TODO Identificar con cuales otros principios no cumple y ejemplificar
 

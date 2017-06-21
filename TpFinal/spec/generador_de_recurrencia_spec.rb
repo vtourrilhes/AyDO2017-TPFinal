@@ -48,7 +48,7 @@ describe 'Controlador Calendarios' do
     frecuencia = Frecuencia.new('Diaria', 1)
     fecha_fin = Time.new('2017', '01', '22', '01', '00')
     recurrencia = Recurrencia.new(fecha_fin, frecuencia)
-    calendario.agrega_evento(evento4)
+    calendario.agregar_evento(evento4)
     result = generador.crear_eventos_recurrentes(calendario, evento4, recurrencia)
     expect(result.size).to eq 2
   end
@@ -57,7 +57,7 @@ describe 'Controlador Calendarios' do
     frecuencia = Frecuencia.new('Diaria', 1)
     fecha_fin = Time.new('2017', '01', '27', '01', '00')
     recurrencia = Recurrencia.new(fecha_fin, frecuencia)
-    calendario.agrega_evento(evento4)
+    calendario.agregar_evento(evento4)
     result = generador.crear_eventos_recurrentes(calendario, evento4, recurrencia)
     expect(result.size).to eq 7
   end

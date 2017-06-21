@@ -1,10 +1,11 @@
 require_relative '../model/excepcion_nombre_calendario'
-require_relative '../model/evento'
-require_relative '../model/generador_de_recurrencia'
+require_relative '../model/excepcion_unicidad_evento'
+require_relative '../model/excepcion_evento_inexistente'
+require_relative '../model/excepcion_solapamiento_evento'
 
 NOMBRE_VACIO = ''.freeze
 
-# Clase que funciona como controlador y repositorio de Eventos.
+# Repositorio de Eventos.
 class Calendario
   attr_accessor :eventos
   attr_reader :nombre
@@ -21,18 +22,15 @@ class Calendario
     @eventos = {}
   end
 
-  def agrega_evento(evento)
-    @eventos[evento.id] = evento
+  def agregar_evento(evento)
+    identificacion = evento.id
+    comprobar_unicidad_evento(identificacion)
+    comprobar_solapamiento_evento(evento)
+    @eventos[identificacion] = evento
   end
 
   def obtener_evento(id)
-    @eventos[id]
-  end
-
-  def actualizar_evento(id, fecha_inicio, fecha_fin)
-    evento = obtener_evento(id)
-    evento.actualizar_evento(fecha_inicio, fecha_fin)
-    agrega_evento(evento)
+    @eventos[id] || raise(ExcepcionEventoInexistente)
   end
 
   def obtener_eventos
@@ -44,12 +42,33 @@ class Calendario
   end
 
   def eliminar_evento(id)
-    @eventos.delete(id)
+    raise ExcepcionEventoInexistente unless @eventos.delete(id)
   end
 
   private
 
+  def comprobar_unicidad_evento(identificacion)
+    raise ExcepcionUnicidadEvento if @eventos.key?(identificacion)
+  end
+
   def validar_nombre(nombre)
     raise ExcepcionNombreCalendario if nombre == NOMBRE_VACIO
+  end
+
+  def comprobar_solapamiento_evento(nuevo_evento)
+    intervalos = []
+    @eventos.values.each do |evento|
+      intervalos.push(evento.obtener_intervalo)
+    end
+    intervalos.push(nuevo_evento.obtener_intervalo)
+    intervalos && intervalos.flatten!
+    intervalos = intervalos.sort_by {|intervalo| intervalo.min}
+    while intervalos.each_cons(2).any? {|a, b|
+      min_interseccion = [a.min, b.min].max
+      max_interseccion = [a.max, b.max].min
+      interseccion = min_interseccion <= max_interseccion
+      interseccion && raise(ExcepcionSolapamientoEvento)
+    }
+    end
   end
 end

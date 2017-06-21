@@ -1,3 +1,5 @@
+require_relative '../model/evento'
+require_relative '../model/generador_de_recurrencia'
 require_relative '../model/calendario'
 require_relative '../model/recurrencia'
 require_relative '../model/repositorio_calendarios'
@@ -67,7 +69,7 @@ class ControladorCalendarios
     id_evento = id_evento.downcase
     nombre = json_evento.obtener_nombre_evento.downcase
     evento = Evento.new(id_evento, nombre, inicio, fin)
-    calendario.agrega_evento(evento)
+    calendario.agregar_evento(evento)
 
     if json_evento.tiene_recurrencia?
       frecuencia = json_evento.obtener_frecuencia_recurrencia
@@ -80,7 +82,7 @@ class ControladorCalendarios
       generador_de_recurrencia = GeneradorDeRecurrencia.new
       eventos_recurrentes = generador_de_recurrencia.crear_eventos_recurrentes(calendario, evento_nuevo, recurrencia)
       eventos_recurrentes.each do |evento_recurrente|
-        calendario.agrega_evento(evento_recurrente)
+        calendario.agregar_evento(evento_recurrente)
       end
 
     end
@@ -120,7 +122,6 @@ class ControladorCalendarios
   def eliminar_evento(id_calendario, id_evento)
     @validador_calendario.no_existe_calendario(@repositorio, id_calendario)
     calendario = @repositorio.obtener_calendario(id_calendario)
-    @validador_evento.validar_no_existe_evento(id_evento, calendario)
     calendario.eliminar_evento(id_evento)
     @persistidor_de_datos.guardar_elemento(@repositorio)
   end
