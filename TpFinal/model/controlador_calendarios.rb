@@ -62,13 +62,27 @@ class ControladorCalendarios
     fin = convertir_string_a_time(json_evento.obtener_fecha_fin)
     @validador_evento.validar_existe_evento(@repositorio,id_evento.downcase)
     @validador_evento.validar_duracion_evento(inicio, fin)
-    calendario.crear_evento(id_evento, json_evento.obtener_nombre_evento, inicio, fin)
+
+    # Creacion de un evento y asociacion a calendario
+    id_evento = id_evento.downcase
+    nombre = json_evento.obtener_nombre_evento.downcase
+    evento = Evento.new(id_evento, nombre, inicio, fin)
+    calendario.agrega_evento(evento)
+
     if json_evento.tiene_recurrencia?
       frecuencia = json_evento.obtener_frecuencia_recurrencia
       frecuencia = @frecuencias[frecuencia]
       fin_recurrencia = convertir_string_a_time(json_evento.obtener_fin_de_recurrencia)
       recurrencia = Recurrencia.new(fin_recurrencia, frecuencia)
-      calendario.crear_evento_recurrente(id_evento, recurrencia)
+
+      # Creacion de eventos recurrentes.
+      evento_nuevo = calendario.obtener_evento(id_evento)
+      generador_de_recurrencia = GeneradorDeRecurrencia.new
+      eventos_recurrentes = generador_de_recurrencia.crear_eventos_recurrentes(calendario, evento_nuevo, recurrencia)
+      eventos_recurrentes.each do |evento_recurrente|
+        calendario.agrega_evento(evento_recurrente)
+      end
+
     end
     @repositorio.agregar_calendario(calendario)
     @persistidor_de_datos.guardar_elemento(@repositorio)

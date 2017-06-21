@@ -43,22 +43,6 @@ class Calendario
     @eventos.key?(id)
   end
 
-  def crear_evento(id, nombre, fecha_inicio, fecha_fin)
-    id = id.downcase
-    nombre = nombre.downcase
-    evento = Evento.new(id, nombre, fecha_inicio, fecha_fin)
-    agrega_evento(evento)
-  end
-
-  def crear_evento_recurrente(id, recurrencia)
-    evento_nuevo = obtener_evento(id)
-    generador_de_recurrencia = GeneradorDeRecurrencia.new
-    eventos_recurrentes = generador_de_recurrencia.crear_eventos_recurrentes(self, evento_nuevo, recurrencia)
-    eventos_recurrentes.each do |evento|
-      agrega_evento(evento)
-    end
-  end
-
   def eliminar_evento(id)
     @eventos.delete(id)
   end
