@@ -26,6 +26,10 @@ class JsonEvento
     @datos_json['calendario']
   end
 
+  def obtener_recurso
+    @datos_json['recurso']
+  end
+
   def tiene_recurrencia?
     recurrencia = obtener_recurrencia
     !recurrencia.nil?

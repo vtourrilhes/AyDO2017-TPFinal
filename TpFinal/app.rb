@@ -98,3 +98,30 @@ get '/eventos/:id' do
     status 404
   end
 end
+
+post '/recursos' do
+  begin
+    request.body.rewind
+    datos_json = JSON.parse(request.body.read)
+    controlador.crear_recurso(datos_json)
+  rescue  ExcepcionSolapamientoRecurso,
+          ExcepcionUnicidadRecurso
+    status 400
+  end
+end
+
+get '/recursos' do
+  begin
+    recursos = controlador.obtener_todos_los_recursos
+    FormateadorJson.formatear_elemento(recursos)
+  end
+end
+
+delete '/recursos/:nombre' do
+  begin
+    nombre_recurso = params[:nombre]
+    controlador.eliminar_recurso(nombre_recurso)
+  rescue ExcepcionRecursoInexistente
+    status 404
+  end
+end
