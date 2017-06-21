@@ -1,4 +1,6 @@
 require_relative '../model/recurso'
+require_relative '../model/excepcion_unicidad_recurso'
+require_relative '../model/excepcion_recurso_inexistente'
 
 # Repositorio de recursos
 class RepositorioRecursos
@@ -16,7 +18,7 @@ class RepositorioRecursos
 
   def obtener_recurso(nombre)
     nombre = estandarizar_identificacion(nombre)
-    @recurso[nombre] || raise(ExcepcionRecursoInexistente)
+    @recursos[nombre] || raise(ExcepcionRecursoInexistente)
   end
 
   def obtener_recursos
