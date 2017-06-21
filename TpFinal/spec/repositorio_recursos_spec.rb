@@ -55,6 +55,14 @@ describe 'Repositorio Recursos' do
     expect(repositorio.obtener_recurso(recurso.nombre)).to eq recurso
   end
 
+  it 'Deberia poder obtener todos los recursos existente' do
+    recurso = double('Recurso 1')
+    allow(recurso).to receive(:nombre).and_return('Recurso 1')
+    repositorio = RepositorioRecursos.new
+    recurso = repositorio.agregar_recurso(recurso)
+    expect(repositorio.obtener_recursos).to eq [recurso]
+  end
+
   it 'Error al obtener un recurso inexistente' do
     repositorio = RepositorioRecursos.new
     expect do

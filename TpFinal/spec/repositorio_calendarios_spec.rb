@@ -55,6 +55,14 @@ describe 'Repositorio Calendarios' do
     expect(repositorio.obtener_calendario(calendario.nombre)).to eq calendario
   end
 
+  it 'Deberia poder obtener todos los calendarios existente' do
+    calendario = double('Calendario 1')
+    allow(calendario).to receive(:nombre).and_return('Calendario 1')
+    repositorio = RepositorioCalendarios.new
+    calendario = repositorio.agregar_calendario(calendario)
+    expect(repositorio.obtener_calendarios).to eq [calendario]
+  end
+
   it 'Error al obtener un calendario inexistente' do
     repositorio = RepositorioCalendarios.new
     expect do
