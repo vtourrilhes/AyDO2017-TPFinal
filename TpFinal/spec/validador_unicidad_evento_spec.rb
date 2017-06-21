@@ -26,7 +26,7 @@ describe 'Validador Unicidad Evento' do
     evento = double('Evento')
     allow(evento).to receive(:id).and_return('id_1')
     calendario = double('Calendario')
-    allow(calendario).to receive(:eventos).and_return({"id_1" => evento})
+    allow(calendario).to receive(:eventos).and_return({'id_1' => evento})
     repositorio = double('Repositorio')
     allow(repositorio).to receive(:calendarios).and_return({id: calendario})
     expect do

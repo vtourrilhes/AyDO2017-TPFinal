@@ -1,9 +1,19 @@
 require 'sinatra'
 require 'json'
-require_relative 'model/controlador_calendarios'
+require_relative 'model/controlador'
 require_relative 'model/formateador_json'
 
-controlador = ControladorCalendarios.new
+RUTA_CALENDARIOS = 'calendarios.dump'
+RUTA_RECURSOS    = 'recursos.dump'
+
+controlador = Controlador.new(
+  RepositorioCalendarios.new,
+  RepositorioRecursos.new,
+  RepositorioFrecuencias.new,
+  ValidadorUnicidadEvento.new,
+  PersistidorDeDatos.new(RUTA_CALENDARIOS),
+  PersistidorDeDatos.new(RUTA_RECURSOS)
+)
 
 post '/calendarios' do
   begin

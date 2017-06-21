@@ -9,25 +9,22 @@ require_relative '../model/excepcion_solapamiento_recurso'
 require_relative '../model/repositorio_frecuencias'
 require 'json'
 
-RUTA_CALENDARIOS = 'db.dump'
-RUTA_RECURSOS    = 'recursos.dump'
-
-class ControladorCalendarios
+class Controlador
 
   attr_accessor :repositorio_calendarios
   attr_accessor :repositorio_recursos
   attr_accessor :persistidor_de_calendarios
+  attr_accessor :persistidor_de_recursos
   attr_accessor :frecuencias
   attr_accessor :validador_unicidad_eventos
 
-  def initialize
-    repositorio_frecuencias = RepositorioFrecuencias.new
+  def initialize(repositorio_calendarios, repositorio_recursos, repositorio_frecuencias, validador_unicidad_eventos, persistidor_de_calendarios, persistidor_de_recursos)
+    @persistidor_de_calendarios = persistidor_de_calendarios
+    @persistidor_de_recursos = persistidor_de_recursos
     @frecuencias = repositorio_frecuencias.frecuencias
-    @persistidor_de_calendarios = PersistidorDeDatos.new(RUTA_CALENDARIOS)
-    @persistidor_de_recursos = PersistidorDeDatos.new(RUTA_RECURSOS)
-    @repositorio_calendarios = @persistidor_de_calendarios.cargar_elemento || RepositorioCalendarios.new
-    @repositorio_recursos = @persistidor_de_recursos.cargar_elemento || RepositorioRecursos.new
-    @validador_unicidad_eventos = ValidadorUnicidadEvento.new
+    @validador_unicidad_eventos = validador_unicidad_eventos
+    @repositorio_calendarios = @persistidor_de_calendarios.cargar_elemento || repositorio_calendarios
+    @repositorio_recursos = @persistidor_de_recursos.cargar_elemento || repositorio_recursos
   end
 
   def crear_calendario(datos_json)
