@@ -80,12 +80,17 @@ class ControladorCalendarios
 
   def actualizar_evento(datos_json)
     json_evento = JsonEvento.new(datos_json)
-    id_calendario = json_evento.obtener_nombre_calendario.downcase
+    id_evento = json_evento.obtener_id_evento.downcase
     fecha_inicio = json_evento.obtener_fecha_inicio
     fecha_fin = json_evento.obtener_fecha_fin
     recurso = json_evento.obtener_recurso
-    calendario = @repositorio_calendarios.obtener_calendario(id_calendario)
-    evento = calendario.obtener_evento(json_evento.obtener_id_evento.downcase)
+    repositorio_evento = nil
+    @repositorio_calendarios.obtener_calendarios.each do |calendario|
+      repositorio_evento = calendario if calendario.eventos.key?(id_evento)
+      repositorio_evento && break
+    end
+    raise ExcepcionEventoInexistente unless repositorio_evento
+    evento = repositorio_evento.obtener_evento(id_evento)
     actualizar = !(fecha_inicio.nil?) || !(fecha_fin.nil?)
     if actualizar
       fecha_inicio = asignar_fecha(fecha_inicio, evento)
