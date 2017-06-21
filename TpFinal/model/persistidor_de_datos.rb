@@ -3,8 +3,8 @@ class PersistidorDeDatos
 
   attr_accessor :ruta
 
-  def initialize
-    @ruta = './db.dump'
+  def initialize(ruta)
+    @ruta = ruta
   end
 
   def guardar_elemento(elemento)
@@ -19,4 +19,5 @@ class PersistidorDeDatos
       Marshal.load(archivo)
     end
   end
+
 end

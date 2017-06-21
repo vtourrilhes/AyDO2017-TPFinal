@@ -49,8 +49,8 @@ class Evento
     @fecha_inicio..@fecha_fin
   end
 
-  def asignar_recurso(recurso)
-    @recurso = recurso
+  def asignar_recurso(nombre_recurso)
+    @recurso = nombre_recurso
   end
 
   def desasignar_recurso

@@ -8,7 +8,6 @@ class GeneradorDeRecurrencia
   def crear_eventos_recurrentes(calendario, evento, recurrencia)
 
     @eventos = {}
-    eventos_calendarios = calendario.eventos.clone
     tiempo_evento = evento.fecha_fin - evento.fecha_inicio
     recurrencia = recurrencia
     frecuencia = recurrencia.frecuencia.periodo_repeticion
