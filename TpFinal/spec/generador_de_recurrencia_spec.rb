@@ -19,7 +19,7 @@ describe 'Controlador Calendarios' do
   }
 
   it 'Si genero recurrencia diaria por 2 dias para aydo01 tengo que obtener 2 eventos' do
-    frecuencia = Frecuencia.new('Diaria', 1)
+    frecuencia = FrecuenciaDiaria.new
     fecha_fin = DateTime.now + 2
     recurrencia = Recurrencia.new(fecha_fin, frecuencia)
     calendario.agregar_evento(evento)
@@ -28,7 +28,7 @@ describe 'Controlador Calendarios' do
   end
 
   it 'Si genero recurrencia diaria por 7 dias para aydo01 tengo que obtener 7 eventos' do
-    frecuencia = Frecuencia.new('Diaria', 1)
+    frecuencia = FrecuenciaDiaria.new
     fecha_fin = DateTime.now + 7
     recurrencia = Recurrencia.new(fecha_fin, frecuencia)
     calendario.agregar_evento(evento)

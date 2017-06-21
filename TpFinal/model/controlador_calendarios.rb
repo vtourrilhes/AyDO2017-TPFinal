@@ -9,7 +9,7 @@ require_relative '../model/persistidor_de_datos'
 require_relative '../model/json_evento'
 require_relative '../model/conversor_string_a_fecha_tiempo'
 require_relative '../model/excepcion_solapamiento_recurso'
-require_relative '../model/frecuencia'
+require_relative '../model/repositorio_frecuencias'
 require 'json'
 
 RUTA_CALENDARIOS = 'db.dump'
@@ -24,7 +24,8 @@ class ControladorCalendarios
   attr_accessor :validador_unicidad_eventos
 
   def initialize
-    inicializar_frecuencias
+    repositorio_frecuencias = RepositorioFrecuencias.new
+    @frecuencias = repositorio_frecuencias.frecuencias
     @persistidor_de_calendarios = PersistidorDeDatos.new(RUTA_CALENDARIOS)
     @persistidor_de_recursos = PersistidorDeDatos.new(RUTA_RECURSOS)
     @repositorio_calendarios = @persistidor_de_calendarios.cargar_elemento || RepositorioCalendarios.new
@@ -167,15 +168,5 @@ class ControladorCalendarios
     end
     @repositorio_recursos.eliminar_recurso(nombre_recurso)
     @persistidor_de_recursos.guardar_elemento(@repositorio_recursos)
-  end
-
-  private
-
-  def inicializar_frecuencias
-    @frecuencias = {}
-    @frecuencias['diaria'] = Frecuencia.new('diaria', 1)
-    @frecuencias['semanal'] = Frecuencia.new('semanal', 7)
-    @frecuencias['quincenal'] = Frecuencia.new('quincenal', 15)
-    @frecuencias['mensual'] = Frecuencia.new('mensual', 30)
   end
 end
