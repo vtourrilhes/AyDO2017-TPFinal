@@ -5,7 +5,6 @@ require_relative '../model/recurrencia'
 require_relative '../model/repositorio_calendarios'
 require_relative '../model/persistidor_de_datos'
 require_relative '../model/json_evento'
-require_relative '../model/validador_de_json'
 require_relative '../model/validador_de_calendario'
 require_relative '../model/validador_de_evento'
 require_relative '../model/conversor_string_a_fecha_tiempo'
@@ -16,7 +15,6 @@ class ControladorCalendarios
 
   attr_accessor :repositorio
   attr_accessor :persistidor_de_datos
-  attr_accessor :validador_json
   attr_accessor :validador_calendario
   attr_accessor :validador_evento
   attr_accessor :frecuencias
@@ -27,7 +25,6 @@ class ControladorCalendarios
     @repositorio = @persistidor_de_datos.cargar_elemento || RepositorioCalendarios.new
     @validador_calendario = ValidadorDeCalendario.new
     @validador_evento = ValidadorDeEvento.new
-    @validador_json = ValidadorDeJSON.new
   end
 
   def crear_calendario(datos_json)
@@ -51,7 +48,6 @@ class ControladorCalendarios
   end
 
   def crear_evento(datos_json)
-    @validador_json.validar_parametros_evento(datos_json)
     json_evento = JsonEvento.new(datos_json)
     nombre_calendario = json_evento.obtener_nombre_calendario.downcase
 
@@ -89,7 +85,6 @@ class ControladorCalendarios
   end
 
   def actualizar_evento(datos_json)
-    @validador_json.validar_parametros_actualizacion_evento(datos_json)
     json_evento = JsonEvento.new(datos_json)
     id_calendario = json_evento.obtener_nombre_calendario.downcase
     fecha_inicio = json_evento.obtener_fecha_inicio
