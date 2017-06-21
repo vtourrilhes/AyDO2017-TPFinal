@@ -63,13 +63,17 @@ class ControladorCalendarios
     fin = convertir_string_a_time(json_evento.obtener_fecha_fin)
     id_evento = id_evento.downcase
     nombre = json_evento.obtener_nombre_evento.downcase
+    recurso = json_evento.obtener_recurso
+
     if json_evento.tiene_recurrencia?
 
       frecuencia = @frecuencias[json_evento.obtener_frecuencia_recurrencia]
       fin_recurrencia = convertir_string_a_time(json_evento.obtener_fin_de_recurrencia)
       evento = EventoRecurrente.new(id_evento, nombre, inicio, fin, frecuencia, fin_recurrencia)
+      asignar_recurso(recurso, evento)
     else
       evento = Evento.new(id_evento, nombre, inicio, fin)
+      asignar_recurso(recurso, evento)
     end
     @validador_unicidad_eventos.validar(@repositorio_calendarios, evento.id)
     calendario.agregar_evento(evento)
@@ -81,6 +85,7 @@ class ControladorCalendarios
     id_calendario = json_evento.obtener_nombre_calendario.downcase
     fecha_inicio = json_evento.obtener_fecha_inicio
     fecha_fin = json_evento.obtener_fecha_fin
+    recurso = json_evento.obtener_recurso
     calendario = @repositorio_calendarios.obtener_calendario(id_calendario)
     evento = calendario.obtener_evento(json_evento.obtener_id_evento.downcase)
     actualizar = !(fecha_inicio.nil?) || !(fecha_fin.nil?)
@@ -88,6 +93,7 @@ class ControladorCalendarios
       fecha_inicio = asignar_fecha(fecha_inicio, evento)
       fecha_fin = asignar_fecha(fecha_fin, evento)
       evento.actualizar_evento(fecha_inicio, fecha_fin)
+      asignar_recurso(recurso, evento) unless recurso == nil
       @persistidor_de_calendarios.guardar_elemento(@repositorio_calendarios)
     end
     actualizar
@@ -138,12 +144,13 @@ class ControladorCalendarios
     recurso = Recurso.new(nombre)
     @repositorio_recursos.agregar_recurso(recurso)
     @persistidor_de_recursos.guardar_elemento(@repositorio_recursos)
+    recurso
   end
 
   def asignar_recurso(nombre_recurso, evento)
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
       calendario.obtener_eventos_simultaneos(evento).each do |evento_simultaneo|
-        raise(ExcepcionSolapamientoRecurso) if evento_simultaneo.recurso.nombre == nombre_recurso
+        raise(ExcepcionSolapamientoRecurso) if evento_simultaneo.recurso == nombre_recurso
       end
     end
     evento.asignar_recurso(nombre_recurso)

@@ -51,7 +51,9 @@ post '/eventos' do
           ExcepcionIntervaloMaximo,
           ExcepcionUnicidadEvento,
           ExcepcionSolapamientoEvento,
-          ExcepcionUnicidadGlobalEvento
+          ExcepcionUnicidadGlobalEvento,
+          ExcepcionSolapamientoRecurso,
+          ExcepcionRecursoInexistente
     status 400
   end
 end
@@ -65,7 +67,9 @@ put '/eventos' do
           ExcepcionEventoInexistente,
           ExcepcionIntervaloErroneo,
           ExcepcionIntervaloMaximo,
-          ExcepcionSolapamientoEvento
+          ExcepcionSolapamientoEvento,
+          ExcepcionSolapamientoRecurso,
+          ExcepcionRecursoInexistente
     status 400
   end
 end
@@ -103,7 +107,8 @@ post '/recursos' do
   begin
     request.body.rewind
     datos_json = JSON.parse(request.body.read)
-    controlador.crear_recurso(datos_json)
+    recurso = controlador.crear_recurso(datos_json)
+    FormateadorJson.formatear_elemento(recurso)
   rescue ExcepcionSolapamientoRecurso,
          ExcepcionUnicidadRecurso
     status 400
