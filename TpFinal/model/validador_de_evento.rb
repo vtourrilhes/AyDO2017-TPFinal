@@ -1,4 +1,6 @@
 require_relative '../model/calendario'
+require_relative '../model/excepcion_intervalo_erroneo'
+require_relative '../model/excepcion_intervalo_maximo'
 require 'date'
 
 class ValidadorDeEvento
@@ -46,27 +48,27 @@ class ValidadorDeEvento
   end
 
   def validar_evento (evento_nuevo, evento_actual)
-    raise TypeError unless evento_nuevo.fecha_inicio.is_a? Time
-    raise TypeError unless evento_nuevo.fecha_fin.is_a? Time
-    raise TypeError unless evento_actual.fecha_inicio.is_a? Time
-    raise TypeError unless evento_actual.fecha_fin.is_a? Time
-    if evento_nuevo.fecha_inicio > evento_actual.fecha_inicio and
-        evento_actual.fecha_fin > evento_nuevo.fecha_inicio and
-        evento_nuevo.fecha_fin > evento_actual.fecha_fin
-      raise NameError.new('Hay evento solapado - caso A ' + evento_nuevo.fecha_inicio.to_s)
+    raise TypeError unless evento_nuevo.inicio.is_a? DateTime
+    raise TypeError unless evento_nuevo.fin.is_a? DateTime
+    raise TypeError unless evento_actual.inicio.is_a? DateTime
+    raise TypeError unless evento_actual.fin.is_a? DateTime
+    if evento_nuevo.inicio > evento_actual.inicio and
+        evento_actual.fin > evento_nuevo.inicio and
+        evento_nuevo.fin > evento_actual.fin
+      raise NameError.new('Hay evento solapado - caso A ' + evento_nuevo.inicio.to_s)
     end
-    if evento_actual.fecha_inicio < evento_nuevo.fecha_inicio and
-        evento_actual.fecha_fin > evento_nuevo.fecha_fin
-      raise NameError.new('Hay evento solapado - caso B ' + evento_nuevo.fecha_inicio.to_s)
+    if evento_actual.inicio < evento_nuevo.inicio and
+        evento_actual.fin > evento_nuevo.fin
+      raise NameError.new('Hay evento solapado - caso B ' + evento_nuevo.inicio.to_s)
     end
-    if evento_actual.fecha_inicio > evento_nuevo.fecha_inicio and
-        evento_nuevo.fecha_fin > evento_actual.fecha_inicio and
-        evento_actual.fecha_fin > evento_nuevo.fecha_fin
-      raise NameError.new('Hay evento solapado - caso C ' + evento_nuevo.fecha_inicio.to_s)
+    if evento_actual.inicio > evento_nuevo.inicio and
+        evento_nuevo.fin > evento_actual.inicio and
+        evento_actual.fin > evento_nuevo.fin
+      raise NameError.new('Hay evento solapado - caso C ' + evento_nuevo.inicio.to_s)
     end
-    if evento_nuevo.fecha_inicio < evento_actual.fecha_inicio and
-        evento_nuevo.fecha_fin > evento_actual.fecha_fin
-      raise NameError.new('Hay evento solapado - caso D ' + evento_nuevo.fecha_inicio.to_s)
+    if evento_nuevo.inicio < evento_actual.inicio and
+        evento_nuevo.fin > evento_actual.fin
+      raise NameError.new('Hay evento solapado - caso D ' + evento_nuevo.inicio.to_s)
     end
   end
 
