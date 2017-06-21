@@ -4,9 +4,32 @@ require_relative '../model/evento'
 require_relative '../model/validador_de_evento'
 
 describe 'Calendario' do
+  let(:calendario) { Calendario.new('Laboral') }
+  let(:validador) { ValidadorDeEvento.new }
 
-  let (:calendario) {Calendario.new('Laboral')}
-  let (:validador) {ValidadorDeEvento.new}
+  it 'Se deberia crear a partir de un nombre' do
+    nombre_calendario = 'Calendario 1'
+    Calendario.new(nombre_calendario)
+  end
+
+  it 'Deberia guardar el nombre con el cual se crea' do
+    nombre_calendario = 'Calendario 1'
+    calendario = Calendario.new(nombre_calendario)
+    expect(calendario.nombre).to eq nombre_calendario
+  end
+
+  it 'Error al crear un calendario sin nombre' do
+    expect do
+      Calendario.new('')
+    end.to raise_error(ExcepcionNombreCalendario)
+  end
+
+  it 'Error al editar nombre' do
+    nombre_calendario = 'Nombre Calendario'
+    nuevo_nombre_calendario = 'Nuevo Nombre'
+    calendario = Calendario.new(nombre_calendario)
+    expect {calendario.nombre = nuevo_nombre_calendario}.to raise_error
+  end
 
   it 'Si creo un calendario de nombre Laboral tengo que obtenerlo' do
     expect(calendario.nombre).to eq 'Laboral'
@@ -31,15 +54,15 @@ describe 'Calendario' do
     expect(calendario.obtener_evento('aydo01')).to eq evento
   end
 
-    it 'agregar dos eventos con mismo nombre a mismo calendario deberia lanzar una excepcion' do
-      calendario.crear_evento('aydo01', 'AyDOO', Time.now, Time.now)
-      expect{validador.validar_existe_evento('aydo01', calendario)}.to raise_error(NameError)
-    end
+  it 'agregar dos eventos con mismo nombre a mismo calendario deberia lanzar una excepcion' do
+    calendario.crear_evento('aydo01', 'AyDOO', Time.now, Time.now)
+    expect{validador.validar_existe_evento('aydo01', calendario)}.to raise_error(NameError)
+  end
 
-    it 'preguntar evento de nombre Aydoo a calendario deberia devolver true' do
-      evento = calendario.crear_evento('aydo01', 'AyDOO', Time.now, Time.now)
-      expect(calendario.esta_evento? evento.id).to eq true
-    end
+  it 'preguntar evento de nombre Aydoo a calendario deberia devolver true' do
+    evento = calendario.crear_evento('aydo01', 'AyDOO', Time.now, Time.now)
+    expect(calendario.esta_evento? evento.id).to eq true
+  end
 
   it 'validar que duracion del evento a crear sea menor o igual 72 horas' do
     inicio = Time.parse('2017-06-06 22:49')

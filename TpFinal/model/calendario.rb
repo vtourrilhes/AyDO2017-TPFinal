@@ -1,19 +1,22 @@
+require_relative '../model/excepcion_nombre_calendario'
 require_relative '../model/evento'
 require_relative '../model/generador_de_recurrencia'
 
+NOMBRE_VACIO = ''.freeze
+
 # Clase que funciona como controlador y repositorio de Eventos.
 class Calendario
-
   attr_accessor :eventos
   attr_reader :nombre
 
   def to_h
     {
-        'nombre' => @nombre
+      'nombre' => @nombre
     }
   end
 
   def initialize(nombre)
+    validar_nombre(nombre)
     @nombre = nombre
     @eventos = {}
   end
@@ -60,4 +63,9 @@ class Calendario
     @eventos.delete(id)
   end
 
+  private
+
+  def validar_nombre(nombre)
+    raise ExcepcionNombreCalendario if nombre == NOMBRE_VACIO
+  end
 end
