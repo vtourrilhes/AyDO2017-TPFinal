@@ -104,8 +104,8 @@ post '/recursos' do
     request.body.rewind
     datos_json = JSON.parse(request.body.read)
     controlador.crear_recurso(datos_json)
-  rescue  ExcepcionSolapamientoRecurso,
-          ExcepcionUnicidadRecurso
+  rescue ExcepcionSolapamientoRecurso,
+         ExcepcionUnicidadRecurso
     status 400
   end
 end
@@ -113,7 +113,7 @@ end
 get '/recursos' do
   begin
     recursos = controlador.obtener_todos_los_recursos
-    FormateadorJson.formatear_elemento(recursos)
+    FormateadorJson.formatear_elementos(recursos)
   end
 end
 

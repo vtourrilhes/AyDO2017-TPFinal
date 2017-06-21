@@ -8,6 +8,7 @@ require_relative '../model/repositorio_recursos'
 require_relative '../model/persistidor_de_datos'
 require_relative '../model/json_evento'
 require_relative '../model/conversor_string_a_fecha_tiempo'
+require_relative '../model/excepcion_solapamiento_recurso'
 require_relative '../model/frecuencia'
 require 'json'
 
@@ -139,11 +140,7 @@ class ControladorCalendarios
   end
 
   def obtener_todos_los_recursos
-    recursos = []
-    @repositorio_recursos.obtener_recursos.each do |recurso|
-      recursos << recurso
-    end
-    recursos
+    @repositorio_recursos.obtener_recursos
   end
 
   def crear_recurso(datos_json)
