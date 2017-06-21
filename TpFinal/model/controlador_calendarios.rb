@@ -142,7 +142,7 @@ class ControladorCalendarios
 
   def asignar_recurso(nombre_recurso, evento)
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
-      calendario.obtener_eventos_simultaneos.each do |evento_simultaneo|
+      calendario.obtener_eventos_simultaneos(evento).each do |evento_simultaneo|
         raise(ExcepcionSolapamientoRecurso) if evento_simultaneo.recurso.nombre == nombre_recurso
       end
     end
