@@ -16,8 +16,7 @@ describe 'Controlador Calendarios' do
       'aydo01',
       'Aydoo',
       Time.new('2017', '01', '19', '01', '00'),
-      Time.new('2017', '01', '19', '23', '30'),
-      calendario
+      Time.new('2017', '01', '19', '23', '30')
     )
   }
   let(:evento2) {
@@ -26,7 +25,6 @@ describe 'Controlador Calendarios' do
       'Aydoo',
       Time.new('2017', '01', '19', '11', '00'),
       Time.new('2017', '01', '19', '13', '00'),
-      calendario
     )
   }
   let(:evento3) {
@@ -35,7 +33,6 @@ describe 'Controlador Calendarios' do
       'Aydoo',
       Time.new('2017', '01', '19', '09', '00'),
       Time.new('2017', '01', '19', '12', '00'),
-      calendario
     )
   }
   let(:evento4) {
@@ -44,7 +41,6 @@ describe 'Controlador Calendarios' do
       'Aydoo',
       Time.new('2017', '01', '19', '12', '30'),
       Time.new('2017', '01', '19', '15', '30'),
-      calendario
     )
   }
 

@@ -10,7 +10,6 @@ describe 'Evento' do
       'Aydoo',
       Time.now,
       Time.now,
-      Calendario.new('TpFinal')
     )
   }
 

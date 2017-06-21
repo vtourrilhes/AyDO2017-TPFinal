@@ -13,7 +13,6 @@ describe 'ValidadorDeEvento' do
         'Aydoo',
         Time.new('2017', '01', '19', '01', '00'),
         Time.new('2017', '01', '19', '23', '30'),
-        calendario
     )
   }
   let(:evento2) {
@@ -22,7 +21,6 @@ describe 'ValidadorDeEvento' do
         'Aydoo',
         Time.new('2017', '01', '19', '11', '00'),
         Time.new('2017', '01', '19', '13', '00'),
-        calendario
     )
   }
   let(:evento3) {
@@ -31,7 +29,6 @@ describe 'ValidadorDeEvento' do
         'Aydoo',
         Time.new('2017', '01', '19', '09', '00'),
         Time.new('2017', '01', '19', '12', '00'),
-        calendario
     )
   }
   let(:evento4) {
@@ -40,7 +37,6 @@ describe 'ValidadorDeEvento' do
         'Aydoo',
         Time.new('2017', '01', '19', '12', '30'),
         Time.new('2017', '01', '19', '15', '30'),
-        calendario
     )
   }
   
@@ -63,6 +59,4 @@ describe 'ValidadorDeEvento' do
   it 'Si valido entre evento aydo02 y aydo04 obtengo exception' do
     expect{validador.validar_evento(evento2, evento4)}.to raise_error(NameError)
   end
-  
-  
 end
