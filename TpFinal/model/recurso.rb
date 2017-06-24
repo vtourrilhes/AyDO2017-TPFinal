@@ -10,4 +10,8 @@ class Recurso
   def initialize(nombre)
     @nombre = nombre
   end
+
+  def getNombre()
+    @nombre
+  end
 end
