@@ -61,6 +61,10 @@ class Evento
     nil
   end
 
+  def get_frecuencia 
+    nil
+  end
+
   private
 
   def validar_intervalo(inicio, fin)
