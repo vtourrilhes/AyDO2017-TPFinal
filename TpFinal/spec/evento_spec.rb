@@ -228,4 +228,15 @@ describe 'Evento' do
     expect(evento.fecha_fin).to eq fin + 1
     expect(evento.fecha_inicio).to eq inicio + 1
   end
+
+  it 'Al pedirle el fin de la recurrencia a un evento no recurrente deberia devolve nil' do
+    id = 'id_1'
+    nombre = 'Evento 1'
+    inicio = DateTime.now
+    fin = inicio
+    evento = Evento.new(id, nombre, inicio, fin)
+
+    expect(evento.fin_recurrencia).to eq nil
+  end
+
 end

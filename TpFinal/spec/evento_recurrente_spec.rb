@@ -104,4 +104,22 @@ describe 'Evento Recurrente' do
       evento.fin_recurrencia = inicio - 1
     end.to raise_error(ExcepcionIntervaloErroneo)
   end
+
+  it 'La fecha fin del evento deberia ser la seteada' do
+
+    id = 'id_1'
+    nombre = 'Evento 1'
+    inicio = DateTime.strptime("2017-03-31T18:00:00-03:00","%Y-%m-%dT%H:%M:%S%z")
+    fin =    DateTime.strptime("2017-04-01T21:00:00-03:00","%Y-%m-%dT%H:%M:%S%z")
+    frecuencia = double('Frecuencia')
+    allow(frecuencia).to receive(:frecuencia).and_return(1)
+    fin_recurrencia = DateTime.strptime("2017-05-01T21:00:00-03:00","%Y-%m-%dT%H:%M:%S%z")
+    evento = EventoRecurrente.new(id, nombre, inicio, fin, frecuencia, fin_recurrencia)
+
+    expect(evento.fin_recurrencia).to eq DateTime.strptime("2017-05-01T21:00:00-03:00","%Y-%m-%dT%H:%M:%S%z")
+
+  end
+
+
+
 end

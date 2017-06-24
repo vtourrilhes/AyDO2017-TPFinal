@@ -57,6 +57,10 @@ class Evento
     @recurso = nil
   end
 
+  def fin_recurrencia
+    nil
+  end
+
   private
 
   def validar_intervalo(inicio, fin)
