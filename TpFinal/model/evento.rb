@@ -12,13 +12,14 @@ class Evento
   attr_accessor :recurso
 
   def to_h
+
+    recurso_return = @recurso.nil? ? nil : @recurso.to_h
     {
       'id' => @id,
       'nombre' => @nombre,
       'fecha_inicio' => @fecha_inicio,
       'fecha_fin' => @fecha_fin,
-      'frecuencia' => @frecuencia.to_h,
-      'recurso' => @recurso.to_h
+      'recurso' => recurso_return
     }
   end
 
@@ -50,8 +51,8 @@ class Evento
     @fecha_inicio..@fecha_fin
   end
 
-  def asignar_recurso(nombre_recurso)
-    @recurso = nombre_recurso
+  def asignar_recurso(recurso)
+    @recurso = recurso
   end
 
   def desasignar_recurso

@@ -190,8 +190,7 @@ describe 'Evento' do
       'nombre' => 'nombre',
       'fecha_inicio' => fecha_inicio,
       'fecha_fin' => fecha_fin,
-      'frecuencia'=> {},
-      'recurso' => {}
+      'recurso' => nil
     }
     expect(Evento.new('id', 'nombre', fecha_inicio, fecha_fin).to_h).to eq(hash)
   end
@@ -231,6 +230,16 @@ describe 'Evento' do
   end
 
   it 'Al pedirle el fin de la recurrencia a un evento no recurrente deberia devolve nil' do
+    id = 'id_1'
+    nombre = 'Evento 1'
+    inicio = DateTime.now
+    fin = inicio
+    evento = Evento.new(id, nombre, inicio, fin)
+
+    expect(evento.fin_recurrencia).to eq nil
+  end
+
+  it 'Al crear un evento con recurso sala, deberia crear una sala' do
     id = 'id_1'
     nombre = 'Evento 1'
     inicio = DateTime.now

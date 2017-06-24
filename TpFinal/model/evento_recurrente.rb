@@ -7,12 +7,14 @@ class EventoRecurrente < Evento
   attr_accessor :fin_recurrencia
 
   def to_h
+
+    recurso_return = @recurso.nil? ? nil : @recurso.to_h
     {
       'id' => @id,
       'nombre' => @nombre,
       'fecha_inicio' => @fecha_inicio,
       'fecha_fin' => @fecha_fin,
-      'recurso' => @recurso,
+      'recurso' => recurso_return,
       'frecuencia' => @frecuencia.to_h,
       'fin_recurrencia' => @fin_recurrencia
     }

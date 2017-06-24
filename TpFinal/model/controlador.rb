@@ -59,7 +59,7 @@ class Controlador
     fin = DateTime.parse(datos_json['fin'])
     id_evento = id_evento.downcase
     nombre = datos_json['nombre']
-    recurso = recurso_builder.crear(datos_json['recurso'])
+    recurso = @recursos_builder.crear(datos_json['recurso'])
     recurrencia = datos_json['recurrencia']
 
     if !recurrencia.nil?
@@ -148,13 +148,13 @@ class Controlador
     recurso
   end
 
-  def asignar_recurso(nombre_recurso, evento)
+  def asignar_recurso(recurso, evento)
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
       calendario.obtener_eventos_simultaneos(evento).each do |evento_simultaneo|
-        raise(ExcepcionSolapamientoRecurso) if evento_simultaneo.recurso == nombre_recurso
+        raise(ExcepcionSolapamientoRecurso) if evento_simultaneo.recurso.getNombre == recurso.getNombre
       end
     end
-    evento.asignar_recurso(nombre_recurso)
+    evento.asignar_recurso(recurso)
   end
 
   def eliminar_recurso(nombre_recurso)
