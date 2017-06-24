@@ -41,6 +41,10 @@ class EventoRecurrente < Evento
     @fin_recurrencia
   end
 
+  def get_frecuencia 
+    @frecuencia
+  end
+
   def obtener_intervalo
     intervalos = []
     fecha_inicio = @fecha_inicio
