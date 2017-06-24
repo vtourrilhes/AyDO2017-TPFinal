@@ -7,6 +7,7 @@ require_relative '../model/repositorio_recursos'
 require_relative '../model/persistidor_de_datos'
 require_relative '../model/excepcion_solapamiento_recurso'
 require_relative '../model/repositorio_frecuencias'
+require_relative '../model/recursos_builder'
 require 'json'
 
 class Controlador
@@ -17,14 +18,16 @@ class Controlador
   attr_accessor :persistidor_de_recursos
   attr_accessor :frecuencias
   attr_accessor :validador_unicidad_eventos
+  attr_accessor :recursos_builder
 
-  def initialize(repositorio_calendarios, repositorio_recursos, repositorio_frecuencias, validador_unicidad_eventos, persistidor_de_calendarios, persistidor_de_recursos)
+  def initialize(repositorio_calendarios, repositorio_recursos, repositorio_frecuencias, validador_unicidad_eventos, persistidor_de_calendarios, persistidor_de_recursos,recursos_builder)
     @persistidor_de_calendarios = persistidor_de_calendarios
     @persistidor_de_recursos = persistidor_de_recursos
     @frecuencias = repositorio_frecuencias.frecuencias
     @validador_unicidad_eventos = validador_unicidad_eventos
     @repositorio_calendarios = @persistidor_de_calendarios.cargar_elemento || repositorio_calendarios
     @repositorio_recursos = @persistidor_de_recursos.cargar_elemento || repositorio_recursos
+    @recursos_builder = recursos_builder
   end
 
   def crear_calendario(datos_json)
@@ -48,6 +51,7 @@ class Controlador
   end
 
   def crear_evento(datos_json)
+
     nombre_calendario = datos_json['calendario']
     calendario = @repositorio_calendarios.obtener_calendario(nombre_calendario)
     id_evento = datos_json['id'].downcase
@@ -55,7 +59,7 @@ class Controlador
     fin = DateTime.parse(datos_json['fin'])
     id_evento = id_evento.downcase
     nombre = datos_json['nombre']
-    recurso = datos_json['recurso']
+    recurso = recurso_builder.crear(datos_json['recurso'])
     recurrencia = datos_json['recurrencia']
 
     if !recurrencia.nil?

@@ -190,6 +190,7 @@ describe 'Evento' do
       'nombre' => 'nombre',
       'fecha_inicio' => fecha_inicio,
       'fecha_fin' => fecha_fin,
+      'frecuencia'=> {},
       'recurso' => {}
     }
     expect(Evento.new('id', 'nombre', fecha_inicio, fecha_fin).to_h).to eq(hash)

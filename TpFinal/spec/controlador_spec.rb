@@ -13,13 +13,16 @@ describe 'Controlador' do
     allow(persistidor_de_calendarios).to receive(:cargar_elemento).and_return(nil)
     persistidor_de_recursos = double('Persistidor De Recursos')
     allow(persistidor_de_recursos).to receive(:cargar_elemento).and_return(nil)
+    recursos_builder = double('Builder De Recursos')
+
     Controlador.new(
       repositorio_calendarios,
       repositorio_recursos,
       repositorio_frecuencias,
       validador_unicidad_eventos,
       persistidor_de_calendarios,
-      persistidor_de_recursos
+      persistidor_de_recursos,
+      recursos_builder
     )
   end
 

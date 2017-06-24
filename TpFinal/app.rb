@@ -12,7 +12,8 @@ controlador = Controlador.new(
   RepositorioFrecuencias.new,
   ValidadorUnicidadEvento.new,
   PersistidorDeDatos.new(RUTA_CALENDARIOS),
-  PersistidorDeDatos.new(RUTA_RECURSOS)
+  PersistidorDeDatos.new(RUTA_RECURSOS),
+  RecursosBuilder.new()
 )
 
 post '/calendarios' do
