@@ -26,7 +26,7 @@ ___
  
 ## ¿Implementa toda la funcionalidad pedida?
  
-* Al invocar borrar calendario el calendario se elimina en tanto la aplicación se encuentre corriendo, pero si se detiene la aplicación y se vuelve a iniciar el, calendario volverá a estar listado.
+* Al invocar borrar calendario el calendario se elimina en tanto la aplicación se encuentre corriendo, pero si se detiene la aplicación y se vuelve a iniciar el, calendario volverá a estar listado. 
 * La funcionalidad de actualización de evento no actualiza la recurrencia de los eventos. Lanza un error de 400 bad request. NO está cumpliendo el caso 6 del doc.
 * No cumple con la funcionalidad solicitada.
  
@@ -43,8 +43,6 @@ ___
  
 * El codigo se encuentra bien identado
 * En app.rb hay lógica para atrapar excepciones lanzadas desde el controlador
- 
-@TODO Identificar con cuáles otros principios no cumple y ejemplificar
  
 ## ¿Tiene suficiente pruebas?
  

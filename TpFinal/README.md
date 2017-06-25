@@ -1,3 +1,26 @@
+
+___
+#Integrantes TP Final Ruby parte 2:
+___
+* Walter Davalos
+* Valentin Tourrilhes
+___
+#Problemas solucionados de la version recibida
+___
+
+* El calendario borrado ya se borra sin importar o no la aplicacion sea reinicializada. 
+* Se soluciono la actualizacion de recurrencia. 
+
+___
+#Link a travis
+
+https://travis-ci.org/vtourrilhes/AyDO2017-TPFinal
+___
+
+___
+# Para testear mediante curl las nuevas funcionalidades pedidas
+___ 
+
 #CREO CALENDARIO Y RECURSO SALA VALIDOS
 curl -X POST -d '{"nombre":"calendario1"}' localhost:4567/calendarios   
 curl -X POST -d '{"nombre":"sala1","tipo":"sala"}' localhost:4567/recursos
@@ -44,11 +67,6 @@ curl localhost:4567/eventos
 #MODIFICO LA RECURRENCIA
 curl -X PUT -d '{ "id":"evento10", "fin": "2017-07-31T10:30:00-03:00","recurso":{"nombre":"sala1"},"recurrencia": {"frecuencia": "semanal","fin":"2017-08-20"}}' localhost:4567/eventos
 curl localhost:4567/eventos
-
-#MODIFICO EL RECURSO ---> FALLA revisar
-curl -X PUT -d '{ "id":"evento10","recurso":{"nombre":"proyector1"}}' localhost:4567/eventos
-curl localhost:4567/eventos
-
 
 #MODIFICO EL RECURSO
 curl -X PUT -d '{ "id":"evento10","recurso":{"nombre":"proyector1"},"recurrencia": {"frecuencia": "semanal","fin":"2017-08-20"}}' localhost:4567/eventos
