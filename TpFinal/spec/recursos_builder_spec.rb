@@ -104,5 +104,5 @@ describe 'RecursosBuilder' do
       builder.crear(recursoParse)
     end.to raise_error(ExcepcionRecursoInvalido)
   end
-  
+
 end
