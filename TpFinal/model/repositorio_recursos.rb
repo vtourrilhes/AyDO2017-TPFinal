@@ -16,7 +16,7 @@ class RepositorioRecursos
     @recursos[identificacion] = recurso
   end
 
-  def obtener_recurso(nombre)
+  def   obtener_recurso(nombre)
     nombre = estandarizar_identificacion(nombre)
     @recursos[nombre] || raise(ExcepcionRecursoInexistente)
   end

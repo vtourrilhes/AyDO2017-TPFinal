@@ -84,9 +84,9 @@ put '/eventos' do
           ExcepcionSolapamientoEvento,
           ExcepcionSolapamientoRecurso,
           ExcepcionRecursoInexistente,
-          ExcepcionHorasMaximasRecurso,
-          ExcepcionRecursoEstadoIncorrecto,
-          ExcepcionCantidadDiasRecurso
+      ExcepcionHorasMaximasRecurso,
+      ExcepcionRecursoEstadoIncorrecto,
+      ExcepcionCantidadDiasRecurso
     status 400
   end
 end

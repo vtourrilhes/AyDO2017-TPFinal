@@ -152,7 +152,7 @@ class Controlador
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
       calendario.obtener_eventos_simultaneos(evento).each do |evento_simultaneo|
         if(!evento_simultaneo.recurso.nil? && evento.id != evento_simultaneo.id && !evento_simultaneo.recurso.getNombre == recurso.getNombre  )
-          raise ExcepcionSolapamientoResurso
+          raise ExcepcionSolapamientoRecurso
         end
       end
     end
@@ -164,6 +164,7 @@ class Controlador
     evento.asignar_recurso(recurso)
   end
 
+  #TODO testear
   def eliminar_recurso(nombre_recurso)
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
       calendario.obtener_eventos.each do |evento|
