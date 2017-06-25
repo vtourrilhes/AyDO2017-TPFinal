@@ -45,6 +45,7 @@ class Controlador
 
   def eliminar_calendario(nombre)
     @repositorio_calendarios.eliminar_calendario(nombre)
+    @persistidor_de_calendarios.guardar_elemento(@repositorio_calendarios)
   end
 
   def crear_evento(datos_json)
