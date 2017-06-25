@@ -1,5 +1,6 @@
 require 'rspec'
 require_relative '../model/evento'
+require_relative '../model/recursos_builder'
 
 describe 'Evento' do
   it 'Se debe crear un evento a partir de un id, nombre, inicio y fin' do
@@ -230,16 +231,6 @@ describe 'Evento' do
   end
 
   it 'Al pedirle el fin de la recurrencia a un evento no recurrente deberia devolve nil' do
-    id = 'id_1'
-    nombre = 'Evento 1'
-    inicio = DateTime.now
-    fin = inicio
-    evento = Evento.new(id, nombre, inicio, fin)
-
-    expect(evento.fin_recurrencia).to eq nil
-  end
-
-  it 'Al crear un evento con recurso sala, deberia crear una sala' do
     id = 'id_1'
     nombre = 'Evento 1'
     inicio = DateTime.now

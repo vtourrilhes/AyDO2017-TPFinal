@@ -83,4 +83,26 @@ describe 'RecursosBuilder' do
     expect(recurso.getTipo()).to eq "proyector"
     expect(recurso.getEstado()).to eq "en reparacion"
   end
+
+  it 'Al crear un recurso que no es sala ni proyector deberia lanzar error' do
+    jsonRecurso = '{"nombre": "proyector1", "tipo":"proyectorUltraHDDelFuturo", "estado": "en reparacion"}'
+
+    recursoParse = JSON.parse(jsonRecurso)
+
+    expect do
+      builder.crear(recursoParse)
+    end.to raise_error(ExcepcionRecursoInvalido)
+  end
+
+
+  it 'Al crear un recurso que es proyector pero sin un estado valido deberia lanzar error' do
+    jsonRecurso = '{"nombre": "proyector1", "tipo":"proyector", "estado": "plasma"}'
+
+    recursoParse = JSON.parse(jsonRecurso)
+
+    expect do
+      builder.crear(recursoParse)
+    end.to raise_error(ExcepcionRecursoInvalido)
+  end
+  
 end

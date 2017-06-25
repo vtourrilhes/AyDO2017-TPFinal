@@ -59,7 +59,7 @@ class Controlador
     fin = DateTime.parse(datos_json['fin'])
     id_evento = id_evento.downcase
     nombre = datos_json['nombre']
-    recurso = @recursos_builder.crear(datos_json['recurso'])
+    recurso = @repositorio_recursos.obtener_recurso(datos_json['recurso']['nombre'])
     recurrencia = datos_json['recurrencia']
 
     if !recurrencia.nil?
@@ -141,8 +141,7 @@ class Controlador
   end
 
   def crear_recurso(datos_json)
-    nombre = datos_json['nombre'].downcase
-    recurso = Recurso.new(nombre)
+    recurso = @recursos_builder.crear(datos_json)
     @repositorio_recursos.agregar_recurso(recurso)
     @persistidor_de_recursos.guardar_elemento(@repositorio_recursos)
     recurso
