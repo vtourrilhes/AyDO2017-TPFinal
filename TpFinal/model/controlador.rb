@@ -149,20 +149,33 @@ class Controlador
   end
 
   def asignar_recurso(recurso, evento)
+
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
       calendario.obtener_eventos_simultaneos(evento).each do |evento_simultaneo|
-        raise(ExcepcionSolapamientoRecurso) if evento_simultaneo.recurso.getNombre == recurso.getNombre
+        if(!evento_simultaneo.recurso.nil? && !evento_simultaneo.recurso.getNombre == recurso.getNombre  )
+          raise ExcepcionSolapamientoResurso
+        end
       end
     end
+
+    if(!recurso.nil?)
+      recurso.validar_asignacion_evento(evento)
+    end
+
     evento.asignar_recurso(recurso)
   end
 
   def eliminar_recurso(nombre_recurso)
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
       calendario.obtener_eventos.each do |evento|
-        evento.desasignar_recurso(nombre_recurso)
+
+        if( !evento.recurso.nil?   && evento.recurso.getNombre == nombre_recurso)
+          evento.desasignar_recurso()
+        end
+
       end
     end
+
     @repositorio_recursos.eliminar_recurso(nombre_recurso)
     @persistidor_de_recursos.guardar_elemento(@repositorio_recursos)
   end

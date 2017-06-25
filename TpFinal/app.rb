@@ -121,7 +121,12 @@ post '/recursos' do
     recurso = controlador.crear_recurso(datos_json)
     FormateadorJson.formatear_elemento(recurso)
   rescue ExcepcionSolapamientoRecurso,
-         ExcepcionUnicidadRecurso
+         ExcepcionUnicidadRecurso,
+         ExcepcionFechaAsignacionRecurso,
+         ExcepcionCantidadDiasRecurso,
+         ExcepcionRecursoEstadoIncorrecto,
+         ExcepcionHorasMaximasRecurso,
+         ExcepcionRecursoInvalido
     status 400
   end
 end
