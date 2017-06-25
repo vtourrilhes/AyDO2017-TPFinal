@@ -82,7 +82,11 @@ class Controlador
     id_evento = datos_json['id'].downcase
     fecha_inicio = datos_json['inicio']
     fecha_fin = datos_json['fin']
-    recurso = datos_json['recurso']
+    recurso = nil
+    if !(datos_json['recurso']).nil?
+      recurso = @repositorio_recursos.obtener_recurso(datos_json['recurso']['nombre'])
+    end
+
     recurrencia = datos_json['recurrencia']
     repositorio_evento = nil
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
@@ -175,7 +179,7 @@ class Controlador
     @persistidor_de_recursos.guardar_elemento(@repositorio_recursos)
   end
 
-  private 
+  private
 
   def asignar_fecha_inicio(fecha_string, evento)
     fecha = evento.fecha_inicio

@@ -64,7 +64,10 @@ post '/eventos' do
           ExcepcionSolapamientoEvento,
           ExcepcionUnicidadGlobalEvento,
           ExcepcionSolapamientoRecurso,
-          ExcepcionRecursoInexistente
+          ExcepcionRecursoInexistente,
+          ExcepcionHorasMaximasRecurso,
+          ExcepcionRecursoEstadoIncorrecto,
+          ExcepcionCantidadDiasRecurso
     status 400
   end
 end
@@ -80,7 +83,10 @@ put '/eventos' do
           ExcepcionIntervaloMaximo,
           ExcepcionSolapamientoEvento,
           ExcepcionSolapamientoRecurso,
-          ExcepcionRecursoInexistente
+          ExcepcionRecursoInexistente,
+          ExcepcionHorasMaximasRecurso,
+          ExcepcionRecursoEstadoIncorrecto,
+          ExcepcionCantidadDiasRecurso
     status 400
   end
 end
