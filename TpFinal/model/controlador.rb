@@ -60,7 +60,7 @@ class Controlador
     fin = DateTime.parse(datos_json['fin'])
     id_evento = id_evento.downcase
     nombre = datos_json['nombre']
-    recurso = @repositorio_recursos.obtener_recurso(datos_json['recurso']['nombre'])
+    recurso = datos_json['recurso'].nil? ? nil : @repositorio_recursos.obtener_recurso(datos_json['recurso']['nombre'])
     recurrencia = datos_json['recurrencia']
 
     if !recurrencia.nil?
@@ -92,21 +92,13 @@ class Controlador
     evento = repositorio_evento.obtener_evento(id_evento)
     actualizar = !(fecha_inicio.nil?) || !(fecha_fin.nil?)
     if actualizar
-      fecha_inicio = asignar_fecha(fecha_inicio, evento)
-      fecha_fin = asignar_fecha(fecha_fin, evento)
+      fecha_inicio = asignar_fecha_inicio(fecha_inicio, evento)
+      fecha_fin = asignar_fecha_fin(fecha_fin, evento)
       evento.actualizar_evento(fecha_inicio, fecha_fin)
       asignar_recurso(recurso, evento) unless recurso == nil
       @persistidor_de_calendarios.guardar_elemento(@repositorio_calendarios)
     end
     actualizar
-  end
-
-  def asignar_fecha(fecha_string, evento)
-    fecha = evento.fecha_inicio
-    unless fecha_string.nil?
-      fecha = DateTime.parse(fecha_string)
-    end
-    fecha
   end
 
   def eliminar_evento(id_evento)
@@ -178,5 +170,23 @@ class Controlador
 
     @repositorio_recursos.eliminar_recurso(nombre_recurso)
     @persistidor_de_recursos.guardar_elemento(@repositorio_recursos)
+  end
+
+  private 
+  
+  def asignar_fecha_inicio(fecha_string, evento)
+    fecha = evento.fecha_inicio
+    unless fecha_string.nil?
+      fecha = DateTime.parse(fecha_string)
+    end
+    fecha
+  end
+
+  def asignar_fecha_fin(fecha_string, evento)
+    fecha = evento.fecha_fin
+    unless fecha_string.nil?
+      fecha = DateTime.parse(fecha_string)
+    end
+    fecha
   end
 end
