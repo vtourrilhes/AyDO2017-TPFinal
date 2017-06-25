@@ -29,6 +29,12 @@ class Calendario
     @eventos[identificacion] = evento
   end
 
+  def actualizar_evento(evento)
+    identificacion = evento.id
+    comprobar_solapamiento_evento_actualizacion(evento)
+    @eventos[identificacion] = evento
+  end
+
   def obtener_evento(id)
     @eventos[id] || raise(ExcepcionEventoInexistente)
   end
@@ -78,6 +84,25 @@ class Calendario
     intervalos = []
     @eventos.values.each do |evento|
       intervalos.push(evento.obtener_intervalo)
+    end
+    intervalos.push(nuevo_evento.obtener_intervalo)
+    intervalos && intervalos.flatten!
+    intervalos = intervalos.sort_by {|intervalo| intervalo.min}
+    while intervalos.each_cons(2).any? {|a, b|
+      min_interseccion = [a.min, b.min].max
+      max_interseccion = [a.max, b.max].min
+      interseccion = min_interseccion <= max_interseccion
+      interseccion && raise(ExcepcionSolapamientoEvento)
+    }
+    end
+  end
+
+  def comprobar_solapamiento_evento_actualizacion(nuevo_evento) 
+    intervalos = []
+    @eventos.values.each do |evento|
+      if(evento.id != nuevo_evento.id)
+        intervalos.push(evento.obtener_intervalo)
+      end
     end
     intervalos.push(nuevo_evento.obtener_intervalo)
     intervalos && intervalos.flatten!

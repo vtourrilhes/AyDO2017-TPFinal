@@ -83,19 +83,22 @@ class Controlador
     fecha_inicio = datos_json['inicio']
     fecha_fin = datos_json['fin']
     recurso = datos_json['recurso']
+    recurrencia = datos_json['recurrencia']
     repositorio_evento = nil
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
       repositorio_evento = calendario if calendario.eventos.key?(id_evento)
       repositorio_evento && break
     end
     raise ExcepcionEventoInexistente unless repositorio_evento
-    evento = repositorio_evento.obtener_evento(id_evento)
-    actualizar = !(fecha_inicio.nil?) || !(fecha_fin.nil?)
+    evento = recurrencia.nil? ? repositorio_evento.obtener_evento(id_evento) : recrear_evento(id_evento, recurrencia, repositorio_evento)
+    actualizar = !(fecha_inicio.nil?) || !(fecha_fin.nil?) || !(recurrencia.nil?)
     if actualizar
       fecha_inicio = asignar_fecha_inicio(fecha_inicio, evento)
       fecha_fin = asignar_fecha_fin(fecha_fin, evento)
       evento.actualizar_evento(fecha_inicio, fecha_fin)
       asignar_recurso(recurso, evento) unless recurso == nil
+
+      repositorio_evento.actualizar_evento(evento)
       @persistidor_de_calendarios.guardar_elemento(@repositorio_calendarios)
     end
     actualizar
@@ -144,7 +147,7 @@ class Controlador
 
     @repositorio_calendarios.obtener_calendarios.each do |calendario|
       calendario.obtener_eventos_simultaneos(evento).each do |evento_simultaneo|
-        if(!evento_simultaneo.recurso.nil? && !evento_simultaneo.recurso.getNombre == recurso.getNombre  )
+        if(!evento_simultaneo.recurso.nil? && evento.id != evento_simultaneo.id && !evento_simultaneo.recurso.getNombre == recurso.getNombre  )
           raise ExcepcionSolapamientoResurso
         end
       end
@@ -173,7 +176,7 @@ class Controlador
   end
 
   private 
-  
+
   def asignar_fecha_inicio(fecha_string, evento)
     fecha = evento.fecha_inicio
     unless fecha_string.nil?
@@ -188,5 +191,17 @@ class Controlador
       fecha = DateTime.parse(fecha_string)
     end
     fecha
+  end
+
+  def recrear_evento(idEvento, recurrencia_json, repositorio_evento)
+    eventoARecrear = repositorio_evento.obtener_evento(idEvento)
+    frecuencia = @frecuencias[recurrencia_json['frecuencia']]
+    fin_recurrencia = DateTime.parse(recurrencia_json['fin'])
+    nombre = eventoARecrear.nombre
+    inicio = eventoARecrear.fecha_inicio
+    fin = eventoARecrear.fecha_fin
+    evento = EventoRecurrente.new(idEvento, nombre, inicio, fin, frecuencia, fin_recurrencia)
+
+    evento
   end
 end
