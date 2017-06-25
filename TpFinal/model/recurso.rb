@@ -14,4 +14,7 @@ class Recurso
   def getNombre()
     @nombre
   end
+
+  def validar_asignacion_evento(evento)    
+  end
 end
